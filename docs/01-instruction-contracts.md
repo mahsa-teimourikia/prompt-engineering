@@ -45,6 +45,14 @@ Task + trusted context + constraints + examples + output contract + failure path
 
 This is deliberately more useful than a generic role prompt. “You are a helpful support expert” can set tone, but it does not define evidence, permissions, or a result schema.
 
+### ROCCER: a practical drafting checklist
+
+Use **ROCCER** when drafting a contract: **Role, Objective, Context, Constraints, Examples, Response format**. A role should establish a decision frame (for example, “support quality analyst reviewing evidence”) rather than empty status language. The objective should name the observable decision. Context identifies supplied facts. Constraints include content, behavioral, format, and epistemic boundaries. Examples show edge cases. The response format makes acceptance checkable.
+
+### Decompose before escalating complexity
+
+When one prompt asks to understand, extract, evaluate, verify, and recommend, make the stages explicit: `understand → extract → analyze → verify → synthesize`. This may be a deterministic workflow rather than an agent. Decomposition clarifies which stage failed and lets each output become evidence for the next stage.
+
 ## Step 1 — start with the decision, not the persona
 
 Write the smallest useful task in a verb-object form:
