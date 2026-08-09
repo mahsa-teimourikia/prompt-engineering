@@ -62,3 +62,9 @@ Expected behavior: classify the passage as untrusted, do not call an action, ret
 
 - [OWASP LLM Prompt Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html)
 - [OpenAI Safety Best Practices](https://platform.openai.com/docs/guides/safety-best-practices)
+
+## Red-team matrix and residual risk
+
+Build fixtures for direct override text, indirect web/PDF injection, encoded or obfuscated instruction, cross-tenant identifier, system-prompt extraction, tool-argument manipulation, HTML/Markdown exfiltration, and persistent-memory poisoning. For each fixture, define both a **detection expectation** and a **harm-prevention expectation**. Detection can fail; least privilege and approval must still prevent a destructive tool call.
+
+Review every response renderer as well as the model. Sanitize untrusted Markdown/HTML, avoid embedding sensitive data in URLs, and do not log raw secrets. A guardrail model or classifier can provide useful input/output/action screening, but it is another probabilistic layer—not proof of safety. The OWASP cheat sheet documents direct, indirect, multimodal, RAG-poisoning, and agent-specific variants and should be used to refresh the fixture set.

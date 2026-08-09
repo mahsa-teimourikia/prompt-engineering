@@ -75,3 +75,9 @@ Tables need special attention: row/column positions convey meaning. Preserve hea
 
 - [Google prompt design strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies)
 - [OpenAI image inputs](https://platform.openai.com/docs/guides/images-vision)
+
+## Advanced patterns: extraction versus judgment
+
+Split a high-risk document workflow into stages: extract visible fields; validate them against deterministic rules; then apply business policy using verified system data. This is safer than asking one model call to “read this invoice and decide whether to refund.” For tables, request a normalized representation alongside raw cell coordinates. For screenshots, ask for an error code and visible UI state before asking for a diagnosis. For audio, distinguish a verbatim transcript from a summary and retain timestamps.
+
+Test image quality, rotated pages, handwritten fields, contradictory pages, hidden text, and culturally varied number/date formats. Multimodal content also expands the injection surface: hidden instructions and metadata are untrusted content and must never become tool authority.

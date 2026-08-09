@@ -65,3 +65,9 @@ Tools such as DSPy or prompt-testing systems can propose prompt variants. They a
 - [DSPy](https://arxiv.org/abs/2310.03714)
 - [OpenAI Evals](https://platform.openai.com/docs/guides/evals)
 - [Promptfoo documentation](https://www.promptfoo.dev/docs/intro/)
+
+## Governance and change control
+
+Assign owners for the task contract, policy sources, prompt/configuration, evaluation dataset, and operational escalation. A model update is a behavior change even if no prompt text changes; run the same gated comparison. Use staged rollouts and a measured sample of real traffic only after offline evaluation clears. Monitor for source drift, fallback rate, tool error rate, refusal changes, groundedness, and cost per successful task.
+
+Document a rollback runbook: trigger threshold, decision owner, prior artifact version, deployment command/process, validation cases, and communication path. Prompt history without an executable rollback is not operational resilience.

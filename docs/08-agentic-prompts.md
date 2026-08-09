@@ -71,3 +71,9 @@ Specify what each role may see, use, produce, and hand off. Shared context shoul
 
 - [Anthropic: Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
 - [ReAct](https://arxiv.org/abs/2210.03629)
+
+## Advanced patterns: recovery and durable state
+
+Agent state needs an owner and lifecycle: request-scoped evidence can be discarded after the case; approved customer preference may be stored with consent and expiry; speculative hypotheses should not become durable memory. For long-running work, persist a checkpoint before an approval or external call so the system can resume safely without replaying a write.
+
+Define an explicit handoff schema for teams: objective, scope, allowed sources, evidence IDs, uncertainty, and proposed next step. Compare a team to a single-agent and deterministic baseline on task success, coordination messages, tool calls, latency, and cost. More agents are a cost, not an automatic upgrade.

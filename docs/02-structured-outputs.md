@@ -121,3 +121,9 @@ An enum can constrain routing but does not establish business urgency. For a pol
 - [OpenAI Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
 - [Pydantic documentation](https://docs.pydantic.dev/)
 - [The Prompt Report](https://arxiv.org/abs/2406.06608)
+
+## Advanced patterns: choose the right constraint
+
+Use **structured output** when the model must return a data object for your application; use **function calling** when the model must request that your application perform a capability. Do not use either as a replacement for authorization. A useful contract may include a discriminated union: a support assistant either returns an `answer` with evidence or an `escalation` with the missing evidence it needs. This avoids empty fields whose meaning changes case by case.
+
+Keep examples versioned with the schema. When a policy or field changes, update the examples and the dataset together. Run schema-invalid, semantically-invalid, and adversarial samples: valid JSON that includes a fabricated source is a more important test than broken braces.

@@ -41,3 +41,9 @@ For the Northstar support copilot, answer these in order:
 - [The Prompt Report](https://arxiv.org/abs/2406.06608)
 - [OWASP Prompt Injection Prevention](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html)
 - [OpenAI Evals guide](https://platform.openai.com/docs/guides/evals)
+
+## Procurement and architecture checklist
+
+Before adopting a provider or framework, verify data residency/retention, identity integration, tenant filtering, audit export, model/version pinning, structured-output behavior, tool approval hooks, trace redaction, cost controls, and exit/portability. For open-source components, also evaluate maintenance health, license, dependency provenance, and deployment isolation.
+
+Start with the smallest stack that supports the course contract. A direct provider adapter plus schema validation and a test suite is often sufficient. Add retrieval when external evidence is necessary; add orchestration when state/routing needs to be explicit; add an agent framework only when dynamic decisions improve the measured outcome.

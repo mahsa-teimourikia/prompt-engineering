@@ -87,3 +87,9 @@ Do not use a citation-shaped string as proof. Verify the source exists, the mode
 - [Anthropic: Effective context engineering for AI agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents)
 - [Lost in the Middle](https://arxiv.org/abs/2307.03172)
 - [Google prompt design strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies)
+
+## Advanced patterns: compression, memory, and conflict
+
+Compression is a lossy transformation. Keep canonical source references outside a summary, record who/what generated it, and make summaries replaceable. Separate **thread state** (the current support case) from **long-term memory** (stable, consented customer preferences). Do not store a speculative diagnosis as permanent memory; it can bias future decisions. When sources conflict, do not average them: rank authority, surface the conflict, and route policy ownership to a human.
+
+Evaluate context selection independently from answer generation. A useful trace records candidate sources, filter reason, selected passages, token budget, and source version. This lets a team diagnose a retrieval failure without changing the answer prompt blindly.
