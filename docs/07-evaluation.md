@@ -388,7 +388,7 @@ Run baseline and candidate on the same held-out set. Report wins/losses/ties, bl
 
 ### Part F — Extend the course materials
 
-Run the credential-free [evaluation notebook](../notebooks/07_prompt_evaluation.ipynb) and [Python lab](../labs/07_prompt_evaluation.py). Add your six cases, make a candidate exceed the cost budget, and confirm the gate blocks it. Then add one redacted production-inspired regression fixture and document its source, risk, and expected behavior.
+Run the credential-free, self-contained [evaluation notebook](../notebooks/07_prompt_evaluation.ipynb). Add your six cases, make a candidate exceed the cost budget, and confirm the gate blocks it. Then add one redacted production-inspired regression fixture and document its source, risk, and expected behavior.
 
 ## Best practices, bad practices, and common traps
 

@@ -447,7 +447,7 @@ Compare four designs for this request: â€œMy refund was rejected. Explain why.â€
 5. Compare traces, not just final prose: Were facts retrieved? Were tools repeated? Did the system abstain correctly?
 6. Promote a technique only if it clears hard safety checks and materially improves the chosen metric.
 
-The existing [evaluation notebook](../notebooks/07_prompt_evaluation.ipynb) and [evaluation lab](../labs/07_prompt_evaluation.py) provide a credential-free starting point. Extend them with trajectory fields such as `method`, `model_calls`, `tool_calls`, `verification_result`, `latency_ms`, and `estimated_cost`.
+The existing self-contained [evaluation notebook](../notebooks/07_prompt_evaluation.ipynb) provides a credential-free starting point. Extend it with trajectory fields such as `method`, `model_calls`, `tool_calls`, `verification_result`, `latency_ms`, and `estimated_cost`.
 
 ## Common failure modes
 

@@ -62,7 +62,7 @@ The application, not the model, decides what each context item is allowed to do.
 
 ## 2. Start with a context contract
 
-A context contract makes selection inspectable. It records what an item is, why it was selected, and who is permitted to see it. The exact classes below are intentionally provider-independent and can be used in a deterministic lab before any model API is introduced.
+A context contract makes selection inspectable. It records what an item is, why it was selected, and who is permitted to see it. The exact classes below are intentionally provider-independent and can be used in the self-contained notebook before any model API is introduced.
 
 ```python
 from dataclasses import dataclass, field
@@ -366,7 +366,7 @@ See [RAG and tools](04-rag-tools.md) for retrieval/tool contracts, [Prompt secur
 
 ## 8. Guided build: a refund-decision context packet
 
-Complete the steps in order. The accompanying deterministic lab and notebook let you compare decisions without credentials.
+Complete the steps in order. The accompanying self-contained notebook lets you compare decisions without credentials.
 
 ### Step 1 — define the decision and safe outcomes
 
@@ -429,8 +429,7 @@ Pair these with answer-level checks: decision correctness, claim-to-source suppo
 
 ### Run the course material
 
-- Read and run [Lab 03 — deterministic context selection](../labs/03_context_engineering.py).
-- Work through [Notebook 03 — context engineering](../notebooks/03_context_engineering.ipynb), which explains the scenario and invites you to modify budgets, freshness, and adversarial fixtures.
+- Work through [Notebook 03 — context engineering](../notebooks/03_context_engineering.ipynb), which explains the scenario and includes the deterministic implementation for modifying budgets, freshness, and adversarial fixtures.
 - Continue with [RAG and tools](04-rag-tools.md) to turn this selection policy into retrieval and tool contracts.
 
 ## 9. Methods and technology map

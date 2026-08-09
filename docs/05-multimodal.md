@@ -265,7 +265,7 @@ Retrieve mock ledger data only after document extraction validates. Draft a resp
 
 ### Part F — Run the course materials
 
-Run the credential-free [multimodal notebook](../notebooks/05_multimodal_prompting.ipynb) and [Python lab](../labs/05_multimodal_prompting.py). Extend them with rotated pages, conflicting totals, low OCR confidence, and injected document text. Keep the sample data synthetic and all consequences mocked.
+Run the credential-free, self-contained [multimodal notebook](../notebooks/05_multimodal_prompting.ipynb). Extend it with rotated pages, conflicting totals, low OCR confidence, and injected document text. Keep the sample data synthetic and all consequences mocked.
 
 ## Best practices and anti-patterns
 

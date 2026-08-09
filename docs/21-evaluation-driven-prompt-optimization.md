@@ -100,7 +100,7 @@ The example is deliberately provider-independent. Frameworks such as [DSPy](http
 
 ## Guided exercise
 
-Use the [evaluation notebook](../notebooks/07_prompt_evaluation.ipynb) and [deterministic lab](../labs/07_prompt_evaluation.py) as the execution harness.
+Use the self-contained [evaluation notebook](../notebooks/07_prompt_evaluation.ipynb) as the execution harness.
 
 1. Make a development set containing clear and ambiguous routing requests.
 2. Reserve at least one duplicate-charge near-miss and one prompt-injection case as holdout tests.

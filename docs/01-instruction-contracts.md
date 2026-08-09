@@ -381,10 +381,10 @@ Do not concatenate model output into SQL, shell commands, URLs, HTML, or privile
 
 ## 13. Run the companion implementation
 
-The deterministic lab models the boundary before a provider API is introduced:
+The self-contained notebook models the boundary before a provider API is introduced:
 
 ```bash
-python3 labs/01_instruction_contracts.py
+make notebooks
 ```
 
 Then open [Notebook 01 — instruction contracts](../notebooks/01_instruction_contracts.ipynb). It includes the Northstar scenario, a runnable implementation, contract experiments, and reflection questions. The default path uses no API key and takes no external action.

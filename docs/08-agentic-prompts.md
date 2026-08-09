@@ -445,7 +445,7 @@ Implement a single-agent baseline for a complex incident. Then split observabili
 
 ### Part F — Run the course materials
 
-Start with the credential-free [agentic prompts notebook](../notebooks/08_agentic_prompts.ipynb) and [Python lab](../labs/08_agentic_prompts.py). Then extend the lab with the state, tool-budget, policy, and approval exercises above. The notebook is a safe control-loop exercise; a live framework implementation should keep provider keys out of the repository and place real side effects behind approval and authorization services.
+Start with the credential-free, self-contained [agentic prompts notebook](../notebooks/08_agentic_prompts.ipynb). Then extend the notebook with the state, tool-budget, policy, and approval exercises above. It is a safe control-loop exercise; a live framework implementation should keep provider keys out of the repository and place real side effects behind approval and authorization services.
 
 ## Best practices and anti-patterns
 

@@ -318,7 +318,7 @@ Run normal and adversarial fixtures. Measure attack success, benign task success
 
 ### Part F — Run the course materials
 
-Run the credential-free [prompt-security notebook](../notebooks/06_prompt_security.ipynb) and [Python lab](../labs/06_prompt_security.py). Extend them with tenant isolation, proposal approval, and replay fixtures. Keep actions mocked: training must prove a block or approval state, never perform a live customer effect.
+Run the credential-free, self-contained [prompt-security notebook](../notebooks/06_prompt_security.ipynb). Extend it with tenant isolation, proposal approval, and replay fixtures. Keep actions mocked: training must prove a block or approval state, never perform a live customer effect.
 
 ## Best practices and anti-patterns
 

@@ -170,7 +170,7 @@ Think in layers:
 
 ## 5. A guided build: case briefs for the Northstar support desk
 
-The goal is to build an interface that works on normal, incomplete, and adversarial requests without credentials. Run the linked lab and notebook as you progress.
+The goal is to build an interface that works on normal, incomplete, and adversarial requests without credentials. Run the linked self-contained notebook as you progress.
 
 ### Step 1 — model the required outcomes
 
@@ -238,7 +238,7 @@ Do not include many near-identical examples. Add examples for missing data, conf
 
 ### Step 4 — use provider-native constraint when available
 
-Provider-native structured output can eliminate many formatting retries. Here is an **optional** OpenAI adapter; keep its credential/configuration outside the deterministic lab.
+Provider-native structured output can eliminate many formatting retries. Here is an **optional** OpenAI adapter; keep its credential/configuration outside the self-contained notebook.
 
 ```python
 """Optional adapter. Requires OPENAI_API_KEY and a compatible SDK/model."""
@@ -453,8 +453,7 @@ Do not optimize only for `schema_valid_rate`. A system that always returns a val
 
 ## 11. Run the practical material
 
-- Run [Lab 02 — structured outputs](../labs/02_structured_outputs.py) for a deterministic contract/validation exercise.
-- Work through [Notebook 02 — structured outputs](../notebooks/02_structured_outputs.ipynb) for the Northstar scenario, examples, invalid fixtures, and reflection prompts.
+- Work through [Notebook 02 — structured outputs](../notebooks/02_structured_outputs.ipynb) for the Northstar scenario, embedded deterministic implementation, examples, invalid fixtures, and reflection prompts.
 - Continue with [Context engineering](03-context-engineering.md) to decide which approved evidence belongs in a structured result.
 - Continue with [RAG and tools](04-rag-tools.md) for retrieval and tool contracts, and [Prompt security](06-prompt-security.md) for injection and boundary controls.
 

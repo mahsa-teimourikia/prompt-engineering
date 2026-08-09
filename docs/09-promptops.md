@@ -410,7 +410,7 @@ Set the context revision to an obsolete policy in a test environment. Confirm th
 
 ### Part E — Run the course lab
 
-Run [the PromptOps capstone notebook](../notebooks/09_promptops_capstone.ipynb) and its credential-free [Python lab](../labs/09_promptops_capstone.py). First establish a passing candidate, then raise its cost above the declared budget and observe the release gate block it. Extend the lab by adding a tenant-isolation blocker and a trace field for `policy_index_revision`.
+Run the self-contained [PromptOps capstone notebook](../notebooks/09_promptops_capstone.ipynb). First establish a passing candidate, then raise its cost above the declared budget and observe the release gate block it. Extend the notebook by adding a tenant-isolation blocker and a trace field for `policy_index_revision`.
 
 ## 11. Rollback and incident response runbook
 

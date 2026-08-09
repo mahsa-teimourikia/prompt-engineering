@@ -2,7 +2,7 @@
 
 ## How to use this library
 
-This is a curated map, not a prompt dump. Start with the course's guided modules and Northstar labs; use this page to go deeper into a technique, select an evaluation benchmark, or verify fast-changing provider capabilities. Labels mean:
+This is a curated map, not a prompt dump. Start with the course's guided modules and Northstar notebooks; use this page to go deeper into a technique, select an evaluation benchmark, or verify fast-changing provider capabilities. Labels mean:
 
 - **Foundational** — durable concept or original paper learners should understand.
 - **Practical** — commonly useful engineering pattern or maintained documentation.
