@@ -70,3 +70,9 @@ Tool descriptions can guide model selection but cannot authorize it. Enforce ide
 - [ReAct](https://arxiv.org/abs/2210.03629)
 - [Toolformer](https://arxiv.org/abs/2302.04761)
 - [OpenAI Function Calling](https://platform.openai.com/docs/guides/function-calling)
+
+## Advanced patterns: planning without over-autonomy
+
+For multi-step work, require the system to choose among `answer`, `retrieve`, `read_tool`, `ask_clarifying_question`, and `escalate`. Each option has a precondition: a lookup requires an identifier; an action requires explicit authorization; an answer with a policy claim requires evidence. Capture the proposed tool name and arguments before execution, validate them against session identity and an allowlist, then return a narrow result.
+
+Use idempotency keys and approval gates for any write path. Retrying a read timeout may be reasonable; retrying a payment or notification without an idempotency guarantee can create duplicate harm. Record trajectory quality in evaluation: correct arguments, unnecessary calls, recovery behavior, and forbidden-action rate.

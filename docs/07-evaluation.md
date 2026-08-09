@@ -67,3 +67,9 @@ remain within the declared budget. Otherwise retain baseline and inspect traces.
 
 - [OpenAI Evals guide](https://platform.openai.com/docs/guides/evals)
 - [G-Eval](https://arxiv.org/abs/2303.16634)
+
+## Analysis discipline
+
+Slice scores by intent, input length, customer segment, source freshness, language, attack type, and tool availability. An aggregate success rate can hide a serious regression in one safety-critical segment. Store the full trace: prompt/config versions, selected context, tool arguments/results, raw output (subject to privacy policy), validator results, latency, and cost.
+
+Use pairwise judging when comparing two drafts, but randomize order and calibrate against a human-labeled subset. Define inter-rater disagreement as a signal to sharpen the rubric, not as an excuse to ignore the case. Keep a frozen holdout set so iterative prompt changes do not silently overfit the suite.
