@@ -78,6 +78,7 @@ Run deterministic labs with `python labs/01_instruction_contracts.py`, or run `p
 - [LLM behavior, sampling, and prompt structure](docs/18-llm-behavior-and-prompt-structure.md)
 - [Reliability and human-centred AI](docs/19-reliability-and-human-centred-ai.md)
 - [Course coverage map and technique maturity](docs/20-course-coverage-map.md)
+- [Evaluation-driven prompt optimization](docs/21-evaluation-driven-prompt-optimization.md)
 
 ## Technology and state of the art
 
