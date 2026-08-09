@@ -31,6 +31,8 @@ The [Learning Hub](https://mahsa-teimourikia.github.io/prompt-engineering/) is t
 
 The labs share the **Northstar Support Copilot** scenario. It helps support specialists answer order, billing, and product-policy questions. The scenario deliberately includes conflicting evidence, injection-like content, strict schemas, and evaluation cases—conditions that make trade-offs visible without requiring credentials.
 
+See the [course coverage map and technique maturity guide](docs/20-course-coverage-map.md) for the complete storyline and the distinction between foundational, practical, emerging, and model-dependent patterns.
+
 ## Run locally
 
 ```bash
@@ -73,6 +75,9 @@ Run deterministic labs with `python labs/01_instruction_contracts.py`, or run `p
 - [Application playbooks](docs/15-application-playbooks.md)
 - [Model-aware guidance](docs/16-model-aware-guidance.md)
 - [Curated resource library](docs/17-resource-library.md)
+- [LLM behavior, sampling, and prompt structure](docs/18-llm-behavior-and-prompt-structure.md)
+- [Reliability and human-centred AI](docs/19-reliability-and-human-centred-ai.md)
+- [Course coverage map and technique maturity](docs/20-course-coverage-map.md)
 
 ## Technology and state of the art
 
