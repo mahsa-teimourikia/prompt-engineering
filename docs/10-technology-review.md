@@ -327,4 +327,4 @@ Before adopting a technology, answer these questions in writing:
 - [LangGraph overview](https://docs.langchain.com/oss/python/langgraph/overview) and [persistence](https://docs.langchain.com/oss/python/langgraph/persistence) — explicit stateful orchestration and resumable review.
 - [OWASP LLM Top 10](https://genai.owasp.org/llm-top-10/) and the [NIST AI RMF](https://www.nist.gov/itl/ai-risk-management-framework) — risk and control references.
 
-Continue with [RAG and tool prompting](04-rag-tools.md), [PromptOps](08-promptops.md), [Evaluation-driven prompt optimization](21-evaluation-driven-prompt-optimization.md), and [Cost and latency engineering](13-cost-latency-engineering.md). The technology decision is sound only when it supports the task contract those guides make measurable.
+Continue with [RAG and tool prompting](04-rag-tools.md), [PromptOps](09-promptops.md), [Evaluation-driven prompt optimization](21-evaluation-driven-prompt-optimization.md), and [Cost and latency engineering](13-cost-latency-engineering.md). The technology decision is sound only when it supports the task contract those guides make measurable.
