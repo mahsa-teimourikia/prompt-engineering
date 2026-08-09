@@ -64,6 +64,12 @@ Run deterministic labs with `python labs/01_instruction_contracts.py`, or run `p
 8. [Agent and multi-agent prompt contracts](docs/08-agentic-prompts.md) · [Notebook](notebooks/08_agentic_prompts.ipynb) · [Lab](labs/08_agentic_prompts.py)
 9. [Optimization, model-aware prompts, and PromptOps](docs/09-promptops.md) · [Notebook](notebooks/09_promptops_capstone.ipynb) · [Lab](labs/09_promptops_capstone.py)
 
+### Technique reference modules
+
+- [Reasoning-oriented prompting: decomposition, verification, and search](docs/11-reasoning-techniques.md)
+- [Prompt engineering for coding agents](docs/12-coding-agent-prompting.md)
+- [Prompt cost and latency engineering](docs/13-cost-latency-engineering.md)
+
 ## Technology and state of the art
 
 The course treats vendor frameworks as tools, not the curriculum. Use a model provider's prompt guide for model-specific details; use **JSON Schema/Pydantic** for contracts; **DSPy** or equivalent optimizers only after establishing an evaluation set; and an eval/tracing platform when prompt changes need release governance. For agents, tool descriptions and permission checks are part of the prompt interface, but authorization remains application code.
