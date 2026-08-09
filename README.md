@@ -69,6 +69,10 @@ Run deterministic labs with `python labs/01_instruction_contracts.py`, or run `p
 - [Reasoning-oriented prompting: decomposition, verification, and search](docs/11-reasoning-techniques.md)
 - [Prompt engineering for coding agents](docs/12-coding-agent-prompting.md)
 - [Prompt cost and latency engineering](docs/13-cost-latency-engineering.md)
+- [Prompt technique catalog](docs/14-technique-catalog.md)
+- [Application playbooks](docs/15-application-playbooks.md)
+- [Model-aware guidance](docs/16-model-aware-guidance.md)
+- [Curated resource library](docs/17-resource-library.md)
 
 ## Technology and state of the art
 
