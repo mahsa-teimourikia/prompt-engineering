@@ -8,12 +8,15 @@ ROOT = Path(__file__).parents[1]
 
 def test_every_course_notebook_is_self_contained():
     notebooks = sorted((ROOT / "notebooks").glob("*.ipynb"))
-    assert len(notebooks) == 9
+    assert len(notebooks) == 21
     for path in notebooks:
         document = nbformat.read(path, as_version=4)
         source = "\n".join("".join(cell.source) for cell in document.cells)
+        assert len(document.cells) >= 18
         assert "labs/" not in source
-        assert "Shared deterministic Northstar fixtures" in source
+        assert "Credential-free Northstar simulation" in source
+        assert "Production-readiness checklist" in source
+        assert "```mermaid" in source
 
 
 def test_no_separate_lab_source_files_remain():

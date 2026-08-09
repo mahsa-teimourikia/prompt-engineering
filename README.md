@@ -64,21 +64,19 @@ Run the self-contained notebooks with `make notebooks`, or run `pytest` to valid
 ### Advanced — engineer reliable systems, not isolated prompts
 
 8. [Agent and multi-agent prompt contracts](docs/08-agentic-prompts.md) · [Self-contained notebook](notebooks/08_agentic_prompts.ipynb)
-9. [Optimization, model-aware prompts, and PromptOps](docs/09-promptops.md) · [Self-contained notebook](notebooks/09_promptops_capstone.ipynb)
-
-### Technique reference modules
-
-- [Reasoning-oriented prompting: decomposition, verification, and search](docs/11-reasoning-techniques.md)
-- [Prompt engineering for coding agents](docs/12-coding-agent-prompting.md)
-- [Prompt cost and latency engineering](docs/13-cost-latency-engineering.md)
-- [Prompt technique catalog](docs/14-technique-catalog.md)
-- [Application playbooks](docs/15-application-playbooks.md)
-- [Model-aware guidance](docs/16-model-aware-guidance.md)
-- [Curated resource library](docs/17-resource-library.md)
-- [LLM behavior, sampling, and prompt structure](docs/18-llm-behavior-and-prompt-structure.md)
-- [Reliability and human-centred AI](docs/19-reliability-and-human-centred-ai.md)
-- [Course coverage map and technique maturity](docs/20-course-coverage-map.md)
-- [Evaluation-driven prompt optimization](docs/21-evaluation-driven-prompt-optimization.md)
+9. [PromptOps release engineering](docs/09-promptops.md) · [Self-contained notebook](notebooks/09_promptops.ipynb)
+10. [Technology review](docs/10-technology-review.md) · [Self-contained notebook](notebooks/10_technology_review.ipynb)
+11. [Reasoning-oriented prompting: decomposition, verification, and search](docs/11-reasoning-techniques.md) · [Self-contained notebook](notebooks/11_reasoning_techniques.ipynb)
+12. [Prompt engineering for coding agents](docs/12-coding-agent-prompting.md) · [Self-contained notebook](notebooks/12_coding_agent_prompting.ipynb)
+13. [Prompt cost and latency engineering](docs/13-cost-latency-engineering.md) · [Self-contained notebook](notebooks/13_cost_latency_engineering.ipynb)
+14. [Prompt technique catalog](docs/14-technique-catalog.md) · [Self-contained notebook](notebooks/14_technique_catalog.ipynb)
+15. [Application playbooks](docs/15-application-playbooks.md) · [Self-contained notebook](notebooks/15_application_playbooks.ipynb)
+16. [Model-aware guidance](docs/16-model-aware-guidance.md) · [Self-contained notebook](notebooks/16_model_aware_guidance.ipynb)
+17. [Curated resource library](docs/17-resource-library.md) · [Self-contained notebook](notebooks/17_resource_library.ipynb)
+18. [LLM behavior, sampling, and prompt structure](docs/18-llm-behavior-and-prompt-structure.md) · [Self-contained notebook](notebooks/18_llm_behavior_prompt_structure.ipynb)
+19. [Reliability and human-centred AI](docs/19-reliability-and-human-centred-ai.md) · [Self-contained notebook](notebooks/19_reliability_human_centred_ai.ipynb)
+20. [Course coverage map and technique maturity](docs/20-course-coverage-map.md) · [Self-contained notebook](notebooks/20_course_coverage_map.ipynb)
+21. [Evaluation-driven prompt optimization](docs/21-evaluation-driven-prompt-optimization.md) · [Self-contained notebook](notebooks/21_evaluation_driven_prompt_optimization.ipynb)
 
 ## Technology and state of the art
 
