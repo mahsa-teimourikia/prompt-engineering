@@ -19,7 +19,7 @@ This course follows the evolution from prompt → context → tools → agentic 
 
 ## Start in the Learning Hub
 
-The [Learning Hub](https://mahsa-teimourikia.github.io/prompt-engineering/) is the structured starting point. Choose a level, select a lesson, then use its **Learn**, **Lab**, and **Checkpoint** tabs. The hub links to each self-contained notebook, deterministic Python lab, source material, and focused quiz question. Your completion status stays in your browser.
+The [Learning Hub](https://mahsa-teimourikia.github.io/prompt-engineering/) is the structured starting point. Choose a level, select a lesson, then use its **Learn**, **Notebook**, and **Checkpoint** tabs. The hub links to each self-contained notebook, source material, and focused quiz question. Your completion status stays in your browser.
 
 ## Learning roadmap
 
@@ -29,7 +29,7 @@ The [Learning Hub](https://mahsa-teimourikia.github.io/prompt-engineering/) is t
 | Intermediate | evidence, tools, multimodality, safety, evaluation | Build a grounded support copilot that retrieves policy evidence safely. |
 | Advanced | agent policies, optimization, model-aware PromptOps | Ship an observable, versioned, tested prompt system with release gates. |
 
-The labs share the **Northstar Support Copilot** scenario. It helps support specialists answer order, billing, and product-policy questions. The scenario deliberately includes conflicting evidence, injection-like content, strict schemas, and evaluation cases—conditions that make trade-offs visible without requiring credentials.
+The notebooks share the **Northstar Support Copilot** scenario. They help support specialists answer order, billing, and product-policy questions. The scenario deliberately includes conflicting evidence, injection-like content, strict schemas, and evaluation cases—conditions that make trade-offs visible without requiring credentials.
 
 See the [course coverage map and technique maturity guide](docs/20-course-coverage-map.md) for the complete storyline and the distinction between foundational, practical, emerging, and model-dependent patterns.
 
@@ -44,40 +44,39 @@ pip install -r requirements.txt
 jupyter lab
 ```
 
-Run deterministic labs with `python labs/01_instruction_contracts.py`, or run `pytest` to validate fixtures and quiz data. Provider calls are optional and deliberately absent from the default execution path.
+Run the self-contained notebooks with `make notebooks`, or run `pytest` to validate notebook coverage and quiz data. Provider calls are optional and deliberately absent from the default execution path.
 
 ## Course material
 
 ### Beginner — define behavior before generation
 
-1. [Instruction contracts and prompting foundations](docs/01-instruction-contracts.md) · [Notebook](notebooks/01_instruction_contracts.ipynb) · [Lab](labs/01_instruction_contracts.py)
-2. [Examples, constraints, and structured output](docs/02-structured-outputs.md) · [Notebook](notebooks/02_structured_outputs.ipynb) · [Lab](labs/02_structured_outputs.py)
-3. [Context engineering and grounded answers](docs/03-context-engineering.md) · [Notebook](notebooks/03_context_engineering.ipynb) · [Lab](labs/03_context_engineering.py)
+1. [Instruction contracts and prompting foundations](docs/01-instruction-contracts.md) · [Self-contained notebook](notebooks/01_instruction_contracts.ipynb)
+2. [Examples, constraints, and structured output](docs/02-structured-outputs.md) · [Self-contained notebook](notebooks/02_structured_outputs.ipynb)
+3. [Context engineering and grounded answers](docs/03-context-engineering.md) · [Self-contained notebook](notebooks/03_context_engineering.ipynb)
 
 ### Intermediate — connect prompts to evidence and systems
 
-4. [RAG and tool-use prompt interfaces](docs/04-rag-tools.md) · [Notebook](notebooks/04_rag_and_tools.ipynb) · [Lab](labs/04_rag_and_tools.py)
-5. [Multimodal document prompting](docs/05-multimodal.md) · [Notebook](notebooks/05_multimodal_prompting.ipynb) · [Lab](labs/05_multimodal_prompting.py)
-6. [Prompt injection, privacy, and tool boundaries](docs/06-prompt-security.md) · [Notebook](notebooks/06_prompt_security.ipynb) · [Lab](labs/06_prompt_security.py)
-7. [Evaluation and prompt experiments](docs/07-evaluation.md) · [Notebook](notebooks/07_prompt_evaluation.ipynb) · [Lab](labs/07_prompt_evaluation.py)
+4. [RAG and tool-use prompt interfaces](docs/04-rag-tools.md) · [Self-contained notebook](notebooks/04_rag_and_tools.ipynb)
+5. [Multimodal document prompting](docs/05-multimodal.md) · [Self-contained notebook](notebooks/05_multimodal_prompting.ipynb)
+6. [Prompt injection, privacy, and tool boundaries](docs/06-prompt-security.md) · [Self-contained notebook](notebooks/06_prompt_security.ipynb)
+7. [Evaluation and prompt experiments](docs/07-evaluation.md) · [Self-contained notebook](notebooks/07_prompt_evaluation.ipynb)
 
 ### Advanced — engineer reliable systems, not isolated prompts
 
-8. [Agent and multi-agent prompt contracts](docs/08-agentic-prompts.md) · [Notebook](notebooks/08_agentic_prompts.ipynb) · [Lab](labs/08_agentic_prompts.py)
-9. [Optimization, model-aware prompts, and PromptOps](docs/09-promptops.md) · [Notebook](notebooks/09_promptops_capstone.ipynb) · [Lab](labs/09_promptops_capstone.py)
-
-### Technique reference modules
-
-- [Reasoning-oriented prompting: decomposition, verification, and search](docs/11-reasoning-techniques.md)
-- [Prompt engineering for coding agents](docs/12-coding-agent-prompting.md)
-- [Prompt cost and latency engineering](docs/13-cost-latency-engineering.md)
-- [Prompt technique catalog](docs/14-technique-catalog.md)
-- [Application playbooks](docs/15-application-playbooks.md)
-- [Model-aware guidance](docs/16-model-aware-guidance.md)
-- [Curated resource library](docs/17-resource-library.md)
-- [LLM behavior, sampling, and prompt structure](docs/18-llm-behavior-and-prompt-structure.md)
-- [Reliability and human-centred AI](docs/19-reliability-and-human-centred-ai.md)
-- [Course coverage map and technique maturity](docs/20-course-coverage-map.md)
+8. [Agent and multi-agent prompt contracts](docs/08-agentic-prompts.md) · [Self-contained notebook](notebooks/08_agentic_prompts.ipynb)
+9. [PromptOps release engineering](docs/09-promptops.md) · [Self-contained notebook](notebooks/09_promptops.ipynb)
+10. [Technology review](docs/10-technology-review.md) · [Self-contained notebook](notebooks/10_technology_review.ipynb)
+11. [Reasoning-oriented prompting: decomposition, verification, and search](docs/11-reasoning-techniques.md) · [Self-contained notebook](notebooks/11_reasoning_techniques.ipynb)
+12. [Prompt engineering for coding agents](docs/12-coding-agent-prompting.md) · [Self-contained notebook](notebooks/12_coding_agent_prompting.ipynb)
+13. [Prompt cost and latency engineering](docs/13-cost-latency-engineering.md) · [Self-contained notebook](notebooks/13_cost_latency_engineering.ipynb)
+14. [Prompt technique catalog](docs/14-technique-catalog.md) · [Self-contained notebook](notebooks/14_technique_catalog.ipynb)
+15. [Application playbooks](docs/15-application-playbooks.md) · [Self-contained notebook](notebooks/15_application_playbooks.ipynb)
+16. [Model-aware guidance](docs/16-model-aware-guidance.md) · [Self-contained notebook](notebooks/16_model_aware_guidance.ipynb)
+17. [Curated resource library](docs/17-resource-library.md) · [Self-contained notebook](notebooks/17_resource_library.ipynb)
+18. [LLM behavior, sampling, and prompt structure](docs/18-llm-behavior-and-prompt-structure.md) · [Self-contained notebook](notebooks/18_llm_behavior_prompt_structure.ipynb)
+19. [Reliability and human-centred AI](docs/19-reliability-and-human-centred-ai.md) · [Self-contained notebook](notebooks/19_reliability_human_centred_ai.ipynb)
+20. [Course coverage map and technique maturity](docs/20-course-coverage-map.md) · [Self-contained notebook](notebooks/20_course_coverage_map.ipynb)
+21. [Evaluation-driven prompt optimization](docs/21-evaluation-driven-prompt-optimization.md) · [Self-contained notebook](notebooks/21_evaluation_driven_prompt_optimization.ipynb)
 
 ## Technology and state of the art
 
@@ -97,6 +96,6 @@ See [Technology review](docs/10-technology-review.md) for decision guidance cove
 
 ## Contributing
 
-Contributions should add a cited explanation, a credential-free executable example, a notebook experiment, and an evaluation or checkpoint. Please open an issue before introducing a provider-specific dependency.
+Contributions should add a cited explanation, a credential-free executable notebook section, an experiment, and an evaluation or checkpoint. Please open an issue before introducing a provider-specific dependency.
 
 Learning with [One+i](https://oneplusi.io) · responsible AI, real-world impact.
