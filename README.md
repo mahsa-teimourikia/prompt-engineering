@@ -53,7 +53,7 @@ Run the self-contained notebooks with `make notebooks`, or run `pytest` to valid
 
 The following is the current, fully linked library. As each target course is completed, the Hub registry and this section will be re-ordered into the canonical 29-course path. Reference-oriented material is intentionally separated below rather than presented as a required advanced skill.
 
-Canonical migration is underway: [Course 01 — LLM Behavior and Prompt Anatomy](curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md), [Course 02 — Instruction Contracts](curriculum/beginner/02-instruction-contracts/README.md), and [Course 03 — Constraints, Examples, and Few-Shot Learning](curriculum/beginner/03-constraints-examples-and-few-shot-learning/README.md) each include a guided notebook and reusable offline lab. The original Modules 18, 01, and 02 remain available as legacy supporting material while later courses migrate.
+The canonical [29-course curriculum](CURRICULUM_EVOLUTION_PLAN.md) is now available in the curriculum directory: Beginner (01–05), Intermediate (06–13), Advanced (14–21), and Enterprise (22–29). Every course contains a chapter, credential-free notebook, and reusable lab module. The Learning Hub and full quiz are generated from the same 29-course registry; legacy docs and notebooks remain supporting material during link-preserving migration.
 
 ### Beginner — define behavior before generation
 
