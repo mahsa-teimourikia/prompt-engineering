@@ -23,7 +23,15 @@ export const lessons = [
       "https://arxiv.org/abs/2406.06608",
     ],
   }),
-  course("examples", "Beginner", 3, "constraints-examples-and-few-shot-learning", "Constraints, Examples, and Few-Shot Learning"),
+  course("examples", "Beginner", 3, "constraints-examples-and-few-shot-learning", "Constraints, Examples, and Few-Shot Learning", {
+    summary: "Route enterprise IT tickets while testing static, random, similarity, diversity, and poisoned example policies.",
+    outcome: "Measure example selection on 24 held-out tickets, explain the quality/context tradeoff, and prove why more examples are not always better.",
+    refs: [
+      "https://arxiv.org/abs/2005.14165",
+      "https://scikit-learn.org/stable/modules/feature_extraction.html#text-feature-extraction",
+      "https://dl.acm.org/doi/10.1145/290941.291025",
+    ],
+  }),
   course("structured", "Beginner", 4, "structured-outputs-and-typed-interfaces", "Structured Outputs and Typed Interfaces", {
     summary: "Extract typed insurance case records and prove why valid JSON is not necessarily correct.",
     outcome: "Compare five interface strategies on 20 sliced cases, diagnose parse/schema/semantic failures, and make a defensible release decision.",
@@ -80,6 +88,16 @@ export const checks = {
     ],
     answer: 0,
     explanation: "The system must identify approved evidence and define a safe missing-evidence outcome. Authorization remains application code.",
+  },
+  examples: {
+    question: "A similarity selector retrieves four highly relevant demonstrations, but one is incorrectly labelled and held-out quality drops below zero-shot. What is the best response?",
+    choices: [
+      "Quarantine the bad example, re-run the frozen evaluation, and gate the example-set version",
+      "Add more copies of the nearest examples",
+      "Accept the result because retrieval similarity was high",
+    ],
+    answer: 0,
+    explanation: "Similarity measures topical closeness, not label quality or safety. Example stores need review, versioning, slice evaluation, and rollback controls.",
   },
   structured: {
     question: "A provider-native structured response passes the CaseRecord schema but extracts the wrong invoice amount. Which control should reject it?",
