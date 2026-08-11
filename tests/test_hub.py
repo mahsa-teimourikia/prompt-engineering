@@ -25,6 +25,8 @@ def test_quiz_and_hub_keep_their_deployed_relative_paths():
     assert "Twenty-nine selectable questions" in quiz_page
     assert 'href="../"' in quiz_page
     assert 'href="quiz/"' in hub_script
+    assert "Open reusable lab" in hub_script
+    assert "selected.lab" in hub_script
 
 
 def test_lesson_registry_is_valid_browser_module_syntax():
