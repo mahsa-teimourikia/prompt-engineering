@@ -49,36 +49,18 @@ jupyter lab
 
 Run the self-contained notebooks with `make notebooks`, or run `pytest` to validate notebook coverage and quiz data. Provider calls are optional and deliberately absent from the default execution path.
 
-## Current published learning material
-
-The following is the current, fully linked library. As each target course is completed, the Hub registry and this section will be re-ordered into the canonical 29-course path. Reference-oriented material is intentionally separated below rather than presented as a required advanced skill.
+## Canonical course navigation
 
 The canonical [29-course curriculum](CURRICULUM_EVOLUTION_PLAN.md) is now available in the curriculum directory: Beginner (01–05), Intermediate (06–13), Advanced (14–21), and Enterprise (22–29). Every course contains a chapter, credential-free notebook, and reusable lab module. The Learning Hub and full quiz are generated from the same 29-course registry; legacy docs and notebooks remain supporting material during link-preserving migration.
 
-### Beginner — define behavior before generation
+| Level | Courses | Start point |
+| --- | --- | --- |
+| Beginner | 01–05 | [Course 01](curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md) |
+| Intermediate | 06–13 | [Course 06](curriculum/intermediate/06-reasoning-oriented-prompting/README.md) |
+| Advanced | 14–21 | [Course 14](curriculum/advanced/14-prompt-evaluation/README.md) |
+| Enterprise | 22–29 | [Course 22](curriculum/enterprise/22-promptops/README.md) |
 
-1. [Instruction contracts and prompting foundations](docs/01-instruction-contracts.md) · [Self-contained notebook](notebooks/01_instruction_contracts.ipynb)
-2. [Examples, constraints, and structured output](docs/02-structured-outputs.md) · [Self-contained notebook](notebooks/02_structured_outputs.ipynb)
-3. [Context engineering and grounded answers](docs/03-context-engineering.md) · [Self-contained notebook](notebooks/03_context_engineering.ipynb)
-
-### Intermediate — connect prompts to evidence and systems
-
-4. [RAG and tool-use prompt interfaces](docs/04-rag-tools.md) · [Self-contained notebook](notebooks/04_rag_and_tools.ipynb)
-5. [Multimodal document prompting](docs/05-multimodal.md) · [Self-contained notebook](notebooks/05_multimodal_prompting.ipynb)
-6. [Prompt injection, privacy, and tool boundaries](docs/06-prompt-security.md) · [Self-contained notebook](notebooks/06_prompt_security.ipynb)
-7. [Evaluation and prompt experiments](docs/07-evaluation.md) · [Self-contained notebook](notebooks/07_prompt_evaluation.ipynb)
-
-### Advanced and production foundations — engineer reliable systems, not isolated prompts
-
-8. [Agent and multi-agent prompt contracts](docs/08-agentic-prompts.md) · [Self-contained notebook](notebooks/08_agentic_prompts.ipynb)
-9. [PromptOps release engineering](docs/09-promptops.md) · [Self-contained notebook](notebooks/09_promptops.ipynb)
-11. [Reasoning-oriented prompting: decomposition, verification, and search](docs/11-reasoning-techniques.md) · [Self-contained notebook](notebooks/11_reasoning_techniques.ipynb)
-12. [Prompt engineering for coding agents](docs/12-coding-agent-prompting.md) · [Self-contained notebook](notebooks/12_coding_agent_prompting.ipynb)
-13. [Prompt cost and latency engineering](docs/13-cost-latency-engineering.md) · [Self-contained notebook](notebooks/13_cost_latency_engineering.ipynb)
-16. [Model-aware guidance](docs/16-model-aware-guidance.md) · [Self-contained notebook](notebooks/16_model_aware_guidance.ipynb)
-18. [LLM behavior, sampling, and prompt structure](docs/18-llm-behavior-and-prompt-structure.md) · [Self-contained notebook](notebooks/18_llm_behavior_prompt_structure.ipynb)
-19. [Reliability and human-centred AI](docs/19-reliability-and-human-centred-ai.md) · [Self-contained notebook](notebooks/19_reliability_human_centred_ai.ipynb)
-21. [Evaluation-driven prompt optimization](docs/21-evaluation-driven-prompt-optimization.md) · [Self-contained notebook](notebooks/21_evaluation_driven_prompt_optimization.ipynb)
+Use the Hub for the complete ordered course list, chapter, notebook, reusable lab, checkpoint, and full 29-question knowledge check.
 
 ## Supporting reference material
 
