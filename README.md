@@ -53,7 +53,7 @@ Run the self-contained notebooks with `make notebooks`, or run `pytest` to valid
 
 The following is the current, fully linked library. As each target course is completed, the Hub registry and this section will be re-ordered into the canonical 29-course path. Reference-oriented material is intentionally separated below rather than presented as a required advanced skill.
 
-The first canonical migration is complete: [Course 01 — LLM Behavior and Prompt Anatomy](curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md) includes its own [guided notebook](curriculum/beginner/01-llm-behavior-and-prompt-anatomy/llm_behavior_and_prompt_anatomy.ipynb) and reusable [offline lab](curriculum/beginner/01-llm-behavior-and-prompt-anatomy/lab.py). The original Module 18 remains available as legacy supporting material while later courses migrate.
+Canonical migration is underway: [Course 01 — LLM Behavior and Prompt Anatomy](curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md) and [Course 02 — Instruction Contracts](curriculum/beginner/02-instruction-contracts/README.md) each include a guided notebook and reusable offline lab. The original Modules 18 and 01 remain available as legacy supporting material while later courses migrate.
 
 ### Beginner — define behavior before generation
 
