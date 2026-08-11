@@ -13,7 +13,15 @@ const course = (id, level, step, slug, title, details = {}) => ({
 });
 
 export const lessons = [
-  course("behavior", "Beginner", 1, "llm-behavior-and-prompt-anatomy", "LLM Behavior and Prompt Anatomy"),
+  course("behavior", "Beginner", 1, "llm-behavior-and-prompt-anatomy", "LLM Behavior and Prompt Anatomy", {
+    summary: "Diagnose support-routing changes by treating the entire inference request as a versioned, observable packet.",
+    outcome: "Compare five packet variants on 20 sliced cases and separate correctness, safe abstention, instability, and context cost.",
+    refs: [
+      "https://arxiv.org/abs/2307.03172",
+      "https://arxiv.org/abs/2406.06608",
+      "https://developers.openai.com/api/docs/guides/text",
+    ],
+  }),
   course("contracts", "Beginner", 2, "instruction-contracts", "Instruction Contracts", {
     summary: "Evolve an insurance intake request into a measurable behavioral contract across seven revisions.",
     outcome: "Measure how objective, evidence, constraints, examples, typed output, and safe failure change behavior on 20 sliced cases.",
@@ -79,6 +87,16 @@ const generatedChecks = Object.fromEntries(lessons.map((lesson) => [lesson.id, c
 
 export const checks = {
   ...generatedChecks,
+  behavior: {
+    question: "A support classifier is perfectly repeatable across five runs but returns `unknown` for every clear request. What does the experiment show?",
+    choices: [
+      "Repeatability is not correctness; inspect task accuracy and slices before accepting it",
+      "The model is production-ready because instability is zero",
+      "Increase context length without changing the evaluation",
+    ],
+    answer: 0,
+    explanation: "A stable failure remains a failure. Evaluate the frozen task contract, safe abstention, slices, and packet changes together.",
+  },
   contracts: {
     question: "A claim-intake assistant has no approved evidence but produces a fluent draft. Which contract component addresses the immediate failure?",
     choices: [

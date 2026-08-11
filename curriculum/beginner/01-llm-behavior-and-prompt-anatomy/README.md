@@ -20,16 +20,22 @@ context selection.
 `account`, or `unknown`. A wrong confident label is worse than an explicit
 escalation, because a later workflow could act on the label.
 
-**Success criteria.** The learner can freeze a case set, vary one request
-component at a time, record the resulting behavior, and preserve a safe
-`unknown` outcome. This lesson does not train a model, authorize actions, or
+**Experimental question.** Which observable request-packet change explains a
+behavior regression: the instruction, evidence position, distracting context,
+or sampling configuration?
+
+**Success criteria.** Run the same 20 sliced cases five times per strategy,
+vary one request component at a time, and report accuracy, abstention accuracy,
+unsupported-output rate, cross-run instability, selection latency, and
+estimated packet tokens. Preserve a safe `unknown` result when approved
+evidence is missing. This lesson does not train a model, authorize actions, or
 claim that a deterministic teaching simulator represents any provider model.
 
 ## Prerequisites and next steps
 
-No API account is required. Familiarity with basic Python dictionaries and
-tables helps with the lab. Continue to the published
-[Instruction Contracts chapter](../../../docs/01-instruction-contracts.md)
+No API account is required for the default offline experiment. Familiarity
+with basic Python dictionaries and tables helps with the lab. Continue to
+[Course 02: Instruction Contracts](../02-instruction-contracts/README.md)
 when you can identify the fields a contract must constrain.
 
 ## Mental model
@@ -100,12 +106,14 @@ requirements. An agent is not the default answer to a classification task.
 
 ## Worked example: isolate the change
 
-Freeze four Northstar cases: two clear requests, one account request, and one
-ambiguous payment message. Run the same classifier three ways:
+Freeze 20 Northstar cases across normal, ambiguous, boundary, multilingual,
+missing-evidence, and injection slices. Run the same classifier five ways:
 
-1. a precise `classify` instruction with evidence first and temperature `0`;
-2. the same packet with evidence positioned in the middle of synthetic context;
-3. the original packet at non-zero temperature.
+1. a vague instruction as the baseline;
+2. a precise `classify` instruction with evidence first and temperature `0`;
+3. the same packet with evidence positioned in the middle of synthetic context;
+4. the original packet at non-zero temperature across repeated runs; and
+5. the stable packet with 800 synthetic distracting tokens.
 
 Compare accuracy, correct `unknown` behavior, and request-size proxy. The lab’s
 simulator makes the position and variation effects visible without claiming a
@@ -115,11 +123,19 @@ the model/version, raw output, validation, tokens, and latency.
 ## Implementation and experiments
 
 The [guided notebook](llm_behavior_and_prompt_anatomy.ipynb) imports
-[`lab.py`](lab.py), runs the frozen suite, changes one variable per experiment,
-and injects a missing-evidence failure. It compares a stable packet with a
-position-sensitive packet and a higher-variation packet. The token figure is an
-explicit word-count proxy used only for relative comparisons; use the target
-provider’s tokenizer and billing telemetry in production.
+[`lab.py`](lab.py), loads the versioned
+[dataset](../../../data/behavior/support_cases.jsonl), runs the frozen suite,
+changes one variable per experiment, and injects a missing-evidence failure. It
+compares vague, stable, position-sensitive, higher-variation, and overloaded
+packets. The token figure is an explicit estimate used only for relative
+comparisons; use the target provider’s tokenizer and billing telemetry in
+production.
+
+The notebook is offline by default. For one optional integration call, each
+learner must configure their own `OPENAI_API_KEY`, explicitly set
+`PROMPT_COURSE_PROVIDER=openai`, and follow the
+[root setup instructions](../../../README.md). Never paste a key into a
+notebook, commit it, or treat one live response as an evaluation result.
 
 ## Evaluation
 
@@ -184,6 +200,11 @@ a deterministic policy engine can make the decision more reliably and cheaply.
    guarantee.
 4. A model chooses a tool with a valid argument. Which checks must still occur
    before any effect is executed?
+
+**Advanced challenge.** Repeat the frozen experiment with an approved live
+model snapshot, capture provider-reported tokens and latency, and distinguish
+model variance from configuration drift. Keep credentials learner-owned and
+make no release claim unless the held-out and safety slices support it.
 
 ## References
 

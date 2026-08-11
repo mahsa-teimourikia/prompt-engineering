@@ -16,6 +16,8 @@ def test_every_course_topic_is_present_in_hub_and_quiz():
     assert "Object.fromEntries(lessons.map" in lessons
     assert "Semantic validation against trusted labelled evidence" in lessons
     assert "Extract typed insurance case records" in lessons
+    assert "Repeatability is not correctness" in lessons
+    assert "Compare five packet variants" in lessons
     assert "more examples are not always better" in lessons
     assert "Quarantine the bad example" in lessons
     for level in ("beginner", "intermediate", "advanced", "enterprise"):
