@@ -14,7 +14,15 @@ const course = (id, level, step, slug, title, details = {}) => ({
 
 export const lessons = [
   course("behavior", "Beginner", 1, "llm-behavior-and-prompt-anatomy", "LLM Behavior and Prompt Anatomy"),
-  course("contracts", "Beginner", 2, "instruction-contracts", "Instruction Contracts"),
+  course("contracts", "Beginner", 2, "instruction-contracts", "Instruction Contracts", {
+    summary: "Evolve an insurance intake request into a measurable behavioral contract across seven revisions.",
+    outcome: "Measure how objective, evidence, constraints, examples, typed output, and safe failure change behavior on 20 sliced cases.",
+    refs: [
+      "https://developers.openai.com/api/docs/guides/text",
+      "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html",
+      "https://arxiv.org/abs/2406.06608",
+    ],
+  }),
   course("examples", "Beginner", 3, "constraints-examples-and-few-shot-learning", "Constraints, Examples, and Few-Shot Learning"),
   course("structured", "Beginner", 4, "structured-outputs-and-typed-interfaces", "Structured Outputs and Typed Interfaces", {
     summary: "Extract typed insurance case records and prove why valid JSON is not necessarily correct.",
@@ -63,6 +71,16 @@ const generatedChecks = Object.fromEntries(lessons.map((lesson) => [lesson.id, c
 
 export const checks = {
   ...generatedChecks,
+  contracts: {
+    question: "A claim-intake assistant has no approved evidence but produces a fluent draft. Which contract component addresses the immediate failure?",
+    choices: [
+      "An approved-evidence boundary with an explicit clarification path",
+      "A more detailed persona",
+      "Permission to approve the claim in prompt text",
+    ],
+    answer: 0,
+    explanation: "The system must identify approved evidence and define a safe missing-evidence outcome. Authorization remains application code.",
+  },
   structured: {
     question: "A provider-native structured response passes the CaseRecord schema but extracts the wrong invoice amount. Which control should reject it?",
     choices: [
