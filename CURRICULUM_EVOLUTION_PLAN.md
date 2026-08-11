@@ -42,6 +42,30 @@ skill lessons and prevents shallow placeholder notebooks from being added.
 | Hub, quiz, tests, notebook validation | EXPAND | Hub correctly provides Learn/Notebook/Checkpoint flow and persists progress. Rework its registry only as each target lesson becomes a complete, tested course; retain quiz coverage while migrating. |
 | Duplicate untracked `docs/* 2.md` files | DEPRECATE | Do not link or overwrite them. Resolve deliberately in a cleanup commit after comparing any user-authored differences. |
 
+### Implementation baseline (audited 2026-08-10)
+
+- The repository contains 21 published Markdown chapters, 21 notebooks, a
+  static Learning Hub, a full 21-question quiz, notebook validation, and Hub
+  tests. The current implementation is coherent and credential-free; preserve
+  those strengths during migration.
+- Each current notebook has the same 20-cell shape (16 Markdown and four code
+  cells), the same offline Northstar simulator, and a Mermaid diagram. This is
+  a dependable execution baseline, but it is not yet enough subject-specific
+  experimentation for the target curriculum. Rebuild migrated notebooks around
+  one topic-specific scenario, baseline, instrumentation, multiple experiments,
+  failure injection, and measured comparison—not by appending cells to the
+  common template.
+- Current notebook validation deliberately rejects `labs/` imports and the
+  existing tests require exactly 21 Hub lessons/notebooks. Phase B must replace
+  those temporary migration constraints when the first canonical
+  `curriculum/<level>/<number-topic>/README.md`, notebook, and `lab.py` lesson
+  is introduced; otherwise the repository would continue to validate the old
+  shape rather than the target learning product.
+- The Hub already has useful level filters, selected lesson views, checkpoints,
+  and local progress persistence. Its registry currently mixes canonical topics
+  with reference material; change it atomically with each completed course and
+  its quiz/checkpoint rather than publishing an incomplete 29-item catalogue.
+
 ## Target curriculum
 
 | Target Course | Current Material | Action | Level | Scenario | Main Experiment | Main Technology | Evaluation |
