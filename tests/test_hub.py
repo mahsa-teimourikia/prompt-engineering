@@ -14,6 +14,8 @@ def test_every_course_topic_is_present_in_hub_and_quiz():
     assert len(lesson_ids) == 29
     assert len(set(lesson_ids)) == 29
     assert "Object.fromEntries(lessons.map" in lessons
+    assert "Semantic validation against trusted labelled evidence" in lessons
+    assert "Extract typed insurance case records" in lessons
     for level in ("beginner", "intermediate", "advanced", "enterprise"):
         assert (ROOT / "curriculum" / level).is_dir()
 

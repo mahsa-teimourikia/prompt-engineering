@@ -1,4 +1,4 @@
-const course = (id, level, step, slug, title) => ({
+const course = (id, level, step, slug, title, details = {}) => ({
   id,
   level,
   step,
@@ -9,13 +9,22 @@ const course = (id, level, step, slug, title) => ({
   notebook: "curriculum/" + level.toLowerCase() + "/" + String(step).padStart(2, "0") + "-" + slug + "/" + slug.replaceAll("-", "_") + ".ipynb",
   lab: "curriculum/" + level.toLowerCase() + "/" + String(step).padStart(2, "0") + "-" + slug + "/lab.py",
   refs: [],
+  ...details,
 });
 
 export const lessons = [
   course("behavior", "Beginner", 1, "llm-behavior-and-prompt-anatomy", "LLM Behavior and Prompt Anatomy"),
   course("contracts", "Beginner", 2, "instruction-contracts", "Instruction Contracts"),
   course("examples", "Beginner", 3, "constraints-examples-and-few-shot-learning", "Constraints, Examples, and Few-Shot Learning"),
-  course("structured", "Beginner", 4, "structured-outputs-and-typed-interfaces", "Structured Outputs and Typed Interfaces"),
+  course("structured", "Beginner", 4, "structured-outputs-and-typed-interfaces", "Structured Outputs and Typed Interfaces", {
+    summary: "Extract typed insurance case records and prove why valid JSON is not necessarily correct.",
+    outcome: "Compare five interface strategies on 20 sliced cases, diagnose parse/schema/semantic failures, and make a defensible release decision.",
+    refs: [
+      "https://json-schema.org/specification",
+      "https://docs.pydantic.dev/latest/concepts/models/",
+      "https://developers.openai.com/api/docs/guides/structured-outputs",
+    ],
+  }),
   course("patterns", "Beginner", 5, "prompt-patterns-and-technique-selection", "Prompt Patterns and Technique Selection"),
   course("reasoning", "Intermediate", 6, "reasoning-oriented-prompting", "Reasoning-Oriented Prompting"),
   course("workflow", "Intermediate", 7, "task-decomposition-and-workflow-prompting", "Task Decomposition and Workflow Prompting"),
@@ -50,4 +59,18 @@ const check = (lesson) => ({
   explanation: "Every course treats prompts as one component of a measured AI behavior system.",
 });
 
-export const checks = Object.fromEntries(lessons.map((lesson) => [lesson.id, check(lesson)]));
+const generatedChecks = Object.fromEntries(lessons.map((lesson) => [lesson.id, check(lesson)]));
+
+export const checks = {
+  ...generatedChecks,
+  structured: {
+    question: "A provider-native structured response passes the CaseRecord schema but extracts the wrong invoice amount. Which control should reject it?",
+    choices: [
+      "Semantic validation against trusted labelled evidence",
+      "Another JSON parse",
+      "A more permissive schema",
+    ],
+    answer: 0,
+    explanation: "Schema validity proves shape and types, not factual fidelity. Compare supported values and evidence identifiers before accepting the proposal.",
+  },
+};

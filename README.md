@@ -47,7 +47,56 @@ pip install -r requirements.txt
 jupyter lab
 ```
 
-Run the self-contained notebooks with `make notebooks`, or run `pytest` to validate notebook coverage and quiz data. Provider calls are optional and deliberately absent from the default execution path.
+Run the self-contained notebooks with `make notebooks`, or run `pytest` to validate notebook coverage and quiz data.
+
+### Set up your own OpenAI API key
+
+The notebooks have a deterministic offline mode for reproducible exercises and
+CI. To run the live model experiments, each learner must use their **own OpenAI
+API key** and is responsible for the resulting API usage. Keys are never
+included with the repository.
+
+1. Create or select a project API key in the [OpenAI Platform API key
+   settings](https://platform.openai.com/api-keys).
+2. Export it in the shell **before** starting Jupyter. Do not paste the key into
+   a notebook, Python file, output cell, screenshot, or Git commit.
+
+   macOS/Linux:
+
+   ```bash
+   export OPENAI_API_KEY="your-key"
+   export PROMPT_COURSE_PROVIDER="openai"
+   export OPENAI_MODEL="gpt-5.6"  # optional; use a model available to your project
+   jupyter lab
+   ```
+
+   Windows PowerShell:
+
+   ```powershell
+   $env:OPENAI_API_KEY="your-key"
+   $env:PROMPT_COURSE_PROVIDER="openai"
+   $env:OPENAI_MODEL="gpt-5.6"  # optional
+   jupyter lab
+   ```
+
+3. Confirm only that the variable exists without printing its value:
+
+   ```bash
+   python -c "import os; assert os.getenv('OPENAI_API_KEY'), 'OPENAI_API_KEY is not set'; print('OpenAI key is available to this process')"
+   ```
+
+Use `PROMPT_COURSE_PROVIDER=mock` to return to offline mode. The provider is
+never selected implicitly: even when a key exists, the course defaults to
+`mock` so a notebook cannot create paid API traffic accidentally. `.env` and
+`.env.*` are ignored by Git; `.env.example` contains variable names only. For
+production systems, use a secret manager or workload identity rather than a
+developer shell variable.
+
+The shared adapter uses OpenAI's current
+[Responses API](https://developers.openai.com/api/docs/guides/text). Every live
+response records measured client elapsed time and provider-reported token usage
+when available; the course never presents fabricated cost or latency as a
+measurement.
 
 ## Canonical course navigation
 
