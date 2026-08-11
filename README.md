@@ -13,25 +13,28 @@ Prompt engineering is the disciplined design, testing, and improvement of the in
 
 Modern practice increasingly includes **context engineering**: selecting and structuring the right instructions, user state, retrieved evidence, tool definitions, tool results, and conversation history for a particular decision. Better wording cannot compensate for missing evidence, unsafe tools, or an unmeasured failure mode.
 
-This course follows the evolution from prompt → context → tools → agentic systems → evaluated, governed PromptOps. The core framework is:
+This curriculum follows the evolution from **prompt crafting → prompt engineering → reasoning engineering → context engineering → tool and workflow engineering → agent prompt engineering → evaluation-driven optimization → PromptOps → AI system engineering**. Prompt engineering did not become irrelevant; it became one measurable layer of a larger behavior system. The core framework is:
 
-`Task + context + constraints + examples + output contract + evaluation = dependable AI behavior`
+`Prompt + model + context + examples + retrieval + tools + state + policies + evaluation + runtime configuration = dependable AI behavior`
 
 ## Start in the Learning Hub
 
 The [Learning Hub](https://mahsa-teimourikia.github.io/prompt-engineering/) is the structured starting point. Choose a level, select a lesson, then use its **Learn**, **Notebook**, and **Checkpoint** tabs. The hub links to each self-contained notebook, source material, and focused quiz question. Your completion status stays in your browser.
 
-## Learning roadmap
+## Curriculum roadmap
 
-| Level | Focus | Scenario outcome |
+The repository is being migrated in deliberate phases; it does **not** claim that all target lessons have already been generated. The current published lessons remain available in the Hub while the canonical structure is built and validated topic by topic. See the [curriculum evolution plan](CURRICULUM_EVOLUTION_PLAN.md) for the audit, source-material disposition, implementation sequence, and complete mapping.
+
+| Level | Canonical sequence | Current focus |
 | --- | --- | --- |
-| Beginner | instruction contracts, examples, structured outputs, context | Turn ambiguous support requests into validated case briefs. |
-| Intermediate | evidence, tools, multimodality, safety, evaluation | Build a grounded support copilot that retrieves policy evidence safely. |
-| Advanced | agent policies, optimization, model-aware PromptOps | Ship an observable, versioned, tested prompt system with release gates. |
+| Beginner | 01–05: behavior, contracts, examples, typed interfaces, technique selection | Turn ambiguous support requests into validated case briefs. |
+| Intermediate | 06–13: reasoning, workflows, context, conversations, RAG, tools, multimodality, security | Build evidence- and tool-grounded systems with explicit trust boundaries. |
+| Advanced | 14–21: evaluation, judges, optimization, agents, coding, models, efficiency | Improve behavior only when a measured evaluation supports the change. |
+| Production | 22–29: PromptOps, observability, release engineering, governance, trust, portability, architecture, capstone | Ship, diagnose, govern, and roll back an AI behavior artifact. |
 
 The notebooks share the **Northstar Support Copilot** scenario. They help support specialists answer order, billing, and product-policy questions. The scenario deliberately includes conflicting evidence, injection-like content, strict schemas, and evaluation cases—conditions that make trade-offs visible without requiring credentials.
 
-See the [course coverage map and technique maturity guide](docs/20-course-coverage-map.md) for the complete storyline and the distinction between foundational, practical, emerging, and model-dependent patterns.
+The course distinguishes **foundational** practices (clear task contracts, schemas, context, and evaluation), **practical** practices (boundary examples, evidence grounding, narrow tools, and PromptOps), **model-dependent** rituals (for example blanket personas or verbose chain-of-thought requests), and **emerging** practices (automatic optimization and learned context policies). The [current coverage map](docs/20-course-coverage-map.md) remains available during the migration.
 
 ## Run locally
 
@@ -46,7 +49,9 @@ jupyter lab
 
 Run the self-contained notebooks with `make notebooks`, or run `pytest` to validate notebook coverage and quiz data. Provider calls are optional and deliberately absent from the default execution path.
 
-## Course material
+## Current published learning material
+
+The following is the current, fully linked library. As each target course is completed, the Hub registry and this section will be re-ordered into the canonical 29-course path. Reference-oriented material is intentionally separated below rather than presented as a required advanced skill.
 
 ### Beginner — define behavior before generation
 
@@ -61,22 +66,27 @@ Run the self-contained notebooks with `make notebooks`, or run `pytest` to valid
 6. [Prompt injection, privacy, and tool boundaries](docs/06-prompt-security.md) · [Self-contained notebook](notebooks/06_prompt_security.ipynb)
 7. [Evaluation and prompt experiments](docs/07-evaluation.md) · [Self-contained notebook](notebooks/07_prompt_evaluation.ipynb)
 
-### Advanced — engineer reliable systems, not isolated prompts
+### Advanced and production foundations — engineer reliable systems, not isolated prompts
 
 8. [Agent and multi-agent prompt contracts](docs/08-agentic-prompts.md) · [Self-contained notebook](notebooks/08_agentic_prompts.ipynb)
 9. [PromptOps release engineering](docs/09-promptops.md) · [Self-contained notebook](notebooks/09_promptops.ipynb)
-10. [Technology review](docs/10-technology-review.md) · [Self-contained notebook](notebooks/10_technology_review.ipynb)
 11. [Reasoning-oriented prompting: decomposition, verification, and search](docs/11-reasoning-techniques.md) · [Self-contained notebook](notebooks/11_reasoning_techniques.ipynb)
 12. [Prompt engineering for coding agents](docs/12-coding-agent-prompting.md) · [Self-contained notebook](notebooks/12_coding_agent_prompting.ipynb)
 13. [Prompt cost and latency engineering](docs/13-cost-latency-engineering.md) · [Self-contained notebook](notebooks/13_cost_latency_engineering.ipynb)
-14. [Prompt technique catalog](docs/14-technique-catalog.md) · [Self-contained notebook](notebooks/14_technique_catalog.ipynb)
-15. [Application playbooks](docs/15-application-playbooks.md) · [Self-contained notebook](notebooks/15_application_playbooks.ipynb)
 16. [Model-aware guidance](docs/16-model-aware-guidance.md) · [Self-contained notebook](notebooks/16_model_aware_guidance.ipynb)
-17. [Curated resource library](docs/17-resource-library.md) · [Self-contained notebook](notebooks/17_resource_library.ipynb)
 18. [LLM behavior, sampling, and prompt structure](docs/18-llm-behavior-and-prompt-structure.md) · [Self-contained notebook](notebooks/18_llm_behavior_prompt_structure.ipynb)
 19. [Reliability and human-centred AI](docs/19-reliability-and-human-centred-ai.md) · [Self-contained notebook](notebooks/19_reliability_human_centred_ai.ipynb)
-20. [Course coverage map and technique maturity](docs/20-course-coverage-map.md) · [Self-contained notebook](notebooks/20_course_coverage_map.ipynb)
 21. [Evaluation-driven prompt optimization](docs/21-evaluation-driven-prompt-optimization.md) · [Self-contained notebook](notebooks/21_evaluation_driven_prompt_optimization.ipynb)
+
+## Supporting reference material
+
+These useful resources are retained as supporting material during the migration; they are not canonical completion requirements.
+
+- [Technology landscape](docs/10-technology-review.md) · [notebook](notebooks/10_technology_review.ipynb)
+- [Prompt technique catalog](docs/14-technique-catalog.md) · [notebook](notebooks/14_technique_catalog.ipynb)
+- [Application playbooks](docs/15-application-playbooks.md) · [notebook](notebooks/15_application_playbooks.ipynb)
+- [Curated resource library](docs/17-resource-library.md) · [notebook](notebooks/17_resource_library.ipynb)
+- [Current coverage map](docs/20-course-coverage-map.md) · [notebook](notebooks/20_course_coverage_map.ipynb)
 
 ## Technology and state of the art
 
