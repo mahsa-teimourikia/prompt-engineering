@@ -1,7 +1,8 @@
-const source = (doc) => `docs/${doc}`;
+const source = (doc) => doc.includes("/") ? doc : `docs/${doc}`;
+const notebookSource = (notebook) => notebook.includes("/") ? notebook : `notebooks/${notebook}`;
 
 const lesson = (id, level, step, title, summary, outcome, doc, notebook, refs) => ({
-  id, level, step, title, summary, outcome, material: source(doc), notebook: `notebooks/${notebook}`, refs,
+  id, level, step, title, summary, outcome, material: source(doc), notebook: notebookSource(notebook), refs,
 });
 
 export const lessons = [
@@ -22,7 +23,7 @@ export const lessons = [
   lesson("playbooks", "Advanced", 15, "Application playbooks", "Apply reusable delivery patterns to common AI-product scenarios.", "Build a support-assistant playbook with escalation and evidence boundaries.", "15-application-playbooks.md", "15_application_playbooks.ipynb", ["https://www.nist.gov/itl/ai-risk-management-framework"]),
   lesson("model-aware", "Advanced", 16, "Model-aware guidance", "Separate stable task intent from model-specific adaptations.", "Create a portable contract and an adaptation layer for a model change.", "16-model-aware-guidance.md", "16_model_aware_guidance.ipynb", ["https://platform.openai.com/docs/guides/prompt-engineering"]),
   lesson("resources", "Advanced", 17, "Resource library", "Build a source map that distinguishes primary evidence from commentary.", "Create an evidence-backed research path for a production decision.", "17-resource-library.md", "17_resource_library.ipynb", ["https://arxiv.org/", "https://huggingface.co/papers"]),
-  lesson("behavior", "Advanced", 18, "LLM behavior and prompt structure", "Design prompts around observable behavior rather than hidden reasoning.", "Diagnose failures through instructions, context, output constraints, and evaluation.", "18-llm-behavior-and-prompt-structure.md", "18_llm_behavior_prompt_structure.ipynb", ["https://arxiv.org/abs/2404.13208"]),
+  lesson("behavior", "Beginner", 1, "LLM behavior and prompt anatomy", "Inspect the complete request packet before trying to improve its wording.", "Run controlled experiments on instructions, evidence position, and variation; then diagnose the smallest responsible component.", "curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md", "curriculum/beginner/01-llm-behavior-and-prompt-anatomy/llm_behavior_and_prompt_anatomy.ipynb", ["https://arxiv.org/abs/2005.14165", "https://arxiv.org/abs/2307.03172"]),
   lesson("reliability", "Advanced", 19, "Reliability and human-centred AI", "Make uncertainty, review, and recovery visible product features.", "Design a risk-tiered human review and incident recovery path.", "19-reliability-and-human-centred-ai.md", "19_reliability_human_centred_ai.ipynb", ["https://www.nist.gov/itl/ai-risk-management-framework"]),
   lesson("coverage", "Advanced", 20, "Course coverage map", "Connect course skills to a complete production capability map.", "Identify gaps in a proposed system across contracts, context, operations, and governance.", "20-course-coverage-map.md", "20_course_coverage_map.ipynb", ["https://www.nist.gov/itl/ai-risk-management-framework"]),
   lesson("optimization", "Advanced", 21, "Evaluation-driven prompt optimization", "Improve prompts through held-out evidence instead of intuition.", "Run a safe optimization loop with regression gates and rollback.", "21-evaluation-driven-prompt-optimization.md", "21_evaluation_driven_prompt_optimization.ipynb", ["https://dspy.ai/learn/optimization/optimizers/"]),

@@ -102,8 +102,8 @@ skill lessons and prevents shallow placeholder notebooks from being added.
 
 ## Migration order and definition of done
 
-1. **Phase A — audit and navigation:** this plan, the root roadmap, and the Hub’s curriculum status communicate the target sequence without pretending planned lessons exist.
-2. **Phase B — beginner:** build courses 01–05 in canonical folders, each with one standalone README, one credential-free notebook, `lab.py`, checkpoint, and registry entry.
+1. **Phase A — audit and navigation:** complete. This plan, the root roadmap, and the Hub’s curriculum status communicate the target sequence without pretending planned lessons exist.
+2. **Phase B — beginner:** in progress. Course 01 now lives in its canonical folder with a standalone README, credential-free notebook, `lab.py`, and Hub entry. Build courses 02–05 to the same standard before renumbering the full beginner track.
 3. **Phase C — intermediate:** build/split courses 06–13, including the missing conversation and tool-interface courses.
 4. **Phase D — advanced:** build/split courses 14–21, putting evaluation before optimization and agents.
 5. **Phase E — production:** build/split courses 22–29 and migrate supporting documents to `docs/reference/`, `docs/playbooks/`, and `docs/resources/` with redirects/links preserved.
