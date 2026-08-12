@@ -20,6 +20,8 @@ def test_every_course_topic_is_present_in_hub_and_quiz():
     assert "Compare five packet variants" in lessons
     assert "more examples are not always better" in lessons
     assert "Quarantine the bad example" in lessons
+    assert "smallest adequate technique" in lessons
+    assert "No model-driven action" in lessons
     for level in ("beginner", "intermediate", "advanced", "enterprise"):
         assert (ROOT / "curriculum" / level).is_dir()
 

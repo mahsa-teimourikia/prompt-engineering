@@ -49,7 +49,15 @@ export const lessons = [
       "https://developers.openai.com/api/docs/guides/structured-outputs",
     ],
   }),
-  course("patterns", "Beginner", 5, "prompt-patterns-and-technique-selection", "Prompt Patterns and Technique Selection"),
+  course("patterns", "Beginner", 5, "prompt-patterns-and-technique-selection", "Prompt Patterns and Technique Selection", {
+    summary: "Act as an AI architecture review board and select the smallest adequate technique—or no model at all.",
+    outcome: "Compare three selectors on 24 cases and measure accuracy, unsafe choices, avoidable complexity, and relative cost.",
+    refs: [
+      "https://arxiv.org/abs/2406.06608",
+      "https://arxiv.org/abs/2210.03629",
+      "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html",
+    ],
+  }),
   course("reasoning", "Intermediate", 6, "reasoning-oriented-prompting", "Reasoning-Oriented Prompting"),
   course("workflow", "Intermediate", 7, "task-decomposition-and-workflow-prompting", "Task Decomposition and Workflow Prompting"),
   course("context", "Intermediate", 8, "context-engineering", "Context Engineering"),
@@ -126,5 +134,15 @@ export const checks = {
     ],
     answer: 0,
     explanation: "Schema validity proves shape and types, not factual fidelity. Compare supported values and evidence identifiers before accepting the proposal.",
+  },
+  patterns: {
+    question: "A refund proposal is topically suited to tool calling, but the application has no authorization check. What is the correct technique decision?",
+    choices: [
+      "No model-driven action until an authorized application path exists",
+      "Add a planner and verifier around the same unauthorized tool",
+      "Use a stronger persona to grant permission",
+    ],
+    answer: 0,
+    explanation: "Technique relevance never establishes authority. Authentication, authorization, and side-effect controls belong in deterministic application code.",
   },
 };
