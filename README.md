@@ -111,6 +111,26 @@ The canonical [29-course curriculum](CURRICULUM_EVOLUTION_PLAN.md) is now availa
 
 Use the Hub for the complete ordered course list, chapter, notebook, reusable lab, checkpoint, and full 29-question knowledge check.
 
+### Professional lab rebuild status
+
+The canonical course structure exists for all 29 courses, but depth migration is
+phased. Courses 01–05 have reached the `professional-lab-v1` gate: each has a
+topic-specific dataset, measurable baseline, controlled experiments, failure
+injection, diagnosis, visualization, production guidance, tests, and an updated
+Hub checkpoint. Courses 06–29 remain available as canonical baseline material
+and are the next migration phases; they are not yet represented as completed
+professional labs.
+
+Run the current credential-free gate with:
+
+```bash
+python -m pytest -q
+python scripts/validate_notebooks.py --execute
+```
+
+The current beginner-tier snapshot is 32 passing tests, 50 structurally valid
+notebooks, and five professional notebooks executed top-to-bottom.
+
 ## Supporting reference material
 
 These useful resources are retained as supporting material during the migration; they are not canonical completion requirements.

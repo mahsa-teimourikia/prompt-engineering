@@ -173,7 +173,33 @@ sequence, adapted rather than copied mechanically:
 | 6 — Production | Canonical 22–29 rebuilt; reference-only legacy notebooks retired. | Release, observability, governance, trust, portability, architecture, capstone gates work. |
 | 7 — Validation | Execute all canonical notebooks; run tests/link/Hub/quiz checks; remove obsolete template track. | Clean credential-free run, no broken routes, and deployed Hub/quiz HTTP 200 after merge. |
 
-## Phase 2 report
+## Phase 3 report — core beginner complete
+
+- **Courses rebuilt:** canonical 01–05 now meet the
+  `professional-lab-v1` notebook gate.
+- **Measured scenarios:** request-packet behavior, instruction contracts,
+  few-shot selection, typed interfaces, and system-technique selection.
+- **Datasets:** 20 behavior cases, 20 contract cases, 24 training plus 24
+  held-out few-shot tickets, 20 structured-output cases, and 24 architecture
+  decisions.
+- **Experiments:** controlled packet variants, seven contract revisions,
+  seven example-selection policies, five output-interface strategies, and
+  three technique selectors.
+- **Failure coverage:** missing evidence, injection and authority boundaries,
+  poisoned labels, parse/schema/semantic separation, and avoidable complexity.
+- **Hub and quiz:** Courses 01–05 have topic-specific summaries, outcomes,
+  references, and decision checkpoints; the remaining course registry and
+  generic checkpoints stay intact during phased migration.
+- **Credential policy:** every lab runs offline by default. Optional integration
+  cells require each learner's own `OPENAI_API_KEY`, explicit provider opt-in,
+  and never treat one live call as evaluation evidence.
+- **Validation:** 32 tests pass; all 50 notebooks are structurally validated;
+  five professional notebooks execute top-to-bottom without credentials.
+- **Remaining work:** rebuild canonical 06–29, retire or convert legacy
+  executable-looking reference notebooks according to their dispositions, and
+  complete deployment/link validation after merge.
+
+## Phase 2 report — infrastructure baseline
 
 - **Notebooks changed:** none; shared foundations were completed before course
   rewrites as required by the phased plan.
@@ -195,11 +221,12 @@ sequence, adapted rather than copied mechanically:
 - **Tests added:** provider fallback/selection, missing-key behavior, stable
   dataset splits, slice aggregation, evaluation, deterministic bootstrap,
   usage/cost provenance, component token estimates, and structured traces.
-- **Validation:** 12 tests pass, Python sources compile, and legacy notebook JSON
-  validation passes.
-- **Remaining weaknesses:** Phase 3–7 course rewrites, canonical notebook
+- **Validation at Phase 2 exit:** 12 tests passed, Python sources compiled, and
+  legacy notebook JSON validation passed. See the Phase 3 report for current
+  totals.
+- **Weaknesses recorded at Phase 2 exit:** course rewrites, canonical notebook
   execution, course-specific Hub/checkpoints, and retirement of legacy
-  templates remain.
+  templates remained; the first three are complete for Courses 01–05.
 
 ## Phase 1 report
 
