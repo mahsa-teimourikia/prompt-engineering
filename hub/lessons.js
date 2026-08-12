@@ -58,7 +58,15 @@ export const lessons = [
       "https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html",
     ],
   }),
-  course("reasoning", "Intermediate", 6, "reasoning-oriented-prompting", "Reasoning-Oriented Prompting"),
+  course("reasoning", "Intermediate", 6, "reasoning-oriented-prompting", "Reasoning-Oriented Prompting", {
+    summary: "Triage incidents with observable decision artifacts while comparing direct, verified, self-consistent, and adaptive reasoning paths.",
+    outcome: "Measure five strategies on 24 incidents and prove that majority agreement cannot replace independent evidence verification.",
+    refs: [
+      "https://arxiv.org/abs/2201.11903",
+      "https://arxiv.org/abs/2203.11171",
+      "https://developers.openai.com/api/docs/guides/reasoning-best-practices",
+    ],
+  }),
   course("workflow", "Intermediate", 7, "task-decomposition-and-workflow-prompting", "Task Decomposition and Workflow Prompting"),
   course("context", "Intermediate", 8, "context-engineering", "Context Engineering"),
   course("conversation", "Intermediate", 9, "conversation-and-long-context-engineering", "Conversation and Long-Context Engineering"),
@@ -144,5 +152,15 @@ export const checks = {
     ],
     answer: 0,
     explanation: "Technique relevance never establishes authority. Authentication, authorization, and side-effect controls belong in deterministic application code.",
+  },
+  reasoning: {
+    question: "Five sampled incident decisions agree on credential rotation, but every path used the same unverified alert. What should the system do?",
+    choices: [
+      "Verify the action against approved evidence and collect evidence if support is absent",
+      "Accept the majority because five paths are independent proof",
+      "Log the model's private chain-of-thought as authorization",
+    ],
+    answer: 0,
+    explanation: "Self-consistency can reduce independent sampling error, but correlated paths can preserve one false premise. Evidence verification adds the missing independent control.",
   },
 };

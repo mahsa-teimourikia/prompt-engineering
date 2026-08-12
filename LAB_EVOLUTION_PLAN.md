@@ -173,6 +173,23 @@ sequence, adapted rather than copied mechanically:
 | 6 — Production | Canonical 22–29 rebuilt; reference-only legacy notebooks retired. | Release, observability, governance, trust, portability, architecture, capstone gates work. |
 | 7 — Validation | Execute all canonical notebooks; run tests/link/Hub/quiz checks; remove obsolete template track. | Clean credential-free run, no broken routes, and deployed Hub/quiz HTTP 200 after merge. |
 
+## Phase 4 progress — reasoning slice
+
+- **Course rebuilt:** canonical 06 now meets the `professional-lab-v1` gate.
+- **Scenario and dataset:** 24 incident-triage cases separate reported signals
+  from verified evidence across clear, boundary, deterministic, security,
+  missing-evidence, conflicting, injection, urgent, and recovered slices.
+- **Experiment:** direct, decomposed, planner/verifier, five-candidate
+  self-consistency, and adaptive deterministic routing are compared on decision
+  accuracy, evidence support, safe escalation, calls, tokens, latency, and
+  observable artifact coverage.
+- **Safety boundary:** the course requests typed decisions, evidence IDs,
+  assumptions, and checks—not private chain-of-thought. Every operational action
+  remains a proposal behind application authorization.
+- **Validation:** 36 tests pass; all 50 notebooks are structurally validated;
+  six professional notebooks execute top-to-bottom without credentials.
+- **Next Phase 4 slice:** Course 07 task decomposition and workflow prompting.
+
 ## Phase 3 report — core beginner complete
 
 - **Courses rebuilt:** canonical 01–05 now meet the

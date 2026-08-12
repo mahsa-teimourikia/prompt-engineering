@@ -22,6 +22,8 @@ def test_every_course_topic_is_present_in_hub_and_quiz():
     assert "Quarantine the bad example" in lessons
     assert "smallest adequate technique" in lessons
     assert "No model-driven action" in lessons
+    assert "majority agreement cannot replace" in lessons
+    assert "Verify the action against approved evidence" in lessons
     for level in ("beginner", "intermediate", "advanced", "enterprise"):
         assert (ROOT / "curriculum" / level).is_dir()
 
