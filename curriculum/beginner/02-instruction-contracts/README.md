@@ -32,16 +32,7 @@ validation are separate parts of a behavior system.
 
 ## Mental model
 
-```mermaid
-flowchart LR
-  R[Request] --> A[Task and authority check]
-  E[Approved evidence] --> A
-  A --> C[Instruction contract]
-  C --> M[Model proposal]
-  M --> V[Schema and semantic validation]
-  V -->|passes| D[Draft for review]
-  V -->|missing/conflict| S[Clarify, escalate, or reject]
-```
+![Mental Model Diagram](./diagram-1.svg)
 
 The contract is a behavioral interface, not a clever sentence. It describes
 what a model proposal is for, what evidence it may use, the required shape, and
@@ -91,11 +82,11 @@ reviewer and deterministic tests.
 
 ## Implementation and experiments
 
-The [notebook](instruction_contracts.ipynb) imports [`lab.py`](lab.py). It
-tests the same contract against a normal request, a direct injection attempt,
-a missing-evidence request, a conflicting user preference, and an impossible
-combination of requested action and constraint. It measures contract-valid
-outcomes, not writing quality alone.
+The [notebook](02_instruction_contracts.ipynb) tests the same contract against
+a normal request, a direct injection attempt, a missing-evidence request, a
+conflicting user preference, and an impossible combination of requested action
+and constraint. It measures contract-valid outcomes, not writing quality alone,
+using the `google-genai` SDK and Structured Outputs.
 
 ## Evaluation
 
@@ -124,11 +115,15 @@ without violating a safety gate. A graceful failure is often the correct answer.
 ## Technology and state of the art
 
 **Foundational:** explicit task/evidence/output/failure contracts and external
-validation. **Practical:** JSON Schema or Pydantic models, versioned test cases,
-and release gates. **Model-dependent:** personas or elaborate role framing;
-they may improve communication but do not replace a contract. **Emerging:**
-automatic prompt optimization, which must optimize a trustworthy contract test
-suite rather than a single preferred output.
+validation.
+
+**Current State of the Art:**
+1. **Pydantic and Structured Outputs:** Model providers now natively enforce JSON schemas directly in the decoding phase. Frameworks map Pydantic classes to JSON schema, eliminating the need for brittle manual schema instructions and regex parsing.
+2. **Contract-Driven Development:** Defining the exact output shape and fallback behavior BEFORE writing prompt text is standard. Prompts are increasingly treated as configuration files managed separately from application code.
+3. **Automated Prompt Optimization:** Tools like DSPy are used to automatically iterate on prompt text to fulfill the instruction contract, measured against a suite of evaluation examples.
+4. **Agentic Tracing:** Platforms such as LangSmith and Braintrust evaluate how well the model adheres to the contract over time, tracking failure rates (like unapproved actions or hallucinations) rather than just language quality.
+
+**Model-dependent:** personas or elaborate role framing may improve communication but do not replace a contract. With advanced reasoning models, explicit rule-following outcompetes complex roleplaying.
 
 ## Production considerations
 
