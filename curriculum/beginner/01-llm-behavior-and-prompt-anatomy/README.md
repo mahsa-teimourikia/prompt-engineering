@@ -34,17 +34,7 @@ when you can identify the fields a contract must constrain.
 
 ## Mental model
 
-```mermaid
-flowchart LR
-  A[Instruction hierarchy] --> P[Request packet]
-  B[User message] --> P
-  C[Selected context and examples] --> P
-  D[Tool definitions and state] --> P
-  E[Model snapshot and decoding configuration] --> P
-  P --> G[Conditional next-token generation]
-  G --> V[Schema, evidence, and policy validation]
-  V --> O[Answer, clarification, or escalation]
-```
+![Mental Model Diagram](./diagram-1.svg)
 
 An LLM maps the visible request state to a distribution over the next token.
 Generation repeats that operation until a stop condition, output limit, or
@@ -114,12 +104,11 @@ the model/version, raw output, validation, tokens, and latency.
 
 ## Implementation and experiments
 
-The [guided notebook](llm_behavior_and_prompt_anatomy.ipynb) imports
-[`lab.py`](lab.py), runs the frozen suite, changes one variable per experiment,
+The [guided notebook](01_llm_behavior_and_prompt_anatomy.ipynb) runs the frozen
+suite using the `google-genai` SDK, changes one variable per experiment,
 and injects a missing-evidence failure. It compares a stable packet with a
-position-sensitive packet and a higher-variation packet. The token figure is an
-explicit word-count proxy used only for relative comparisons; use the target
-provider’s tokenizer and billing telemetry in production.
+position-sensitive packet and a higher-variation packet. The token figure is
+retrieved directly from the model's usage metadata.
 
 ## Evaluation
 
@@ -149,13 +138,15 @@ application runtime.
 ## Technology landscape and state of the art
 
 **Foundational:** clear task definitions, explicit output expectations,
-controlled experiments, schemas, and external validation. **Practical:**
-provider-supported structured outputs, request tracing, targeted retrieval, and
-versioned evaluation suites. **Model-dependent:** blanket persona prompting and
-verbose “think step by step” rituals—evaluate them rather than assuming a gain,
-especially with reasoning-capable models. **Emerging/research:** learned context
-policies, automatic prompt/program search, and automated agent optimization;
-they require stronger held-out evaluation, not less.
+controlled experiments, schemas, and external validation.
+
+**Current State of the Art:**
+1. **Prompt Engineering SDKs & Frameworks:** Tools like `google-genai`, LangChain, and LlamaIndex have matured, but directly using model-provider SDKs with strong deterministic wrappers is often preferred for core functionality to reduce abstraction leakage.
+2. **Structured Outputs:** Providers natively enforce JSON schemas directly in decoding (e.g., Gemini's `response_schema`), replacing brittle "output JSON only" instructions.
+3. **Automated Prompt Optimization:** Tools like DSPy compile declarative system definitions into optimized prompts using training examples. Instead of manually tweaking wording, engineers define metrics and let the framework search for the best prompt string.
+4. **Agentic Evaluation:** Frameworks such as LangSmith and Braintrust provide tracing and CI/CD integration for prompts, treating prompt changes identically to code regressions.
+
+**Model-dependent dynamics:** Blanket persona prompting and verbose “think step by step” rituals are increasingly obsolete with modern reasoning-capable models. Evaluate their necessity on a case-by-case basis rather than assuming a gain.
 
 Use provider documentation for current decoding and context parameters. Keep a
 provider adapter behind a stable request/response contract, so model-specific
