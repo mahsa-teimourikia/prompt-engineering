@@ -15,8 +15,7 @@ only the component that resolves a demonstrated gap.
 
 ## Mental model
 
-    observed failure → hypothesis → smallest technique → frozen evaluation
-                     → accept, reject, or choose deterministic software
+![Mental Model Diagram](./diagram-1.svg)
 
 ## Pattern map
 
@@ -37,18 +36,25 @@ policies are emerging and require held-out evaluation.
 
 ## Worked lab and evaluation
 
-The [notebook](prompt_patterns_and_technique_selection.ipynb) maps observed
-failures to techniques, compares their cost/maturity, and rejects a mismatched
-solution. Evaluate task success, safety, latency, token use, and regressions;
-do not claim a technique is better from one attractive output.
+The [notebook](05_prompt_patterns_and_technique_selection.ipynb) demonstrates the
+empirical process of technique selection using an entity extraction scenario. It establishes
+a Zero-Shot baseline, measures a specific failure mode (conversational filler), applies
+a System Instruction to fix it, and then measures the delta. It then observes a second boundary
+failure and introduces a Few-Shot example to address it, proving the value of incremental
+technique application over blindly applying all patterns at once.
+
+## Technology landscape and state of the art
+
+**Foundational:** Measuring failures against a frozen evaluation suite before applying any prompt engineering technique.
+
+**Current State of the Art:**
+1. **Automated Optimization (DSPy):** The field is moving away from manual "prompt hacking" toward automated compilation. Frameworks like DSPy treat the prompt as a program, using optimizers to automatically select the best combination of instructions and few-shot examples to maximize a defined metric over a training set.
+2. **Evaluation-Driven Development:** Teams now spend more time building robust evaluation datasets (using tools like LangSmith or Braintrust) than writing prompts. A technique is only accepted if the CI/CD pipeline shows a statistically significant improvement on the eval set without regressions.
+3. **Compound AI Systems:** Moving from single large prompts to graphs of smaller, specialized calls (e.g., using LangGraph or custom routing). Each node in the graph uses only the minimal techniques required for its specific sub-task.
 
 ## Production considerations and exercises
 
-Version the problem statement, technique choice, evaluation cases, and rollback
-decision together. Tools require application authorization; retrieval requires
-source and tenant controls; agent-like planning needs budgets and stop
-conditions. Exercises: classify ten failures, justify a deterministic
-alternative, and design an evaluation that would disprove your choice.
+Version the problem statement, technique choice, evaluation cases, and rollback decision together. Tools require application authorization; retrieval requires source and tenant controls; agent-like planning needs budgets and stop conditions. Exercises: classify ten failures, justify a deterministic alternative, and design an evaluation that would disprove your choice.
 
 ## References
 
