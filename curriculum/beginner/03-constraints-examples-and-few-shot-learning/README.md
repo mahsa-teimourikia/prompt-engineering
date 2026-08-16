@@ -26,15 +26,7 @@ defined safe outcome and measurable labels before examples are introduced.
 
 ## Mental model
 
-```mermaid
-flowchart LR
-  F[Observed failure] --> H[Hypothesis about a boundary]
-  H --> S[Select small example set]
-  S --> P[Prompt packet]
-  P --> E[Frozen evaluation suite]
-  E -->|improves without regression| V[Version examples]
-  E -->|no gain or regression| R[Remove or revise]
-```
+![Mental Model Diagram](./diagram-1.svg)
 
 Examples are context. They influence the conditional generation alongside the
 instruction and user request; they are neither training data nor a substitute
@@ -62,11 +54,11 @@ request time using semantic similarity, metadata, or a diversity objective.
 It can improve relevance, but also risks selecting near-duplicates, leaking
 sensitive content, or reinforcing a misleading historical pattern.
 
-The lab compares no examples, static examples, seeded random examples,
-similarity-selected examples, and diversity-selected examples. Its transparent
-word-overlap selector teaches the mechanism. In production, retrieve only
-approved, non-sensitive, versioned examples and evaluate selection separately
-from answer generation.
+The [notebook](03_constraints_examples_few_shot.ipynb) compares zero-shot (no examples), static examples,
+seeded random examples, and similarity-selected examples using a real embedding model (`text-embedding-004`).
+It calculates both accuracy and context token cost to demonstrate the trade-offs of few-shot learning.
+In production, retrieve only approved, non-sensitive, versioned examples and evaluate selection
+separately from answer generation.
 
 ## Worked example
 
@@ -87,13 +79,15 @@ declare a final improvement; use development and held-out sets.
 ## Technology and production considerations
 
 **Foundational:** clear instructions, compact boundary examples, and frozen
-evaluation cases. **Practical:** versioned example stores, metadata filtering,
-embedding retrieval, diversity/reranking, and context-budget enforcement.
-**Model-dependent:** blanket large few-shot blocks or ritualistic example
-ordering. **Emerging:** learned example/context policies. Production systems
-must apply tenant/permission filtering before retrieval, log non-sensitive
-example identifiers, cache safe selections where appropriate, and roll back a
-bad example set with the rest of the behavior artifact.
+evaluation cases.
+
+**Current State of the Art:**
+1. **Semantic Selection:** Vector databases and embedding models (like `text-embedding-004`) are standard for matching user queries to relevant few-shot examples dynamically, overcoming the context limit bottleneck.
+2. **DSPy and Automated Few-Shot Optimization:** The field is shifting from manual example curation to automated compilation. Frameworks like DSPy use a "teleprompter" to automatically select the optimal combination of examples from a training set to maximize a metric.
+3. **Context Budgeting and Reranking:** Because examples consume context window space and increase latency/cost, state-of-the-art systems use cross-encoders to rerank retrieved examples and strictly limit the few-shot context budget.
+4. **Agentic Workflows:** Multi-stage reasoning flows often use different few-shot examples for different stages (e.g., planning examples vs. execution examples).
+
+**Model-dependent:** blanket large few-shot blocks or ritualistic example ordering are less necessary with large-context models, but targeted negative and boundary examples remain critical for shaping behavior. Production systems must apply tenant/permission filtering before retrieval, log non-sensitive example identifiers, cache safe selections where appropriate, and roll back a bad example set with the rest of the behavior artifact.
 
 ## When to use / when not to use
 
