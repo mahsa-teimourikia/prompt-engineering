@@ -18,7 +18,7 @@ Northstar analyzes a refund document. A single broad request can leap from text
 to approval. The workflow extracts an order identifier, checks policy evidence,
 and drafts for review.
 
-    document → extract typed facts → retrieve/check evidence → draft or clarify
+![Mental Model Diagram](./diagram-1.svg)
 
 Each stage has an input contract, output contract, bounded retry policy, and
 terminal condition. Authorization remains outside the workflow.
@@ -31,16 +31,24 @@ failure isolation, calls, token use, latency, and cost. Use parallelism only
 when stages are independent; use an evaluator only if it improves a measured
 failure slice.
 
-The [notebook](task_decomposition_and_workflow_prompting.ipynb) compares the
-same document through a one-request baseline and an observable workflow.
-[lab.py](lab.py) exposes the stage trace.
+The [notebook](07_task_decomposition_and_workflow_prompting.ipynb) demonstrates
+the danger of a "Do Everything" prompt, where the model is asked to read a document,
+evaluate policy, and draft a response all at once. It then builds a sequential workflow
+using Pydantic to extract facts, a deterministic Python function to check the mock database,
+and a final LLM call to draft the response.
+
+## Technology landscape and state of the art
+
+**Foundational:** Building pipelines where LLM outputs are cast into strict types before being passed to deterministic systems or other LLMs.
+
+**Current State of the Art:**
+1. **Deterministic Workflows (LangGraph/State Machines):** The industry has realized that not everything needs an autonomous agent. When the sequence of steps is known (e.g., Extract -> Check DB -> Draft), state-of-the-art systems use orchestrators like LangGraph to define a rigid graph where nodes are LLM calls or Python functions, and edges are deterministic. This guarantees predictability.
+2. **Autonomous Agents:** Agents should be reserved for scenarios where the *route is unpredictable*. If an LLM is allowed to decide which tool to call and when to finish, that is an Agent. If the route is fixed, it is a Workflow.
+3. **Pydantic as the Glue:** Pydantic models are the standard contract between workflow stages. An LLM's output is parsed into a Pydantic object, which serves as the strongly-typed input to the next node in the graph.
 
 ## Failure modes and production
 
-Avoid hidden state, untyped handoffs, unbounded retries, and workflows that
-perform effects directly. Record stage versions and traces, validate each
-boundary, make effects idempotent, and stop when evidence is absent. A workflow
-should be simpler than an agent when the route is predictable.
+Avoid hidden state, untyped handoffs, unbounded retries, and workflows that perform effects directly. Record stage versions and traces, validate each boundary, make effects idempotent, and stop when evidence is absent. A workflow should be simpler than an agent when the route is predictable.
 
 ## Exercises
 
