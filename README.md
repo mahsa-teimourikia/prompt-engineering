@@ -38,16 +38,23 @@ The course distinguishes **foundational** practices (clear task contracts, schem
 
 ## Run locally
 
+This project uses **`uv`** for lightning-fast dependency management. Ensure you have `uv` installed (`pip install uv` or via your system package manager).
+
 ```bash
 git clone https://github.com/mahsa-teimourikia/prompt-engineering.git
 cd prompt-engineering
-python -m venv .venv
-source .venv/bin/activate  # Windows: .venv\\Scripts\\activate
-pip install -r requirements.txt
+
+# Create the virtual environment and install dependencies via uv
+make setup
+
+# Activate the virtual environment
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+
+# Start Jupyter Lab
 jupyter lab
 ```
 
-Run the self-contained notebooks with `make notebooks`, or run `pytest` to validate notebook coverage and quiz data. Provider calls are optional and deliberately absent from the default execution path.
+Run the self-contained notebooks with `make notebooks`, or run `make test` to validate notebook coverage and quiz data. Provider calls are optional and deliberately absent from the default execution path.
 
 ## Canonical course navigation
 
