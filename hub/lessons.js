@@ -8,7 +8,7 @@ export const lessons = [
     "summary": "Understand the fundamental structure of a prompt payload.",
     "outcome": "Deconstruct prompts into System Instructions, Context, and User Input, and diagnose stateless failures.",
     "material": "curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md",
-    "notebook": "curriculum/beginner/01-llm-behavior-and-prompt-anatomy/llm_behavior_and_prompt_anatomy.ipynb",
+    "notebook": "curriculum/beginner/01-llm-behavior-and-prompt-anatomy/01_llm_behavior_and_prompt_anatomy.ipynb",
     "refs": [
       {
         "title": "Google GenAI SDK",
@@ -25,7 +25,7 @@ export const lessons = [
     "summary": "Move from polite requests to rigid engineering contracts.",
     "outcome": "Define exact inputs, constraints, and fallback paths to eliminate ambiguity.",
     "material": "curriculum/beginner/02-instruction-contracts/README.md",
-    "notebook": "curriculum/beginner/02-instruction-contracts/instruction_contracts.ipynb",
+    "notebook": "curriculum/beginner/02-instruction-contracts/02_instruction_contracts.ipynb",
     "refs": [
       {
         "title": "Pydantic Schemas",
@@ -42,7 +42,7 @@ export const lessons = [
     "summary": "Guide models using demonstration rather than just description.",
     "outcome": "Implement strict Few-Shot examples to anchor tone, schema, and boundary behavior.",
     "material": "curriculum/beginner/03-constraints-examples-and-few-shot-learning/README.md",
-    "notebook": "curriculum/beginner/03-constraints-examples-and-few-shot-learning/constraints_examples_and_few_shot_learning.ipynb",
+    "notebook": "curriculum/beginner/03-constraints-examples-and-few-shot-learning/03_constraints_examples_few_shot.ipynb",
     "refs": []
   },
   {
@@ -54,7 +54,7 @@ export const lessons = [
     "summary": "Force LLMs to return parseable data structures.",
     "outcome": "Use native JSON mode and strict schemas to guarantee application-readable output.",
     "material": "curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md",
-    "notebook": "curriculum/beginner/04-structured-outputs-and-typed-interfaces/structured_outputs_and_typed_interfaces.ipynb",
+    "notebook": "curriculum/beginner/04-structured-outputs-and-typed-interfaces/04_structured_outputs_and_typed_interfaces.ipynb",
     "refs": []
   },
   {
@@ -66,7 +66,7 @@ export const lessons = [
     "summary": "Map specific failures to specific prompt techniques.",
     "outcome": "Avoid pattern bloat by selecting only the techniques required to fix a measured failure.",
     "material": "curriculum/beginner/05-prompt-patterns-and-technique-selection/README.md",
-    "notebook": "curriculum/beginner/05-prompt-patterns-and-technique-selection/prompt_patterns_and_technique_selection.ipynb",
+    "notebook": "curriculum/beginner/05-prompt-patterns-and-technique-selection/05_prompt_patterns_and_technique_selection.ipynb",
     "refs": []
   },
   {
@@ -78,7 +78,7 @@ export const lessons = [
     "summary": "Trade latency for accuracy using Chain-of-Thought.",
     "outcome": "Force the model to emit intermediate reasoning tokens before generating a final answer.",
     "material": "curriculum/intermediate/06-reasoning-oriented-prompting/README.md",
-    "notebook": "curriculum/intermediate/06-reasoning-oriented-prompting/reasoning_oriented_prompting.ipynb",
+    "notebook": "curriculum/intermediate/06-reasoning-oriented-prompting/06_reasoning_oriented_prompting.ipynb",
     "refs": [
       {
         "title": "O1 Native Reasoning",
@@ -95,7 +95,7 @@ export const lessons = [
     "summary": "Break massive prompts into narrow, specialized pipelines.",
     "outcome": "Orchestrate state machines to prevent compounding errors in complex tasks.",
     "material": "curriculum/intermediate/07-task-decomposition-and-workflow-prompting/README.md",
-    "notebook": "curriculum/intermediate/07-task-decomposition-and-workflow-prompting/task_decomposition_and_workflow_prompting.ipynb",
+    "notebook": "curriculum/intermediate/07-task-decomposition-and-workflow-prompting/07_task_decomposition_and_workflow_prompting.ipynb",
     "refs": [
       {
         "title": "LangGraph",
@@ -112,7 +112,7 @@ export const lessons = [
     "summary": "Safely inject background data into the prompt context.",
     "outcome": "Use XML delimiters and pruning strategies to manage massive context windows.",
     "material": "curriculum/intermediate/08-context-engineering/README.md",
-    "notebook": "curriculum/intermediate/08-context-engineering/context_engineering.ipynb",
+    "notebook": "curriculum/intermediate/08-context-engineering/08_context_engineering.ipynb",
     "refs": [
       {
         "title": "Anthropic Context Engineering",
@@ -129,7 +129,7 @@ export const lessons = [
     "summary": "Manage state across multi-turn chat sessions.",
     "outcome": "Implement sliding windows and background summarization to prevent context collapse.",
     "material": "curriculum/intermediate/09-conversation-and-long-context-engineering/README.md",
-    "notebook": "curriculum/intermediate/09-conversation-and-long-context-engineering/conversation_and_long_context_engineering.ipynb",
+    "notebook": "curriculum/intermediate/09-conversation-and-long-context-engineering/09_conversation_and_long_context_engineering.ipynb",
     "refs": []
   },
   {
@@ -141,7 +141,7 @@ export const lessons = [
     "summary": "Ground answers in private database retrieval.",
     "outcome": "Design strict citation contracts that force the model to hallucinate less and say 'I don't know' more.",
     "material": "curriculum/intermediate/10-evidence-grounded-prompting-and-rag-interfaces/README.md",
-    "notebook": "curriculum/intermediate/10-evidence-grounded-prompting-and-rag-interfaces/evidence_grounded_prompting_and_rag_interfaces.ipynb",
+    "notebook": "curriculum/intermediate/10-evidence-grounded-prompting-and-rag-interfaces/10_evidence_grounded_prompting_and_rag_interfaces.ipynb",
     "refs": [
       {
         "title": "LlamaIndex",
@@ -158,7 +158,7 @@ export const lessons = [
     "summary": "Give models the ability to execute external code.",
     "outcome": "Design clear function schemas and secure application-side execution loops.",
     "material": "curriculum/intermediate/11-tool-calling-and-tool-interface-design/README.md",
-    "notebook": "curriculum/intermediate/11-tool-calling-and-tool-interface-design/tool_calling_and_tool_interface_design.ipynb",
+    "notebook": "curriculum/intermediate/11-tool-calling-and-tool-interface-design/11_tool_calling_and_tool_interface_design.ipynb",
     "refs": []
   },
   {
@@ -170,7 +170,7 @@ export const lessons = [
     "summary": "Interleave images, video, and audio directly into the prompt.",
     "outcome": "Use text anchors to ground the model's spatial and temporal reasoning over media.",
     "material": "curriculum/intermediate/12-multimodal-prompt-engineering/README.md",
-    "notebook": "curriculum/intermediate/12-multimodal-prompt-engineering/multimodal_prompt_engineering.ipynb",
+    "notebook": "curriculum/intermediate/12-multimodal-prompt-engineering/12_multimodal_prompt_engineering.ipynb",
     "refs": []
   },
   {
@@ -182,7 +182,7 @@ export const lessons = [
     "summary": "Defend against prompt injection and context poisoning.",
     "outcome": "Isolate untrusted data using strict delimiters and outbound schema enforcement.",
     "material": "curriculum/intermediate/13-prompt-security-and-untrusted-content/README.md",
-    "notebook": "curriculum/intermediate/13-prompt-security-and-untrusted-content/prompt_security_and_untrusted_content.ipynb",
+    "notebook": "curriculum/intermediate/13-prompt-security-and-untrusted-content/13_prompt_security_and_untrusted_content.ipynb",
     "refs": [
       {
         "title": "OWASP Injection Cheat Sheet",
@@ -199,7 +199,7 @@ export const lessons = [
     "summary": "Replace vibe checks with automated, deterministic regression testing.",
     "outcome": "Build massive Golden Datasets to mathematically prove prompt efficacy.",
     "material": "curriculum/advanced/14-prompt-evaluation/README.md",
-    "notebook": "curriculum/advanced/14-prompt-evaluation/prompt_evaluation.ipynb",
+    "notebook": "curriculum/advanced/14-prompt-evaluation/14_prompt_evaluation.ipynb",
     "refs": [
       {
         "title": "DeepEval",
@@ -216,7 +216,7 @@ export const lessons = [
     "summary": "Use models to grade other models.",
     "outcome": "Design strict rubrics and calibrate LLM judges against human-expert baselines.",
     "material": "curriculum/advanced/15-llm-as-a-judge-and-human-evaluation/README.md",
-    "notebook": "curriculum/advanced/15-llm-as-a-judge-and-human-evaluation/llm_as_a_judge_and_human_evaluation.ipynb",
+    "notebook": "curriculum/advanced/15-llm-as-a-judge-and-human-evaluation/15_llm_as_a_judge_and_human_evaluation.ipynb",
     "refs": []
   },
   {
@@ -228,7 +228,7 @@ export const lessons = [
     "summary": "Treat prompt engineering as a gradient descent problem.",
     "outcome": "Iteratively tune prompts based solely on automated evaluation metrics.",
     "material": "curriculum/advanced/16-evaluation-driven-prompt-optimization/README.md",
-    "notebook": "curriculum/advanced/16-evaluation-driven-prompt-optimization/evaluation_driven_prompt_optimization.ipynb",
+    "notebook": "curriculum/advanced/16-evaluation-driven-prompt-optimization/16_evaluation_driven_prompt_optimization.ipynb",
     "refs": []
   },
   {
@@ -240,7 +240,7 @@ export const lessons = [
     "summary": "Automate prompt generation entirely.",
     "outcome": "Use frameworks like DSPy to compile and optimize prompt strings algorithmically.",
     "material": "curriculum/advanced/17-automatic-prompt-optimization-and-dspy/README.md",
-    "notebook": "curriculum/advanced/17-automatic-prompt-optimization-and-dspy/automatic_prompt_optimization_and_dspy.ipynb",
+    "notebook": "curriculum/advanced/17-automatic-prompt-optimization-and-dspy/17_automatic_prompt_optimization_and_dspy.ipynb",
     "refs": [
       {
         "title": "DSPy Documentation",
@@ -257,7 +257,7 @@ export const lessons = [
     "summary": "Design autonomous loops that plan, reflect, and act.",
     "outcome": "Define explicit personas and constraints to govern multi-agent collaboration.",
     "material": "curriculum/advanced/18-agent-and-multi-agent-prompt-contracts/README.md",
-    "notebook": "curriculum/advanced/18-agent-and-multi-agent-prompt-contracts/agent_and_multi_agent_prompt_contracts.ipynb",
+    "notebook": "curriculum/advanced/18-agent-and-multi-agent-prompt-contracts/18_agent_and_multi_agent_prompt_contracts.ipynb",
     "refs": [
       {
         "title": "CrewAI",
@@ -274,7 +274,7 @@ export const lessons = [
     "summary": "Optimize prompts for code generation and software architecture.",
     "outcome": "Use strict test-driven development constraints to prevent syntactic hallucinations.",
     "material": "curriculum/advanced/19-prompting-for-coding-agents/README.md",
-    "notebook": "curriculum/advanced/19-prompting-for-coding-agents/prompting_for_coding_agents.ipynb",
+    "notebook": "curriculum/advanced/19-prompting-for-coding-agents/19_prompting_for_coding_agents.ipynb",
     "refs": []
   },
   {
@@ -286,7 +286,7 @@ export const lessons = [
     "summary": "Understand the differing inductive biases of foundational models.",
     "outcome": "Tailor prompts specifically for the quirks of Claude, GPT, or Gemini.",
     "material": "curriculum/advanced/20-model-aware-prompt-engineering/README.md",
-    "notebook": "curriculum/advanced/20-model-aware-prompt-engineering/model_aware_prompt_engineering.ipynb",
+    "notebook": "curriculum/advanced/20-model-aware-prompt-engineering/20_model_aware_prompt_engineering.ipynb",
     "refs": []
   },
   {
@@ -298,7 +298,7 @@ export const lessons = [
     "summary": "Optimize the financial and temporal costs of prompts.",
     "outcome": "Implement Context Caching and token pruning strategies at scale.",
     "material": "curriculum/advanced/21-cost-latency-and-token-engineering/README.md",
-    "notebook": "curriculum/advanced/21-cost-latency-and-token-engineering/cost_latency_and_token_engineering.ipynb",
+    "notebook": "curriculum/advanced/21-cost-latency-and-token-engineering/21_cost_latency_and_token_engineering.ipynb",
     "refs": []
   },
   {
@@ -310,7 +310,7 @@ export const lessons = [
     "summary": "Integrate prompt engineering into traditional CI/CD pipelines.",
     "outcome": "Block prompt deployments automatically if regression tests fail.",
     "material": "curriculum/enterprise/22-promptops/README.md",
-    "notebook": "curriculum/enterprise/22-promptops/promptops.ipynb",
+    "notebook": "curriculum/enterprise/22-promptops/22_promptops.ipynb",
     "refs": [
       {
         "title": "PromptLayer",
@@ -327,7 +327,7 @@ export const lessons = [
     "summary": "Implement distributed tracing for multi-step LLM workflows.",
     "outcome": "Capture inputs, outputs, and token costs at every node to diagnose silent failures.",
     "material": "curriculum/enterprise/23-prompt-observability-and-failure-diagnosis/README.md",
-    "notebook": "curriculum/enterprise/23-prompt-observability-and-failure-diagnosis/prompt_observability_and_failure_diagnosis.ipynb",
+    "notebook": "curriculum/enterprise/23-prompt-observability-and-failure-diagnosis/23_prompt_observability_and_failure_diagnosis.ipynb",
     "refs": [
       {
         "title": "LangSmith",
@@ -344,7 +344,7 @@ export const lessons = [
     "summary": "Execute shadow deployments and A/B tests in production.",
     "outcome": "Gradually shift traffic to new prompt versions without risking catastrophic failure.",
     "material": "curriculum/enterprise/24-prompt-versioning-experimentation-and-release-engineering/README.md",
-    "notebook": "curriculum/enterprise/24-prompt-versioning-experimentation-and-release-engineering/prompt_versioning_experimentation_and_release_engineering.ipynb",
+    "notebook": "curriculum/enterprise/24-prompt-versioning-experimentation-and-release-engineering/24_prompt_versioning_experimentation_and_release_engineering.ipynb",
     "refs": []
   },
   {
@@ -356,7 +356,7 @@ export const lessons = [
     "summary": "Automatically redact PII and enforce toxic content guardrails.",
     "outcome": "Align prompt engineering with strict corporate and legal compliance policies.",
     "material": "curriculum/enterprise/25-prompt-governance-and-responsible-ai/README.md",
-    "notebook": "curriculum/enterprise/25-prompt-governance-and-responsible-ai/prompt_governance_and_responsible_ai.ipynb",
+    "notebook": "curriculum/enterprise/25-prompt-governance-and-responsible-ai/25_prompt_governance_and_responsible_ai.ipynb",
     "refs": [
       {
         "title": "Microsoft Presidio",
@@ -373,7 +373,7 @@ export const lessons = [
     "summary": "Design UI friction for high-stakes AI decisions.",
     "outcome": "Counteract automation bias by explicitly signaling model uncertainty to the user.",
     "material": "curriculum/enterprise/26-human-centred-ai-and-trust-calibration/README.md",
-    "notebook": "curriculum/enterprise/26-human-centred-ai-and-trust-calibration/human_centred_ai_and_trust_calibration.ipynb",
+    "notebook": "curriculum/enterprise/26-human-centred-ai-and-trust-calibration/26_human_centred_ai_and_trust_calibration.ipynb",
     "refs": []
   },
   {
@@ -385,7 +385,7 @@ export const lessons = [
     "summary": "Abstract model-specific APIs behind unified contract layers.",
     "outcome": "Build resilient systems that automatically failover to backup providers.",
     "material": "curriculum/enterprise/27-prompt-portability-and-multi-model-systems/README.md",
-    "notebook": "curriculum/enterprise/27-prompt-portability-and-multi-model-systems/prompt_portability_and_multi_model_systems.ipynb",
+    "notebook": "curriculum/enterprise/27-prompt-portability-and-multi-model-systems/27_prompt_portability_and_multi_model_systems.ipynb",
     "refs": [
       {
         "title": "LiteLLM",
@@ -402,7 +402,7 @@ export const lessons = [
     "summary": "Map strict business constraints to the appropriate AI architecture.",
     "outcome": "Minimize complexity: choose simple prompts over sprawling agents whenever possible.",
     "material": "curriculum/enterprise/28-prompt-architecture-patterns-and-system-selection/README.md",
-    "notebook": "curriculum/enterprise/28-prompt-architecture-patterns-and-system-selection/prompt_architecture_patterns_and_system_selection.ipynb",
+    "notebook": "curriculum/enterprise/28-prompt-architecture-patterns-and-system-selection/28_prompt_architecture_patterns_and_system_selection.ipynb",
     "refs": []
   },
   {
@@ -416,24 +416,24 @@ export const lessons = [
     "material": "curriculum/enterprise/29-ai-system-engineering-capstone/README.md",
     "notebook": [
       {
-        "title": "Milestone 1: Router",
-        "path": "curriculum/enterprise/29-ai-system-engineering-capstone/01_routing_and_intent_classification.ipynb"
+        "title": "01 Milestone Foundation",
+        "path": "curriculum/capstone/01_milestone_foundation.ipynb"
       },
       {
-        "title": "Milestone 2: RAG",
-        "path": "curriculum/enterprise/29-ai-system-engineering-capstone/02_retrieval_augmented_generation.ipynb"
+        "title": "02 Milestone Rag And Tools",
+        "path": "curriculum/capstone/02_milestone_rag_and_tools.ipynb"
       },
       {
-        "title": "Milestone 3: Tools",
-        "path": "curriculum/enterprise/29-ai-system-engineering-capstone/03_tool_calling_and_execution.ipynb"
+        "title": "03 Milestone Routing And Security",
+        "path": "curriculum/capstone/03_milestone_routing_and_security.ipynb"
       },
       {
-        "title": "Milestone 4: Eval",
-        "path": "curriculum/enterprise/29-ai-system-engineering-capstone/04_evaluation_and_optimization.ipynb"
+        "title": "04 Milestone Portability",
+        "path": "curriculum/capstone/04_milestone_portability.ipynb"
       },
       {
-        "title": "Milestone 5: Deploy",
-        "path": "curriculum/enterprise/29-ai-system-engineering-capstone/05_deployment_and_governance.ipynb"
+        "title": "05 Milestone Production Release",
+        "path": "curriculum/capstone/05_milestone_production_release.ipynb"
       }
     ],
     "refs": []
