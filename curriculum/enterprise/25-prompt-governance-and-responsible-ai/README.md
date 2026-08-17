@@ -1,25 +1,34 @@
 # 25 — Prompt Governance and Responsible AI
 
-## Learning objectives
+## Learning Objectives
+- **Implement Data Redaction:** Automatically scrub PII, PHI, and PCI data from prompts before they leave your network.
+- **Enforce Output Guardrails:** Block models from generating toxic, biased, or highly restricted content.
+- **Understand Compliance Constraints:** Align prompt engineering practices with GDPR, HIPAA, and emerging AI regulations.
+- **Audit Model Lineage:** Maintain a strict ledger of which models and prompts were used to make high-stakes decisions.
 
-Create a behavior-artifact inventory, assign ownership and risk, define
-evaluation/review requirements, and connect prompt governance to broader AI
-governance rather than treating it as prompt-text approval alone.
+## Core Concepts & Workflow
+
+As AI moves from internal tools to user-facing applications, Governance and Responsible AI become paramount. Sending a user's Social Security Number to a third-party LLM API is a catastrophic breach of compliance (e.g., HIPAA, GDPR, PCI). Similarly, allowing a customer-facing chatbot to generate toxic language or hallucinate legal advice creates massive liability.
+
+Enterprise governance requires an impenetrable layer between the application and the LLM. This involves Inbound Guardrails (redacting sensitive data before it hits the API) and Outbound Guardrails (scanning the model's response for toxicity, bias, or restricted topics before showing it to the user).
 
 ![Governance Workflow](./diagram-1.svg)
 
-## Technology landscape and state of the art
+## Technology Landscape and State of the Art
 
-**Foundational:** Treating all prompts equally, where a prompt summarizing internal emails receives the same level of scrutiny as a prompt giving medical advice to patients.
-**Current State of the Art:** 
-1. **NIST AI Risk Management Framework:** Enterprise AI governance is increasingly guided by frameworks like the NIST AI RMF, which mandates that AI systems (and the prompts that control them) be classified into Risk Tiers (e.g., Low, Medium, High, Unacceptable).
-2. **Model/System Cards for Prompts:** Just as foundational models have "Model Cards" detailing their capabilities and risks, enterprise prompts must be accompanied by a `GovernanceManifest` declaring data classification, expected PII, and the designated human owner.
-3. **SDK Safety Overrides:** Governance isn't just bureaucratic; it's technical. Modern SDKs (like Google GenAI) allow developers to enforce Responsible AI policies directly at runtime via strict `safety_settings` (e.g., explicitly blocking Harassment or Hate Speech probabilities).
+**Foundational:** Trusting the model provider's built-in "safety filters" to handle all compliance and toxicity requirements.
 
-## Lab and production
+**Current State of the Art:**
+1. **PII Redaction Engines:** Tools like **[Microsoft Presidio](https://microsoft.github.io/presidio/)** or **Google Cloud DLP** are used to scan outbound prompts, detect PII/PHI (like names, SSNs, medical data), and replace them with synthetic tokens (e.g., `[REDACTED_NAME]`) before the data is sent to the LLM.
+2. **Enterprise Guardrails:** Frameworks like **[NeMo Guardrails](https://github.com/NVIDIA/NeMo-Guardrails)** or **Lakera** enforce strict topic boundaries. If a user asks a banking bot about politics, the guardrail intercepts the request and blocks it before it ever reaches the expensive LLM.
+3. **Data Residency and Sovereign Cloud:** SOTA governance often dictates that specific workloads cannot leave a geographic region. Prompt routing layers automatically ensure EU user requests are only routed to EU-hosted model endpoints.
 
-The [notebook](25_prompt_governance_and_responsible_ai.ipynb) demonstrates a Risk-Tiered Governance Gate. It forces developers to attach a `GovernanceManifest` to their prompt. If the prompt is marked `LOW` risk, it can be deployed via automated checks. If it is `HIGH` risk, the deployment is blocked until an explicit `human_review_board_approval` flag is provided. The notebook also demonstrates translating governance policies into technical realities by using the Google GenAI SDK's `safety_settings` to block harmful content. Production adds data classification, model/tool dependencies, audit trails, retirement, incident reporting, and risk-tiered release requirements.
+## Lab and Production
 
-## References
+### The Lab
+The [notebook](25_prompt_governance_and_responsible_ai.ipynb) demonstrates building a strict interception proxy. It shows how to use Regex and basic NLP to detect simulated PII in a user prompt, redact it, send the clean prompt to the LLM, and then reconstruct the output. It also implements an outbound safety check to block toxic responses.
 
-- [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework)
+### Production Best Practices
+- **Defense in Depth:** Do not rely solely on prompt instructions (e.g., "Do not reveal PII"). LLMs are easily jailbroken. Redaction must happen in deterministic code *before* the API call.
+- **Anonymization vs. Pseudonymization:** Understand the difference. Anonymization permanently destroys the link to the identity. Pseudonymization replaces the identity with a token (e.g., `USER_42`) so the LLM can reason about relationships, and the application can swap the real name back in later.
+- **Auditability:** For high-stakes decisions (e.g., loan approval summaries), you must log the exact prompt, the exact model version, and the safety checks that passed, retaining these records for regulatory audits.

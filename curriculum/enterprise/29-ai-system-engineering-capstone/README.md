@@ -1,44 +1,34 @@
 # 29 — AI System Engineering Capstone
 
-## Outcome
+## Learning Objectives
+- **Synthesize Curriculum Concepts:** Combine schemas, RAG, tool calling, and evaluation into a single, production-grade Compound AI System.
+- **Implement the "Northstar" Pattern:** Build an enterprise-grade support routing and resolution system from scratch.
+- **Enforce Safety and Governance:** Integrate strict PII redaction and outbound toxicity checks into the core workflow.
+- **Deploy with Confidence:** Ensure the final system is observable, measurable, and highly resilient to failure.
 
-Design, evaluate, release, and govern a cross-functional enterprise assistant.
-The capstone is not “write a good system prompt”; it is a measurable behavior
-system with a business outcome, contracts, evidence, tools, security, human
-approval, evaluation, optimization, observability, rollout, rollback, and an
-Architecture Decision Record.
+## Core Concepts & Workflow
 
-## Required deliverables
+This capstone is the culmination of the entire Prompt Engineering curriculum. It moves beyond isolated techniques and requires you to architect a complete, end-to-end "Compound AI System."
 
-1. business outcome and risk boundary;
-2. task, context, and output contracts;
-3. approved evidence and narrow tools;
-4. deterministic authorization and human approval;
-5. development, held-out, regression, and adversarial evaluations;
-6. baseline, measured improvement, and cost/latency decision;
-7. versioned behavior artifact, release gate, observability, rollout, and rollback;
-8. ADR explaining why simpler and more complex architectures were rejected.
+You will build "Project Northstar," an enterprise support copilot. It must safely intercept untrusted user input, classify the intent, redact sensitive information, route the query to the correct specialized agent, retrieve relevant policy documents (RAG), execute authorized database queries (Tool Calling), and output a structured response that adheres to strict business logic—all while being monitored by an automated evaluation suite.
 
-![Enterprise AI Engineering Lifecycle](./diagram-1.svg)
+![Capstone Architecture Workflow](./diagram-1.svg)
 
-## Technology landscape and state of the art
+## Technology Landscape and State of the Art
 
-**Foundational:** Hacking together a script with a hardcoded prompt, deploying it to production with no tests, and hoping the LLM doesn't hallucinate or break its formatting.
-**Current State of the Art:** 
-1. **Prompting as Software Engineering:** The industry has moved from "prompt engineering" (tweaking words to sound better) to "AI System Engineering" (building measurable behavior systems).
-2. **The Modern Stack:** A production-ready AI system today requires a rigorous stack:
-   - **Contracts:** Pydantic schemas enforce strict I/O boundaries.
-   - **Optimization:** Frameworks like DSPy systematically optimize prompts against datasets rather than relying on manual trial-and-error.
-   - **Architecture:** Deliberate Architecture Decision Records (ADRs) justify the use of LLMs vs simple code.
-   - **Validation:** Automated regression tests, adversarial red-teaming, and deterministic guardrails block bad outputs.
-   - **Observability:** OpenTelemetry traces record the full lifecycle of every token generated, allowing for immediate failure diagnosis.
+**Foundational:** Building a prototype in a Jupyter notebook that works for one specific "happy path" example.
 
-## Lab
+**Current State of the Art:**
+1. **Production-Grade Compound Systems:** Real-world AI engineering utilizes frameworks like **[LangGraph](https://langchain-ai.github.io/langgraph/)** to orchestrate the exact type of complex, multi-stage state machine built in this capstone.
+2. **Evaluation-First Development:** In SOTA enterprise environments, you write the evaluation suite (using **Promptfoo**, **DeepEval**, or **Ragas**) *before* you write the complex prompt pipelines, ensuring every iteration is mathematically grounded.
+3. **Comprehensive Observability:** The final system integrates with tracing platforms like **LangSmith** or **Phoenix by Arize** to ensure that when a complex multi-agent flow fails in production, the root cause can be isolated immediately.
 
-The [notebook](29_ai_system_engineering_capstone.ipynb) checks capstone readiness against all required enterprise components. We use Pydantic to enforce a strict `CapstoneProject` schema that requires the developer to explicitly document their Business Outcomes, Contracts, Architecture Decisions, Evaluation Metrics, and Observability Plans. A real project must attach actual evidence and test outputs to this schema rather than only filling fields.
+## Lab and Production
 
-## Final principle
+### The Capstone Implementation
+The `curriculum/Capstone/` directory contains the multi-milestone notebooks required to build this system. You will start with the foundational router, add RAG capabilities, integrate secure tool calling, and finally wrap the entire system in a rigid evaluation and governance harness. 
 
-Do not ask how to make a prompt sound better. Ask what behavior is needed, how
-it is measured, what caused a failure, and what smallest system change improves
-it safely.
+### Production Best Practices (Final Review)
+- **Prompt Engineering is Software Engineering:** Treat your prompts as code. Version them, test them, and deploy them through CI/CD.
+- **Trust Calibration:** Ensure your users understand the limitations of the system you built. Do not hide uncertainty behind confident UI design.
+- **Defense in Depth:** Assume the LLM will be compromised. Build deterministic walls around it to protect your data, your systems, and your users.

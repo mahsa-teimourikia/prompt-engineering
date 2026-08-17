@@ -1,24 +1,34 @@
 # 24 — Prompt Versioning, Experimentation, and Release Engineering
 
-## Learning objectives
+## Learning Objectives
+- **Execute Shadow Deployments:** Test new prompts against live production traffic without showing the results to the user.
+- **Run A/B Tests:** Statistically compare two prompt versions in production to measure actual business impact.
+- **Manage Phased Rollouts:** Gradually shift traffic to a new prompt version to monitor for edge-case regressions.
+- **Implement Hot-Swapping:** Change the active prompt version in production with zero downtime or code redeploys.
 
-Version behavior manifests, gate candidates on evaluation, run shadow/canary
-experiments, and roll back a release when observed error exceeds its threshold.
+## Core Concepts & Workflow
+
+Passing an offline regression suite is a requirement for deployment, but it is not a guarantee of production success. Users will interact with your system in ways your Golden Dataset never anticipated. 
+
+Enterprise release engineering minimizes this risk through phased deployments. Before a major prompt change goes live to 100% of users, it should be **Shadow Deployed** (the application executes both the old and new prompt, returns the old result to the user, but logs both for comparison) or **A/B Tested** (routing 10% of users to the new prompt and comparing business metrics like task completion rate). 
 
 ![Release Engineering Workflow](./diagram-1.svg)
 
-## Technology landscape and state of the art
+## Technology Landscape and State of the Art
 
-**Foundational:** "Pushing to prod" by replacing a prompt string and hoping it works, leading to catastrophic regressions.
-**Current State of the Art:** 
-1. **Shadow Testing:** Before a prompt ever sees live traffic, it is deployed as a "Shadow" prompt. It receives a mirror of 100% of production traffic asynchronously, but its outputs are not shown to the user. Engineers compare the shadow outputs to the production outputs to find regressions.
-2. **Canary Releases:** A new prompt is deployed to a small fraction of traffic (e.g., 5%). If the telemetry (latency, errors, thumbs-downs) remains stable, the traffic is gradually ramped up to 100%.
-3. **Automated Rollbacks:** If the Canary fails its evaluation gate (e.g., schema violations spike, or hallucination detectors fire), the system automatically aborts the rollout and routes 100% of traffic back to the stable v1.0 prompt.
+**Foundational:** Merging a PR and immediately pushing the new prompt to 100% of production traffic, hoping nothing breaks.
 
-## Lab and production
+**Current State of the Art:**
+1. **Feature Flagging for Prompts:** Enterprises use tools like **[LaunchDarkly](https://launchdarkly.com/)**, **Statsig**, or native features in LLM gateways (like **Braintrust** or **PromptLayer**) to decouple prompt deployment from code deployment. A new prompt can be turned on for 5% of users via a toggle.
+2. **Shadow Traffic Routing:** SOTA API gateways (e.g., **Cloudflare AI Gateway** or Envoy proxies) can duplicate inbound requests at the network layer, sending the copy to a new model or prompt version asynchronously to test scale and accuracy under real-world load.
+3. **Automated Canary Analysis:** Systems automatically monitor the error rates and token costs of the new prompt during a phased rollout. If anomalies are detected, the system automatically triggers a rollback to the stable version.
 
-The [notebook](24_prompt_versioning_experimentation_and_release_engineering.ipynb) simulates a Canary Release strategy using the Google GenAI SDK. It builds a traffic router that sends 90% of requests to a stable `v1.0` prompt and 10% to a `v1.1` candidate. When the candidate prompt begins failing its evaluation gate (e.g., due to a broken schema), the system detects the anomaly and automatically triggers a rollback to `v1.0`. Production adds Git history, registries, feature flags (like LaunchDarkly), audit logs, owner approval, telemetry, and a tested rollback target. Never edit production behavior in place.
+## Lab and Production
 
-## References
+### The Lab
+The [notebook](24_prompt_versioning_experimentation_and_release_engineering.ipynb) simulates a shadow deployment pipeline. It takes a stream of live requests, routes them to both a stable `v1` prompt and an experimental `v2` prompt, and logs the variance in outputs and token costs without exposing the `v2` results to the end-user.
 
-- [Git documentation](https://git-scm.com/doc)
+### Production Best Practices
+- **Decouple Deployments:** Never require a full Kubernetes or microservice restart just to change a prompt string or tweak a temperature setting. Fetch these configurations dynamically.
+- **Measure Business Metrics, Not Just LLM Metrics:** An A/B test shouldn't just measure if the LLM output was "better written." It must measure if the new prompt increased the actual business KPI (e.g., did more users successfully complete their purchase?).
+- **Beware State Conflicts:** If your new prompt outputs a completely different JSON schema than the old prompt, your downstream application code must be version-aware to handle both formats during an A/B test.

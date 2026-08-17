@@ -1,24 +1,34 @@
 # 27 — Prompt Portability and Multi-Model Systems
 
-## Learning objectives
+## Learning Objectives
+- **Avoid Vendor Lock-In:** Design systems that can easily swap foundational models (e.g., OpenAI to Google) without rewriting business logic.
+- **Implement Unified SDKs:** Abstract provider-specific API idiosyncrasies behind unified routing layers.
+- **Design Multi-Model Fallbacks:** Build resilient systems that automatically failover to a backup provider if the primary API experiences an outage.
+- **Standardize Contracts:** Use programmatic schemas to ensure inputs and outputs remain consistent regardless of the underlying LLM.
 
-Separate portable contracts from provider adaptations, detect features, compare
-fallbacks, and run a migration suite before changing models.
+## Core Concepts & Workflow
 
-![Multi-Model Router](./diagram-1.svg)
+Tying an enterprise application directly to a specific provider's API (e.g., hardcoding OpenAI's exact JSON structure) is a massive strategic risk. It creates vendor lock-in, prevents you from utilizing better/cheaper models when they are released by competitors, and makes your application vulnerable to single-provider outages.
 
-## Technology landscape and state of the art
+State-of-the-art architectures demand Prompt Portability. You must engineer your systems at the *Contract Layer*. By defining inputs and outputs via strict Pydantic schemas and using a unified proxy or SDK to translate those schemas into provider-specific API calls, you can hot-swap models instantly. If Provider A goes down, your code automatically routes the exact same Pydantic contract to Provider B.
 
-**Foundational:** Hardcoding OpenAI or Gemini API calls and specific prompt strings directly into application logic, resulting in complete vendor lock-in.
-**Current State of the Art:** 
-1. **Universal Contracts:** Pydantic JSON schemas are the universal language. The core application logic *only* speaks Pydantic. It knows nothing about prompts, APIs, or models.
-2. **Model Adapters:** Between the application and the provider API sits an "Adapter." The adapter takes the core intent, formats the prompt specifically for its target model (e.g., using XML tags for Claude, but JSON blocks for Gemini), and ensures the output matches the Pydantic contract.
-3. **Multi-Model Routing & Fallbacks:** Frameworks like LiteLLM or custom gateway routers automatically attempt primary models and instantly fall back to secondary models if rate limits are hit or schemas are violated, providing high availability.
+![Portability Workflow](./diagram-1.svg)
 
-## Lab and production
+## Technology Landscape and State of the Art
 
-The [notebook](27_prompt_portability_and_multi_model_systems.ipynb) demonstrates building a robust Multi-Model Router. We define a strict `FinancialSummary` Pydantic contract. The core application logic does not contain any prompts. Instead, we build a `GeminiAdapter` and a mock `FallbackAdapter` that translate the intent into model-specific prompts. Finally, we demonstrate a Fallback Strategy where the router automatically switches to the secondary model if the primary model fails validation. Production systems version adapters, use frameworks like LiteLLM for API abstraction, maintain per-model regression suites, and test structured output differences extensively.
+**Foundational:** Hardcoding `import openai` throughout the entire codebase and manually parsing specific response shapes.
 
-## References
+**Current State of the Art:**
+1. **Unified Proxies:** Tools like **[LiteLLM](https://github.com/BerriAI/litellm)** or **Portkey** act as universal translators. You write code using one standard API format, and the proxy translates it on the fly to Anthropic, Google, AWS Bedrock, or OpenAI.
+2. **Provider-Agnostic SDKs:** Libraries like **LangChain** or the unified **Google GenAI SDK** abstract the underlying API mechanics, allowing you to switch the `model_name` string without changing any downstream parsing logic.
+3. **Automated Fallbacks & Load Balancing:** Enterprise API gateways are configured to monitor the latency of Provider A. If it exceeds a 2-second threshold, the gateway automatically routes the prompt to Provider B, ensuring the end-user never experiences a timeout.
 
-- [OpenAI prompting guide](https://platform.openai.com/docs/guides/prompting)
+## Lab and Production
+
+### The Lab
+The [notebook](27_prompt_portability_and_multi_model_systems.ipynb) demonstrates true portability. It defines a complex extraction task and a rigid Pydantic schema, and then executes that exact same code block against two completely different model families (e.g., Gemini and a local open-weights model). It proves that the application code does not need to change when the model changes.
+
+### Production Best Practices
+- **Test Fallbacks Continuously:** A fallback model is useless if you haven't tested it. Run your automated evaluation suite against your fallback models weekly to ensure they still meet your minimum quality thresholds.
+- **Normalize Telemetry:** Different providers report token usage differently. Your unified proxy must normalize these metrics so your cost dashboards remain accurate regardless of which model served the request.
+- **Beware Capability Gaps:** Portability of *code* does not mean portability of *capability*. Just because a smaller open-source model accepts the same JSON schema doesn't mean it has the reasoning power to successfully fill it out.
