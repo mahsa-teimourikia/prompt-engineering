@@ -1,34 +1,36 @@
 # 11 — Tool Calling and Tool Interface Design
 
-## Learning objectives
+## Learning Objectives
+- **Understand Tool Mechanics:** Learn that models do not "call" APIs; they generate JSON payloads that the application executes.
+- **Design Tool Schemas:** Write clear, descriptive function signatures (tools) that the model can understand and select.
+- **Implement Execution Loops:** Build the application code that catches the tool call, executes the Python function, and returns the result to the model.
+- **Secure Tool Execution:** Recognize the extreme dangers of giving LLMs write-access to databases or execution environments.
 
-Design narrow tool schemas, evaluate selection and arguments, interpret tool
-results as untrusted data, and distinguish a model’s proposed call from
-application authorization.
+## Core Concepts & Workflow
 
-## Scenario and lab
+LLMs are trapped in a text box. They cannot query a live database, check the current weather, or send an email. Tool Calling (also known as Function Calling) provides an escape hatch.
 
-Northstar can read order status or draft a refund request. It cannot execute a
-refund.
+You provide the model with a list of available tools, defined as JSON schemas (e.g., `get_weather(location: string)`). When the user asks "What's the weather in Tokyo?", the model realizes it needs external data. Instead of generating a text response, it generates a structured `ToolCall` payload. 
 
-![Tool Calling Lifecycle](./diagram-1.svg)
+Crucially, the model *pauses*. It is the **Application's job** to catch that payload, actually execute the Python `get_weather` function, and append the `ToolResponse` back to the conversation history so the model can read it and generate a final human-readable answer.
 
-The [notebook](11_tool_calling_and_tool_interface_design.ipynb) demonstrates the full 
-manual execution loop of a tool call: defining a tool, receiving a tool call request 
-from the model, executing the tool locally, and returning the result to the model.
+![Tool Calling Workflow](./diagram-1.svg)
 
-## Technology landscape and state of the art
+## Technology Landscape and State of the Art
 
-**Foundational:** Tool Calling (or Function Calling) allows an LLM to request the execution of a deterministic function by outputting structured JSON arguments matching a predefined schema.
+**Foundational:** Trying to use regex to parse model text outputs like `Action: get_weather, Location: Tokyo`.
 
 **Current State of the Art:**
-1. **Pydantic Schemas:** Instead of writing raw JSON schemas to define tools, modern frameworks use Python type hints and Pydantic models. The SDK automatically translates these into the underlying JSON schema required by the API.
-2. **Automatic vs. Manual Execution:** SDKs like `google-genai` can automatically execute Python functions if provided. However, for production systems (especially those involving destructive actions like `execute_refund`), developers often opt for the *manual* execution loop to maintain a strict security boundary and handle authorization.
+1. **Native Function Calling:** Providers (like the **Google GenAI SDK** and OpenAI) have fine-tuned their models specifically for tool use. You pass Python functions directly to the SDK, and the API natively enforces the generation of exact JSON arguments.
+2. **Parallel Tool Calling:** SOTA models can realize they need multiple pieces of information at once and emit several tool calls in a single generation step (e.g., calling `get_weather("Tokyo")` and `get_weather("Kyoto")` simultaneously).
+3. **Agentic Frameworks:** Tools like **LangChain** and **Semantic Kernel** provide massive libraries of pre-built tools (web searchers, SQL executors, GitHub integrators) that can be immediately bound to an LLM.
 
-## Patterns and production
+## Lab and Production
 
-Use precise names, descriptions, enums, required fields, and narrow scopes. Measure selection accuracy, argument accuracy, unnecessary calls, tool errors, and recovery. Validate every result, re-authorize at effect time, keep tools least-privilege and idempotent, and never treat a tool description as access control.
+### The Lab
+The [notebook](11_tool_calling_and_tool_interface_design.ipynb) walks through the complete Tool Calling loop using the Google GenAI SDK. It defines a mock Python function, registers it as a tool with the model, simulates the model pausing to request the tool execution, and demonstrates the application returning the tool result for the final synthesis.
 
-## References
-
-- [OpenAI function calling guide](https://platform.openai.com/docs/guides/function-calling)
+### Production Best Practices
+- **Human-in-the-Loop for Writes:** Never give a model a tool that performs a destructive or irreversible action (like `drop_database` or `send_email`) without pausing the workflow to require explicit human approval (HITL).
+- **Idempotency:** LLMs will frequently hallucinate arguments, retry failed calls, or get stuck in loops calling the same tool. Tool execution must be safe to run multiple times (idempotent).
+- **Document the Schema:** The model relies on the `description` fields of your tool parameters. "get_user_id" is bad. "Looks up a user's ID based on their exact email address" is a good tool description.
