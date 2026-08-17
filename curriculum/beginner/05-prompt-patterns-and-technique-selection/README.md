@@ -1,62 +1,45 @@
 # 05 — Prompt Patterns and Technique Selection
 
-## Learning objectives
+## Learning Objectives
+- **Map Failures to Techniques:** Learn to identify a specific observed failure and select the *smallest* prompt technique required to address it.
+- **Avoid Pattern Bloat:** Understand the hidden costs (latency, tokens, unreliability) of applying every known prompt technique simultaneously.
+- **Measure Justification:** Define the exact metric that justifies the added architectural complexity of a new technique.
+- **Establish a Selection Hierarchy:** Master the progression from Direct Instructions -> Schemas -> Few-Shot -> Retrieval -> Agents.
 
-Identify an observed failure, select the smallest technique that addresses it,
-state when not to use that technique, and define the metric that would justify
-its added complexity.
+## Core Concepts & Workflow
 
-## Why this matters
+A technique catalog is useful reference material, not an architecture. Adding deep personas, massive few-shot examples, chain-of-thought reflection, RAG retrieval, and agentic tool-use to every single task creates massive token costs and completely obscures the root causes of failures.
 
-A technique catalog is useful reference material, not an architecture. Adding
-persona text, examples, reflection, retrieval, tools, and agents to every task
-creates cost and hides failure causes. Start with a measurable contract and add
-only the component that resolves a demonstrated gap.
-
-## Mental model
+Engineering is about minimizing complexity. You must start with the simplest possible approach (a measurable Instruction Contract). Only when that contract fails—and you can prove it fails against a frozen evaluation suite—do you introduce the next level of complexity to address that specific failure mode.
 
 ![Mental Model Diagram](./diagram-1.svg)
 
-## Pattern map
+## Pattern Map
 
-| Problem | First technique | Do not use it when |
+| Problem | First Technique | Do Not Use It When |
 | --- | --- | --- |
-| Unclear task | direct instruction and contract | evidence is missing |
-| Label boundary | contrastive examples | the direct contract already passes |
-| Unreliable interface | schema constraint | unstructured prose is required |
-| Missing current knowledge | retrieval context | source is untrusted or unauthorized |
-| Live bounded data | tool calling | deterministic code already has the data |
-| Complex subproblems | planner/verifier workflow | a simple workflow works |
+| Unclear task | Direct instruction & contract | Evidence is missing from the context |
+| Label boundary | Contrastive Few-Shot examples | The direct contract already passes |
+| Unreliable interface | Structured Output / Schema | Unstructured prose is explicitly required |
+| Missing knowledge | Retrieval (RAG) | The source is untrusted or unauthorized |
+| Live bounded data | Tool calling | Deterministic code already has the data |
+| Complex subproblems | Planner/Verifier workflow | A simple linear workflow suffices |
 
-Direct instructions, schemas, and validation are foundational. Few-shot
-boundaries, retrieval, and narrow tools are practical. Persona rituals, verbose
-reasoning requests, and elaborate reflection loops are model-dependent: test
-them, do not assume they help. Automatic optimization and learned context
-policies are emerging and require held-out evaluation.
+## Technology Landscape and State of the Art
 
-## Worked lab and evaluation
-
-The [notebook](05_prompt_patterns_and_technique_selection.ipynb) demonstrates the
-empirical process of technique selection using an entity extraction scenario. It establishes
-a Zero-Shot baseline, measures a specific failure mode (conversational filler), applies
-a System Instruction to fix it, and then measures the delta. It then observes a second boundary
-failure and introduces a Few-Shot example to address it, proving the value of incremental
-technique application over blindly applying all patterns at once.
-
-## Technology landscape and state of the art
-
-**Foundational:** Measuring failures against a frozen evaluation suite before applying any prompt engineering technique.
+**Foundational:** Blindly applying every technique from a blog post (e.g., "always use Chain of Thought") without measuring its impact.
 
 **Current State of the Art:**
-1. **Automated Optimization (DSPy):** The field is moving away from manual "prompt hacking" toward automated compilation. Frameworks like DSPy treat the prompt as a program, using optimizers to automatically select the best combination of instructions and few-shot examples to maximize a defined metric over a training set.
-2. **Evaluation-Driven Development:** Teams now spend more time building robust evaluation datasets (using tools like LangSmith or Braintrust) than writing prompts. A technique is only accepted if the CI/CD pipeline shows a statistically significant improvement on the eval set without regressions.
-3. **Compound AI Systems:** Moving from single large prompts to graphs of smaller, specialized calls (e.g., using LangGraph or custom routing). Each node in the graph uses only the minimal techniques required for its specific sub-task.
+1. **Automated Optimization:** The field is moving away from manual "prompt hacking" toward automated compilation. Frameworks like **[DSPy](https://github.com/stanfordnlp/dspy)** treat the prompt as a program, using optimizers to automatically select the best combination of instructions and few-shot examples to maximize a defined metric.
+2. **Evaluation-Driven Development:** Teams now spend more time building robust evaluation datasets (using tools like **LangSmith** or **Braintrust**) than writing prompts. A technique is only accepted if the CI/CD pipeline shows a statistically significant improvement on the eval set without regressions.
+3. **Compound AI Systems:** Moving from single large prompts to graphs of smaller, specialized calls (e.g., using **[LangGraph](https://langchain-ai.github.io/langgraph/)**). Each node in the graph uses only the minimal techniques required for its specific, narrow sub-task.
 
-## Production considerations and exercises
+## Lab and Production
 
-Version the problem statement, technique choice, evaluation cases, and rollback decision together. Tools require application authorization; retrieval requires source and tenant controls; agent-like planning needs budgets and stop conditions. Exercises: classify ten failures, justify a deterministic alternative, and design an evaluation that would disprove your choice.
+### The Lab
+The [notebook](05_prompt_patterns_and_technique_selection.ipynb) demonstrates the empirical process of technique selection. It establishes a Zero-Shot baseline, measures a specific failure mode (conversational filler), applies a System Instruction to fix it, and then measures the delta. It then observes a second boundary failure and introduces a targeted Few-Shot example to address it, proving the value of incremental technique application.
 
-## References
-
-- [The Prompt Report](https://arxiv.org/abs/2406.06608)
-- [ReAct](https://arxiv.org/abs/2210.03629)
+### Production Best Practices
+- **Complexity is a Liability:** Always default to the simplest architecture. (Code > Prompt > Schema > Few-Shot > RAG > Tools > Agents).
+- **Rollback Together:** Version the problem statement, the technique choice, the evaluation cases, and the prompt together. If a technique is rolled back, the evaluation expectations must roll back with it.
+- **Track Latency Costs:** Every technique (especially Chain-of-Thought or Agents) adds significant latency. Ensure the quality gain justifies the SLA hit.
