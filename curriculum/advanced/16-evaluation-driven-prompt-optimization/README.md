@@ -17,8 +17,8 @@ schema, retrieval, tool, model limitation, security boundary, or workflow.
 
 **Foundational:** Manual prompt engineering by tweaking words and testing on a few examples.
 **Current State of the Art:** 
-1. **Evaluation-Driven Optimization:** Changing prompts is treated like changing code. You make a hypothesis, change one variable, and run an automated evaluation suite to check for global regressions.
-2. **Automatic Prompt Optimization (APO):** Frameworks like DSPy are taking this a step further. Instead of humans tweaking the prompt, you define the evaluation metric and provide a dataset, and the framework uses an LLM to automatically generate, test, and optimize the prompt instructions until the metric is maximized.
+1. **Evaluation-Driven Optimization:** Changing prompts is treated like changing code. You make a hypothesis, change one variable, and run an automated evaluation suite to check for global regressions. Tools like **[PromptLayer](https://promptlayer.com/)** and **[Langfuse](https://langfuse.com/)** are used to track these iterations and trace evaluation scores back to specific prompt versions.
+2. **Automatic Prompt Optimization (APO):** Frameworks like **[DSPy](https://github.com/stanfordnlp/dspy)** are taking this a step further. Instead of humans tweaking the prompt, you define the evaluation metric and provide a dataset, and the framework uses an LLM to automatically generate, test, and optimize the prompt instructions until the metric is maximized.
 
 ## Lab and production
 

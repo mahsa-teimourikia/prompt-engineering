@@ -13,8 +13,8 @@ evaluation.
 **Foundational:** Believing "provider folklore" (e.g., adding "take a deep breath" to every prompt because Twitter said it works for GPT-4).
 **Current State of the Art:** 
 1. **Portable Contracts:** Prompts and schemas should be portable across foundational models. Engineering is done at the contract layer, not by hacking model-specific quirks.
-2. **Unified SDK Abstractions:** Frameworks like LiteLLM or the new Google GenAI SDK provide unified interfaces so you can evaluate the exact same prompt against different models.
-3. **Data-Driven Model Selection:** You choose between models (e.g., Flash vs. Pro) based on automated evaluation suites measuring correctness, latency, and cost on *your specific prompt contract*, rather than relying on generalized benchmarks.
+2. **Unified SDK Abstractions:** Frameworks like **[LiteLLM](https://github.com/BerriAI/litellm)** or the new Google GenAI SDK provide unified interfaces so you can evaluate the exact same prompt against different models.
+3. **Data-Driven Model Selection:** You choose between models (e.g., Flash vs. Pro) based on automated evaluation suites measuring correctness, latency, and cost on *your specific prompt contract*. General performance can be tracked on state-of-the-art leaderboards like the **[LMSYS Chatbot Arena](https://chat.lmsys.org/)**.
 
 ## Lab and production
 

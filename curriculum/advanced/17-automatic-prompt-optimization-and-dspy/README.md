@@ -12,8 +12,8 @@ optimization cost and portability are justified.
 
 **Foundational:** Manual prompt engineering (tweaking words by hand).
 **Current State of the Art:** 
-1. **Prompt Programming:** We are shifting from "Prompt Engineering" to "Prompt Programming." Instead of writing brittle English instructions, you write programmatic pipelines (e.g., using **DSPy**).
-2. **Automatic Prompt Optimization (APO):** You define a signature (Inputs -> Outputs), an Evaluation Metric, and a Dataset. A framework like DSPy compiles your program by having an "Optimizer LLM" automatically generate, test, and tweak the prompt instructions until the metric is maximized over your dataset.
+1. **Prompt Programming:** We are shifting from "Prompt Engineering" to "Prompt Programming." Instead of writing brittle English instructions, you write programmatic pipelines (e.g., using **[DSPy](https://github.com/stanfordnlp/dspy)** or **[AdalFlow](https://github.com/SylphAI-Inc/AdalFlow)**).
+2. **Automatic Prompt Optimization (APO):** You define a signature (Inputs -> Outputs), an Evaluation Metric, and a Dataset. A framework like DSPy compiles your program by having an "Optimizer LLM" automatically generate, test, and tweak the prompt instructions until the metric is maximized over your dataset. Newer frameworks like **[TextGrad](https://github.com/zou-group/textgrad)** are even implementing automatic differentiation via text to optimize prompts like neural networks.
 
 ## Lab and production
 

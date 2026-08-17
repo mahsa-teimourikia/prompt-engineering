@@ -13,8 +13,8 @@ break quality or safety gates.
 **Foundational:** Building complex RAG pipelines to chunk and retrieve tiny snippets of text to avoid hitting context limits.
 **Current State of the Art:** 
 1. **Massive Context Windows:** Models like Gemini 1.5 Pro now support 2 million+ token context windows. You can often drop entire codebases or libraries directly into the prompt, bypassing the need for complex retrieval systems entirely.
-2. **Context Caching:** While massive contexts solve the "Quality" problem, they introduce massive Latency and Cost problems. The state of the art solution is **Context Caching**. You load a massive context (like an entire video or repository) into the model's memory once, and subsequent queries against that cached context return almost instantly at a fraction of the cost.
-3. **Pareto Frontiers:** Engineering is about trade-offs. You must measure the cost and latency of a "Full Context" policy vs. a "Pruned Context" policy, and ensure that any cost-saving measures do not cause the prompt to fail your strict "Quality Gates".
+2. **Context Caching:** While massive contexts solve the "Quality" problem, they introduce massive Latency and Cost problems. The state of the art solution is **Context Caching** (e.g., **[Google GenAI Context Caching](https://ai.google.dev/gemini-api/docs/caching)** or Anthropic's Prompt Caching). You load a massive context into memory once, and subsequent queries return almost instantly at a fraction of the cost.
+3. **Pareto Frontiers:** Engineering is about trade-offs. You must measure the cost and latency of a "Full Context" policy vs. a "Pruned Context" policy. Tools like **[Cloudflare AI Gateway](https://developers.cloudflare.com/ai-gateway/)** or **Helicone** are used to monitor these token economics and latency budgets.
 
 ## Lab and production
 

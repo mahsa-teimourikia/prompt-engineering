@@ -12,7 +12,7 @@ task.
 
 **Foundational:** Sending a snippet of code to an LLM and asking "why is this broken?"
 **Current State of the Art:** 
-1. **Autonomous Coding Agents:** Tools like GitHub Copilot Workspace, Devin, and advanced IDE agents can now operate across an entire codebase. They can read thousands of files, propose architecture changes, and execute terminal commands.
+1. **Autonomous Coding Agents:** Tools like **GitHub Copilot Workspace**, **Devin**, and advanced IDEs like **[Cursor](https://www.cursor.com/)** or CLI agents like **[Aider](https://aider.chat/)** can now operate across an entire codebase. They can read thousands of files, propose architecture changes, and execute terminal commands.
 2. **Engineering Contracts:** Because these agents are so powerful, a vague prompt like "fix authentication" is dangerous. It can lead to the agent rewriting massive, unrelated parts of the codebase. The state of the art involves defining strict "Task Contracts" that explicitly scope which files the agent is allowed to touch and which tests it must pass before reporting success.
 
 ## Lab and production
