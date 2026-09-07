@@ -38,3 +38,21 @@ def test_lesson_registry_is_valid_browser_module_syntax():
         check=False,
     )
     assert result.returncode == 0, result.stderr
+
+
+def test_quiz_answers_are_not_concentrated_in_one_choice_index():
+    source = (ROOT / "hub" / "lessons.js").read_text()
+    script = source + """
+const answers = Object.values(checks).flat().map((question) => question.answer);
+console.log(JSON.stringify(answers));
+"""
+    result = subprocess.run(
+        ["node", "--input-type=module", "--eval", script],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    answers = __import__("json").loads(result.stdout.splitlines()[-1])
+    counts = {index: answers.count(index) for index in set(answers)}
+    assert len(answers) == 58
+    assert max(counts.values()) <= len(answers) / 2

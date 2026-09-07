@@ -440,7 +440,7 @@ export const lessons = [
   }
 ];
 
-export const checks = {
+const sourceChecks = {
   "behavior": [
     {
       "question": "Why is 'The prompt used to work' not a valid diagnosis for a failure?",
@@ -1079,3 +1079,21 @@ export const checks = {
     }
   ]
 };
+
+const answerTargets = Array.from({ length: 58 }, (_, index) => index % 3);
+let questionIndex = 0;
+export const checks = Object.fromEntries(
+  Object.entries(sourceChecks).map(([lessonId, questions]) => [
+    lessonId,
+    questions.map((question) => {
+      const target = answerTargets[questionIndex++];
+      const length = question.choices.length;
+      const shift = (question.answer - target + length) % length;
+      return {
+        ...question,
+        choices: question.choices.slice(shift).concat(question.choices.slice(0, shift)),
+        answer: (question.answer - shift + length) % length,
+      };
+    }),
+  ]),
+);
