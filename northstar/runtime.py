@@ -345,7 +345,7 @@ class GeminiClient:
             ToolCall(name=call.name or "", arguments=call.args or {})
             for call in (response.function_calls or [])
         ]
-        parsed = getattr(response, "parsed", None)
+        parsed = response.parsed
         parse_error = None
         if request.response_schema is not None and parsed is None:
             parsed, parse_error = _parse_response(request.response_schema, text)

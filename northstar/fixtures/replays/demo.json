@@ -5,7 +5,7 @@
     "text": "{\"category\": \"unknown\"}",
     "tool_calls": [],
     "usage": {
-      "estimated": false,
+      "estimated": true,
       "input_tokens": 8,
       "output_tokens": 5
     }
@@ -16,7 +16,7 @@
     "text": "{\"category\": \"account\"}",
     "tool_calls": [],
     "usage": {
-      "estimated": false,
+      "estimated": true,
       "input_tokens": 8,
       "output_tokens": 5
     }
@@ -27,7 +27,7 @@
     "text": "{\"category\": \"refund\"}",
     "tool_calls": [],
     "usage": {
-      "estimated": false,
+      "estimated": true,
       "input_tokens": 9,
       "output_tokens": 5
     }
@@ -38,7 +38,7 @@
     "text": "{\"category\": \"shipping\"}",
     "tool_calls": [],
     "usage": {
-      "estimated": false,
+      "estimated": true,
       "input_tokens": 8,
       "output_tokens": 5
     }
