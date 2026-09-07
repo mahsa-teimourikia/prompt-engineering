@@ -27,7 +27,7 @@ Engineering is about minimizing complexity. You must start with the simplest pos
 
 ## Deep dive
 
-### 2. Context and evidence patterns
+### 1. Context and evidence patterns
 
 | Technique | Mechanism | Use when | Do not use when | Learn it here |
 | --- | --- | --- | --- | --- |
@@ -41,7 +41,7 @@ Engineering is about minimizing complexity. You must start with the simplest pos
 
 **Safety note:** retrieved documents, search results, tool output, and user text are data—not instructions. Authorization filters must run before retrieval, and model instructions must never grant access to sources or tools. See [Prompt security](../../intermediate/13-prompt-security-and-untrusted-content/README.md).
 
-### 3. Reasoning, planning, and verification patterns
+### 2. Reasoning, planning, and verification patterns
 
 | Technique | Mechanism | Use when | Do not use when | Learn it here |
 | --- | --- | --- | --- | --- |
@@ -58,7 +58,7 @@ Engineering is about minimizing complexity. You must start with the simplest pos
 
 Tree, graph, and multi-sample techniques create alternatives. They are only as sound as their scorer. If you cannot explain how a candidate is verified—by a test, calculation, source, rubric, or reviewer—prefer a simpler direct workflow.
 
-### 4. Tool, program, and agent patterns
+### 3. Tool, program, and agent patterns
 
 | Technique | Mechanism | Use when | Do not use when | Learn it here |
 | --- | --- | --- | --- | --- |
@@ -72,7 +72,7 @@ Tree, graph, and multi-sample techniques create alternatives. They are only as s
 
 Tool schemas, permission checks, rate limits, idempotency, budgets, retries, and human approvals are **application controls**. A strong prompt can request them; it cannot enforce them. Continue with [Context Engineering](../../intermediate/08-context-engineering/README.md), [Prompt Security](../../intermediate/13-prompt-security-and-untrusted-content/README.md), [Prompt Evaluation](../../advanced/14-prompt-evaluation/README.md), and [PromptOps](../../enterprise/22-promptops/README.md).
 
-### 5. Optimization and adaptation patterns
+### 4. Optimization and adaptation patterns
 
 | Technique | Mechanism | Use when | Do not use when | Learn it here |
 | --- | --- | --- | --- | --- |
@@ -83,7 +83,7 @@ Tool schemas, permission checks, rate limits, idempotency, budgets, retries, and
 | **Caching and prompt compression** | Reuse stable prefixes and reduce redundant context. | Cost or latency is measured as a production bottleneck. | Compression removes evidence or caching risks privacy/correctness. | [Cost and latency](../../../docs/13-cost-latency-engineering.md) |
 | **Fine-tuning instead of prompting** | Change learned behavior with curated training data. | Evaluation shows a stable, repeated task remains unreliable or too expensive with prompting alone. | A prompt/data problem is being hidden behind a training job. | [Technology review](../../../docs/10-technology-review.md) · [Model-aware guidance](../../../docs/16-model-aware-guidance.md) |
 
-### 6. Safety, reliability, and human-centred patterns
+### 5. Safety, reliability, and human-centred patterns
 
 | Technique or control | Mechanism | Use when | Learn it here |
 | --- | --- | --- | --- |

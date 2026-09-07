@@ -405,7 +405,7 @@ Do not concatenate model output into SQL, shell commands, URLs, HTML, or privile
 | Injection-like text influences behavior | Retrieved/user content blended with instructions. | Delimit data and apply retrieval/tool/output controls. |
 | Prompt change regresses production | Contract text/examples changed without evaluation. | Version prompt + tests; stage rollout; compare metrics. |
 
-### 14. State-of-the-art reference map
+### 13. State-of-the-art reference map
 
 This is a curated starting point, not a permanent or exhaustive catalogue. Prioritize primary papers, official documentation, and tests on your own task.
 
