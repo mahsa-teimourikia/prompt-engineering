@@ -56,6 +56,14 @@ links, and ensure no secrets or unsafe examples were introduced.
 
 Document exact checks and results in the pull request.
 
+## Recording replays for a notebook
+
+Notebooks should use the shared Northstar runtime and remain replayable without
+credentials. Run them with `NORTHSTAR_MODE=replay` by default. When a live
+response is needed, set `GEMINI_API_KEY`, use `NORTHSTAR_MODE=record`, and
+write only synthetic requests and responses to the notebook's replay fixture.
+Never commit credentials, private data, or realistic customer identifiers.
+
 ## Pull request review
 
 Keep unrelated changes out of the diff. Link primary sources and explain any

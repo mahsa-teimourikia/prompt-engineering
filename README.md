@@ -59,6 +59,12 @@ jupyter lab
 
 Run the self-contained notebooks with `make notebooks`, or run `make test` to validate notebook coverage and quiz data. Provider calls are optional and deliberately absent from the default execution path.
 
+The shared Northstar runtime is **offline by default**: it serves recorded
+responses from replay fixtures without credentials. Set `NORTHSTAR_MODE=live`
+with `GEMINI_API_KEY` to call Gemini explicitly, or set
+`NORTHSTAR_MODE=record` to call Gemini and write responses into a replay file.
+Replays are recorded fixtures, not live model output.
+
 ## Canonical course navigation
 
 The canonical [29-course curriculum](curriculum/README.md) is available in the curriculum directory: Beginner (01–05), Intermediate (06–13), Advanced (14–21), and Enterprise (22–29). Every course contains a chapter and notebook. The Learning Hub and full quiz are generated from the same 29-course registry; legacy docs remain supporting material.
