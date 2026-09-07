@@ -2,18 +2,16 @@
 
 from __future__ import annotations
 
+import json
 import re
+from pathlib import Path
 
 from northstar.metrics import Metric, rate
 from northstar.runtime import Message, ModelClient, PromptRequest
 
 
-EVALUATION_SUITE = [
-    {"id": "simple", "message": "My PRD-9921 arrived broken.", "expected": "PRD-9921"},
-    {"id": "no_code", "message": "I have a question about shipping.", "expected": "NONE"},
-    {"id": "multiple_numbers", "message": "I ordered 2 items. The order number is 88412. The broken item is PRD-4412.", "expected": "PRD-4412"},
-    {"id": "formatted_variant", "message": "The item is prd 9921.", "expected": "PRD-9921"},
-]
+CASES = json.loads((Path(__file__).parent / "fixtures/cases.json").read_text())
+EVALUATION_SUITE = CASES["evaluation_suite"]
 
 
 def validate_code(text: str) -> str | None:
@@ -56,14 +54,9 @@ def _metric(client: ModelClient, strategy: str, cases: list[dict[str, str]]) -> 
 
 
 def render_worksheet() -> str:
-    rows = [
-        {"failure": "unclear task", "first_technique": "direct instruction", "measure": "schema validity"},
-        {"failure": "label boundary", "first_technique": "few-shot example", "measure": "boundary accuracy"},
-        {"failure": "missing knowledge", "first_technique": "retrieval", "measure": "citation support"},
-    ]
     return "\n".join(
         f"| {row['failure']} | {row['first_technique']} | {row['measure']} |"
-        for row in rows
+        for row in CASES["worksheet"]
     )
 
 

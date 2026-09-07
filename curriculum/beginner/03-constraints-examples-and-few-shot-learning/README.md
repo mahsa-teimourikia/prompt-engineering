@@ -154,7 +154,7 @@ The [notebook](03_constraints_examples_few_shot.ipynb) demonstrates fixing a bou
 
 ## Exercises
 
-1. Modify `EXAMPLE_BANK` with a new boundary example and watch the static
+1. Modify the `example_bank` array in `fixtures/cases.json` with a new boundary example and watch the static
    `static_accuracy` numerator over the denominator of five.
 2. Change the random case ID and watch `random_accuracy`; explain why the
    seed must remain deterministic.

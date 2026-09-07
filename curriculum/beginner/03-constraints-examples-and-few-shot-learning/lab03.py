@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import json
 import random
+from pathlib import Path
 from typing import Literal
 
 from pydantic import BaseModel
@@ -15,23 +17,9 @@ class RoutingDecision(BaseModel):
     category: Literal["refund", "shipping", "account", "unknown"]
 
 
-EVALUATION_SUITE = [
-    {"id": "clear-refund", "message": "I want to return my order #123.", "expected": "refund", "slice": "clear"},
-    {"id": "clear-shipping", "message": "Where is my package?", "expected": "shipping", "slice": "clear"},
-    {"id": "ambiguous-payment", "message": "Why did you charge me twice?", "expected": "unknown", "slice": "ambiguous"},
-    {"id": "edge-case-return", "message": "Can I send back the defective item?", "expected": "refund", "slice": "boundary"},
-    {"id": "ambiguous-account-payment", "message": "My account is showing a weird charge.", "expected": "unknown", "slice": "ambiguous"},
-]
-
-EXAMPLE_BANK = [
-    {"message": "How do I return this?", "category": "refund"},
-    {"message": "I need a refund for my last purchase.", "category": "refund"},
-    {"message": "Track my order 456.", "category": "shipping"},
-    {"message": "I cannot log in.", "category": "account"},
-    {"message": "My credit card was double charged.", "category": "unknown"},
-    {"message": "I want to cancel my subscription.", "category": "account"},
-    {"message": "The delivery is late.", "category": "shipping"},
-]
+CASES = json.loads((Path(__file__).parent / "fixtures/cases.json").read_text())
+EVALUATION_SUITE = CASES["evaluation_suite"]
+EXAMPLE_BANK = CASES["example_bank"]
 
 
 def select_examples(k: int, query: str, bank: list[dict[str, str]], case_id: str) -> list[dict[str, str]]:

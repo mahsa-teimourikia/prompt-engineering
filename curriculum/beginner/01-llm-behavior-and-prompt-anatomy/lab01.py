@@ -2,7 +2,9 @@
 
 from __future__ import annotations
 
+import json
 from typing import Literal
+from pathlib import Path
 
 from pydantic import BaseModel
 
@@ -15,12 +17,7 @@ class SupportClassification(BaseModel):
     category: Literal["refund", "shipping", "account", "unknown"]
 
 
-CASES = [
-    {"id": "clear-refund", "message": "I want to return my order #123.", "expected": "refund", "slice": "clear"},
-    {"id": "clear-shipping", "message": "Where is my package?", "expected": "shipping", "slice": "clear"},
-    {"id": "clear-account", "message": "I need to reset my password.", "expected": "account", "slice": "clear"},
-    {"id": "ambiguous-payment", "message": "Why did you charge me twice?", "expected": "unknown", "slice": "ambiguous"},
-]
+CASES = json.loads((Path(__file__).parent / "fixtures/cases.json").read_text())
 
 EVIDENCE = (
     "Approved Policies:\n"
