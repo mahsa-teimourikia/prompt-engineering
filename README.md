@@ -23,7 +23,10 @@ The [Learning Hub](https://mahsa-teimourikia.github.io/prompt-engineering/) is t
 
 ## Curriculum roadmap
 
-The repository is organized into four complete learning levels. See the [curriculum map](curriculum/README.md) for the ordered courses, source material, and implementation sequence.
+The repository is organized into four complete learning levels. See the
+[roadmap](ROADMAP.md) for the implementation phases and the
+[curriculum map](curriculum/README.md) for the ordered courses and source
+material.
 
 | Level | Canonical sequence | Current focus |
 | --- | --- | --- |
