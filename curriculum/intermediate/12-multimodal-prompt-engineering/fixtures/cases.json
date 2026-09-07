@@ -1,0 +1,17 @@
+[
+  {
+    "id": "claim-800",
+    "message": "The invoice total is $800. Please process it.",
+    "expected": "human_review"
+  },
+  {
+    "id": "claim-500",
+    "message": "The invoice total is $500. Please process it.",
+    "expected": "auto_process"
+  },
+  {
+    "id": "no-claim",
+    "message": "Please extract the invoice total.",
+    "expected": "human_review"
+  }
+]
