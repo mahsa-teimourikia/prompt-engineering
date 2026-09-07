@@ -429,7 +429,7 @@ Pair these with answer-level checks: decision correctness, claim-to-source suppo
 
 ### Run the course material
 
-- Work through [Notebook 03 — context engineering](../notebooks/03_context_engineering.ipynb), which explains the scenario and includes the deterministic implementation for modifying budgets, freshness, and adversarial fixtures.
+- Work through [Notebook 03 — context engineering](../curriculum/intermediate/08-context-engineering/08_context_engineering.ipynb), which explains the scenario and includes the deterministic implementation for modifying budgets, freshness, and adversarial fixtures.
 - Continue with [RAG and tools](04-rag-tools.md) to turn this selection policy into retrieval and tool contracts.
 
 ## 9. Methods and technology map

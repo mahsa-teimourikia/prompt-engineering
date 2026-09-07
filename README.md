@@ -23,14 +23,14 @@ The [Learning Hub](https://mahsa-teimourikia.github.io/prompt-engineering/) is t
 
 ## Curriculum roadmap
 
-The repository is being migrated in deliberate phases; it does **not** claim that all target lessons have already been generated. The current published lessons remain available in the Hub while the canonical structure is built and validated topic by topic. See the [curriculum evolution plan](CURRICULUM_EVOLUTION_PLAN.md) for the audit, source-material disposition, implementation sequence, and complete mapping.
+The repository is organized into four complete learning levels. See the [curriculum map](curriculum/README.md) for the ordered courses, source material, and implementation sequence.
 
 | Level | Canonical sequence | Current focus |
 | --- | --- | --- |
 | Beginner | 01–05: behavior, contracts, examples, typed interfaces, technique selection | Turn ambiguous support requests into validated case briefs. |
 | Intermediate | 06–13: reasoning, workflows, context, conversations, RAG, tools, multimodality, security | Build evidence- and tool-grounded systems with explicit trust boundaries. |
 | Advanced | 14–21: evaluation, judges, optimization, agents, coding, models, efficiency | Improve behavior only when a measured evaluation supports the change. |
-| Production | 22–29: PromptOps, observability, release engineering, governance, trust, portability, architecture, capstone | Ship, diagnose, govern, and roll back an AI behavior artifact. |
+| Enterprise | 22–29: PromptOps, observability, release engineering, governance, trust, portability, architecture, capstone | Ship, diagnose, govern, and roll back an AI behavior artifact. |
 
 The notebooks share the **Northstar Support Copilot** scenario. They help support specialists answer order, billing, and product-policy questions. The scenario deliberately includes conflicting evidence, injection-like content, strict schemas, and evaluation cases—conditions that make trade-offs visible without requiring credentials.
 
@@ -58,7 +58,7 @@ Run the self-contained notebooks with `make notebooks`, or run `make test` to va
 
 ## Canonical course navigation
 
-The canonical [29-course curriculum](CURRICULUM_EVOLUTION_PLAN.md) is now available in the curriculum directory: Beginner (01–05), Intermediate (06–13), Advanced (14–21), and Enterprise (22–29). Every course contains a chapter, credential-free notebook, and reusable lab module. The Learning Hub and full quiz are generated from the same 29-course registry; legacy docs and notebooks remain supporting material during link-preserving migration.
+The canonical [29-course curriculum](curriculum/README.md) is available in the curriculum directory: Beginner (01–05), Intermediate (06–13), Advanced (14–21), and Enterprise (22–29). Every course contains a chapter and notebook. The Learning Hub and full quiz are generated from the same 29-course registry; legacy docs remain supporting material.
 
 | Level | Courses | Start point |
 | --- | --- | --- |
@@ -73,11 +73,11 @@ Use the Hub for the complete ordered course list, chapter, notebook, reusable la
 
 These useful resources are retained as supporting material during the migration; they are not canonical completion requirements.
 
-- [Technology landscape](docs/10-technology-review.md) · [notebook](notebooks/10_technology_review.ipynb)
-- [Prompt technique catalog](docs/14-technique-catalog.md) · [notebook](notebooks/14_technique_catalog.ipynb)
-- [Application playbooks](docs/15-application-playbooks.md) · [notebook](notebooks/15_application_playbooks.ipynb)
-- [Curated resource library](docs/17-resource-library.md) · [notebook](notebooks/17_resource_library.ipynb)
-- [Current coverage map](docs/20-course-coverage-map.md) · [notebook](notebooks/20_course_coverage_map.ipynb)
+- [Technology landscape](docs/10-technology-review.md)
+- [Prompt technique catalog](docs/14-technique-catalog.md)
+- [Application playbooks](docs/15-application-playbooks.md)
+- [Curated resource library](docs/17-resource-library.md)
+- [Current coverage map](docs/20-course-coverage-map.md)
 
 ## Technology and state of the art
 

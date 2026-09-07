@@ -387,7 +387,7 @@ The self-contained notebook models the boundary before a provider API is introdu
 make notebooks
 ```
 
-Then open [Notebook 01 — instruction contracts](../notebooks/01_instruction_contracts.ipynb). It includes the Northstar scenario, a runnable implementation, contract experiments, and reflection questions. The default path uses no API key and takes no external action.
+Then open [Notebook 01 — instruction contracts](../curriculum/beginner/02-instruction-contracts/02_instruction_contracts.ipynb). It includes the Northstar scenario, a runnable implementation, contract experiments, and reflection questions. The default path uses no API key and takes no external action.
 
 Continue next with [Structured outputs](02-structured-outputs.md), then [Context engineering](03-context-engineering.md), [Prompt security](06-prompt-security.md), [Evaluation](07-evaluation.md), and [PromptOps](09-promptops.md).
 
