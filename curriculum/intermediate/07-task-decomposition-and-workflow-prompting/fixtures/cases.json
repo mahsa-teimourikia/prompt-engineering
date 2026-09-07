@@ -1,0 +1,20 @@
+[
+  {
+    "id": "original-email",
+    "email": "I ordered ORD-8812 a while ago and the item is broken. Please refund me.",
+    "expected_order_id": "ORD-8812",
+    "expected_terminal": "drafted"
+  },
+  {
+    "id": "recent-order",
+    "email": "My ORD-8813 shipment arrived damaged. Please help with a refund.",
+    "expected_order_id": "ORD-8813",
+    "expected_terminal": "drafted"
+  },
+  {
+    "id": "missing-order",
+    "email": "The item is broken and I need help with a refund.",
+    "expected_order_id": "UNKNOWN",
+    "expected_terminal": "clarification_required"
+  }
+]

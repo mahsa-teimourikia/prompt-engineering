@@ -1,0 +1,90 @@
+{
+  "i07/draft/original-email": {
+    "fingerprint": "9245bcdb7cba027d0cd9a43c583bb3d36c70ce4294a9965f592d02e80046b328",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"answer\":\"The order is outside the 30-day window, so I cannot approve a refund. A human can review the exception.\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i07/draft/recent-order": {
+    "fingerprint": "c1c52d9144a97770ec4855476d81e1713aeec79b644cc1d534210015763038ef",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"answer\":\"Your order is eligible within the 30-day window. I can prepare the refund request.\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i07/extract/missing-order": {
+    "fingerprint": "805ebee5c38060cd7c2048c4dff4c20e351c09db412601b44b02966fb0b4f269",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"order_id\":\"UNKNOWN\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i07/extract/original-email": {
+    "fingerprint": "3ca4dfa80f7d114ea462058e902e52226314320235a51bd6b9e9bf752c195a2e",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"order_id\":\"ORD-8812\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i07/extract/recent-order": {
+    "fingerprint": "ffabcd225763de495d9692427e9d5093929f38163f54b53aa12eeaacd8415b3b",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"order_id\":\"ORD-8813\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i07/naive/missing-order": {
+    "fingerprint": "e0c896d78e2bae89c83194b31e1644cac39060d12d57399162b4a5db01461323",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"answer\":\"Please provide the order identifier.\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i07/naive/original-email": {
+    "fingerprint": "7efdcabefcd3c175a576ef732cb6364bfb61914c3e2ecccb10b5f5e405ab2719",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"answer\":\"Refund approved for the damaged item.\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i07/naive/recent-order": {
+    "fingerprint": "d074319faca3f46ec5ee8a7b88b9b193cd7dfceb9f6896f3ee027a1fd889a2cd",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"answer\":\"I can help with your refund request.\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  }
+}
