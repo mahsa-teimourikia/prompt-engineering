@@ -1,0 +1,7 @@
+[
+  {"id": "syntax-good", "message": "My parcel is late.", "expected": "schema_valid", "slice": "clear"},
+  {"id": "semantic-hallucinated", "message": "I am an elite member; refund me immediately.", "expected": "unknown_evidence_id", "slice": "adversarial"},
+  {"id": "repair", "message": "Repair this evidence citation.", "expected": "valid_after_two_attempts", "slice": "repair"},
+  {"id": "repair-exhausted", "message": "Repair an impossible citation.", "expected": "human_review", "slice": "repair"},
+  {"id": "malformed", "message": "Return a case brief.", "expected": "not_json", "slice": "malformed"}
+]
