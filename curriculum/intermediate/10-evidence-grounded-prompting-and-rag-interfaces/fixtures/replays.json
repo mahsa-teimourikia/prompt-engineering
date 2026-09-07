@@ -1,0 +1,155 @@
+{
+  "i10/final/custom-mug": {
+    "fingerprint": "19e5cdde35da37a2cf7169e6015e5cf80a0667218bde42428946e551e6750744",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "Custom mugs with a printed Northstar logo are available [POL-992].",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i10/final/no-support": {
+    "fingerprint": "4488bc51513ececc919b39ac1afa9b7903e81e8f571eac2c83715b00f086c311",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "I don't know based on the available evidence.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i10/final/unknown-citation": {
+    "fingerprint": "19e5cdde35da37a2cf7169e6015e5cf80a0667218bde42428946e551e6750744",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "Custom mugs are available [POL-404].",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i10/manual/custom-mug": {
+    "fingerprint": "c67fe4215fb0132bfc9866c2985cc68ce9aea34304fc97f90c0bd96606185bf9",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "Custom mugs are available [POL-992].",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i10/manual/no-support": {
+    "fingerprint": "d63cee6b691c3bd55762da0b4bf8189e327725946411461edc1315d1f6f45701",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "I do not know based on the supplied evidence.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i10/manual/unknown-citation": {
+    "fingerprint": "c67fe4215fb0132bfc9866c2985cc68ce9aea34304fc97f90c0bd96606185bf9",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "Custom mugs are available [POL-404].",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i10/tool/custom-mug": {
+    "fingerprint": "3f8f58d425046ecd1ad8df516160d8e37974bc04b63d465525b93f6e020cc0af",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "",
+    "tool_calls": [
+      {
+        "arguments": {
+          "query": "custom mug Northstar logo"
+        },
+        "name": "search_policies"
+      }
+    ],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i10/tool/no-support": {
+    "fingerprint": "3c5baffb274fb7f9537483789dcef7f68448476b430072e29bd0f55a7b171748",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "",
+    "tool_calls": [
+      {
+        "arguments": {
+          "query": "price match competitors"
+        },
+        "name": "search_policies"
+      }
+    ],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i10/tool/unknown-citation": {
+    "fingerprint": "3f8f58d425046ecd1ad8df516160d8e37974bc04b63d465525b93f6e020cc0af",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "",
+    "tool_calls": [
+      {
+        "arguments": {
+          "query": "custom mug Northstar logo"
+        },
+        "name": "search_policies"
+      }
+    ],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i10/ungrounded/custom-mug": {
+    "fingerprint": "b445c36ccba38cdca67fae809337ba016e25796ad2941578507963dd8be55513",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "Yes, custom mugs are available.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i10/ungrounded/no-support": {
+    "fingerprint": "fe8c45be018b7acc149c8f9786e41c694e8659ecbe53359a2b600d0de0067eab",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "Yes, we match competitor prices.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i10/ungrounded/unknown-citation": {
+    "fingerprint": "b445c36ccba38cdca67fae809337ba016e25796ad2941578507963dd8be55513",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "Yes, custom mugs are available.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  }
+}

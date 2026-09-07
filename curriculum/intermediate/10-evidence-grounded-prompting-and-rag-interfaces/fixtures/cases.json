@@ -1,0 +1,17 @@
+[
+  {
+    "id": "custom-mug",
+    "question": "Can I order a custom mug with a printed Northstar logo?",
+    "expected_abstention": false
+  },
+  {
+    "id": "no-support",
+    "question": "Do you price-match competitors?",
+    "expected_abstention": true
+  },
+  {
+    "id": "unknown-citation",
+    "question": "Can I order a custom mug with a printed Northstar logo?",
+    "expected_abstention": false
+  }
+]
