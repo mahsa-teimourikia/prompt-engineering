@@ -1,6 +1,6 @@
 {
   "i10/final/custom-mug": {
-    "fingerprint": "19e5cdde35da37a2cf7169e6015e5cf80a0667218bde42428946e551e6750744",
+    "fingerprint": "4a88e7d687d24c2a7492d231fae4d114f754e58455909c23fd4671fd7ac52615",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "Custom mugs with a printed Northstar logo are available [POL-992].",
     "tool_calls": [],
@@ -11,7 +11,7 @@
     }
   },
   "i10/final/no-support": {
-    "fingerprint": "4488bc51513ececc919b39ac1afa9b7903e81e8f571eac2c83715b00f086c311",
+    "fingerprint": "be08de49f8af5ef10ce0fd5dec3a8188cea0a4eac51181047b1d055a29bcd8e3",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "I don't know based on the available evidence.",
     "tool_calls": [],
@@ -22,7 +22,7 @@
     }
   },
   "i10/final/unknown-citation": {
-    "fingerprint": "19e5cdde35da37a2cf7169e6015e5cf80a0667218bde42428946e551e6750744",
+    "fingerprint": "9669958a2159787e77d2a8d4ac24a5a969ab76cff29271f781358fe1c4c26a20",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "Custom mugs are available [POL-404].",
     "tool_calls": [],
@@ -33,7 +33,7 @@
     }
   },
   "i10/manual/custom-mug": {
-    "fingerprint": "c67fe4215fb0132bfc9866c2985cc68ce9aea34304fc97f90c0bd96606185bf9",
+    "fingerprint": "4a88e7d687d24c2a7492d231fae4d114f754e58455909c23fd4671fd7ac52615",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "Custom mugs are available [POL-992].",
     "tool_calls": [],
@@ -44,7 +44,7 @@
     }
   },
   "i10/manual/no-support": {
-    "fingerprint": "d63cee6b691c3bd55762da0b4bf8189e327725946411461edc1315d1f6f45701",
+    "fingerprint": "be08de49f8af5ef10ce0fd5dec3a8188cea0a4eac51181047b1d055a29bcd8e3",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "I do not know based on the supplied evidence.",
     "tool_calls": [],
@@ -55,7 +55,7 @@
     }
   },
   "i10/manual/unknown-citation": {
-    "fingerprint": "c67fe4215fb0132bfc9866c2985cc68ce9aea34304fc97f90c0bd96606185bf9",
+    "fingerprint": "9669958a2159787e77d2a8d4ac24a5a969ab76cff29271f781358fe1c4c26a20",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "Custom mugs are available [POL-404].",
     "tool_calls": [],
@@ -66,7 +66,7 @@
     }
   },
   "i10/tool/custom-mug": {
-    "fingerprint": "3f8f58d425046ecd1ad8df516160d8e37974bc04b63d465525b93f6e020cc0af",
+    "fingerprint": "ceb1a554cf30cad61039f58dc72dbe6bf72762e29c8a68b5caf19d38bec92564",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "",
     "tool_calls": [
@@ -102,7 +102,7 @@
     }
   },
   "i10/tool/unknown-citation": {
-    "fingerprint": "3f8f58d425046ecd1ad8df516160d8e37974bc04b63d465525b93f6e020cc0af",
+    "fingerprint": "ceb1a554cf30cad61039f58dc72dbe6bf72762e29c8a68b5caf19d38bec92564",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "",
     "tool_calls": [
@@ -120,7 +120,7 @@
     }
   },
   "i10/ungrounded/custom-mug": {
-    "fingerprint": "b445c36ccba38cdca67fae809337ba016e25796ad2941578507963dd8be55513",
+    "fingerprint": "1d8714957887935de58045eef230721906f4b032bc0aa2a69bf77c6413c398c2",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "Yes, custom mugs are available.",
     "tool_calls": [],
@@ -131,7 +131,7 @@
     }
   },
   "i10/ungrounded/no-support": {
-    "fingerprint": "fe8c45be018b7acc149c8f9786e41c694e8659ecbe53359a2b600d0de0067eab",
+    "fingerprint": "eeb23625cfce021acacef3b58dac3811d2ebdc5c35fe3c68a7569463b18ba8e8",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "Yes, we match competitor prices.",
     "tool_calls": [],
@@ -142,7 +142,7 @@
     }
   },
   "i10/ungrounded/unknown-citation": {
-    "fingerprint": "b445c36ccba38cdca67fae809337ba016e25796ad2941578507963dd8be55513",
+    "fingerprint": "1d8714957887935de58045eef230721906f4b032bc0aa2a69bf77c6413c398c2",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "Yes, custom mugs are available.",
     "tool_calls": [],

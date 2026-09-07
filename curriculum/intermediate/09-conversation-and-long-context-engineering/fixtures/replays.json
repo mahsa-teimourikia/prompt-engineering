@@ -1,6 +1,6 @@
 {
   "i09/state/extract-turn-1": {
-    "fingerprint": "d74680689877b850172a957f4d0ce3fbedb62750975c2131295e088a733fc291",
+    "fingerprint": "a6505d5827955f8c8b7985e1f89f0805af77d2f25528394b0176338091f4b082",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"active_order_id\":\"ORD-5592\",\"issue\":\"damaged replacement\",\"needs_confirmation\":false}",
     "tool_calls": [],
@@ -11,7 +11,7 @@
     }
   },
   "i09/state/extract-turn-2": {
-    "fingerprint": "99ac1221c54845c3c299dd88a77b57fe7d46e065606caf7f01d331787f8c5c85",
+    "fingerprint": "fdf44c665ae46e63c65766805f47557a264459ba9ff6ca708c31d497f7b49c97",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"active_order_id\":\"ORD-7710\",\"issue\":\"late shipment\",\"needs_confirmation\":false}",
     "tool_calls": [],
@@ -22,7 +22,7 @@
     }
   },
   "i09/state/refund-conversation": {
-    "fingerprint": "572c99ad4994632dee840d278c61ad950c9330afbecb06c450275b7afaefe280",
+    "fingerprint": "654a51a4174032c8b6f40e5ebc047e10ea36f275b2a0426d43aede91874c6116",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "I can help with order ORD-5592.",
     "tool_calls": [],
@@ -33,7 +33,7 @@
     }
   },
   "i09/state/shipping-conversation": {
-    "fingerprint": "13bf6897a547101737bd55e9911bd591fc548a218386dd64ae3d637e29b4e1e3",
+    "fingerprint": "1fa0ad3330915176742de6eb3c3bff13f8456fdbfa1fdf49e8573f4f22a474a1",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "I will check order ORD-7710.",
     "tool_calls": [],
@@ -44,7 +44,7 @@
     }
   },
   "i09/summary/refund-conversation": {
-    "fingerprint": "bac2951385ffe479a1b0d80bfed011f94a20b18c265f6741baa78cac903f2e92",
+    "fingerprint": "b8ae5f2de2752346957b332c5f59f4565ef3005b05afc83075a52336239dcd12",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "I can help with order ORD-5592.",
     "tool_calls": [],
@@ -55,7 +55,7 @@
     }
   },
   "i09/summary/shipping-conversation": {
-    "fingerprint": "da265717ab55fe57a7842318bb9d01eeece941b48ded8d2483062153d5e9ed36",
+    "fingerprint": "3cb545dbdc6808d315a1fce988e0ac4f78475addabdafe7f24a152c427b1d346",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "I will check order ORD-7710.",
     "tool_calls": [],
@@ -66,7 +66,7 @@
     }
   },
   "i09/window/refund-conversation": {
-    "fingerprint": "ca02333c7c4ca6047d70f5f214dcd3048f8ed859a4dd275e5e74194a6a7b6a66",
+    "fingerprint": "309f142f1522d4023cd245c9cd3328fcd9d67435bdb176f7be89b612258d3ae9",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "I need the order id before I can continue.",
     "tool_calls": [],
@@ -77,7 +77,7 @@
     }
   },
   "i09/window/shipping-conversation": {
-    "fingerprint": "f23e8c31641f9e7019a64f18be483a948ea64954d7acb4c12044e764b3c570e1",
+    "fingerprint": "4e0a006961d1a94c86175eddc997edcf61927471cc0cd4af11b0c3161c7b29d0",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "Please provide the order id.",
     "tool_calls": [],

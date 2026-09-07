@@ -19,6 +19,19 @@ SEARCH_TOOL = ToolSpec(
 )
 
 
+def _reference_document(case: dict[str, object]) -> str:
+    if case["id"] == "custom-mug":
+        item = next(item for item in POLICIES if item["id"] == "POL-992")
+        return (
+            f"[Document ID: {item['id']}]\n"
+            f"Title: {item['title']}\n"
+            f"Content: {item['text']}"
+        )
+    if case["id"] == "unknown-citation":
+        return "[Document ID: POL-404]\nContent: Custom mugs are available."
+    return ""
+
+
 def build_requests() -> list[PromptRequest]:
     requests: list[PromptRequest] = []
     for case in CASES:
@@ -26,13 +39,35 @@ def build_requests() -> list[PromptRequest]:
             [
                 PromptRequest(
                     case_id=f"i10/ungrounded/{case['id']}",
-                    system="Answer the customer question without looking up policy evidence.",
-                    messages=[Message(role="user", text=case["question"])],
+                    system="",
+                    messages=[
+                        Message(
+                            role="user",
+                            text=(
+                                "You are a helpful customer support bot for Northstar.\n"
+                                "Answer the following customer question:\n"
+                                f"{case['question']}\n"
+                            ),
+                        )
+                    ],
                 ),
                 PromptRequest(
                     case_id=f"i10/manual/{case['id']}",
-                    system="Answer using the supplied policy evidence and cite its IDs.",
-                    messages=[Message(role="user", text=case["question"])],
+                    system="",
+                    messages=[
+                        Message(
+                            role="user",
+                            text=(
+                                "You are a strict customer support bot for Northstar.\n"
+                                "You must answer the user's question using ONLY the provided Reference Document.\n"
+                                "If the Reference Document does not contain the answer, you must output \"I don't know.\"\n"
+                                "\n<reference_document>\n"
+                                f"{_reference_document(case)}\n"
+                                "</reference_document>\n\n"
+                                f"User Question: {case['question']}\n"
+                            ),
+                        )
+                    ],
                 ),
                 PromptRequest(
                     case_id=f"i10/tool/{case['id']}",
@@ -42,8 +77,21 @@ def build_requests() -> list[PromptRequest]:
                 ),
                 PromptRequest(
                     case_id=f"i10/final/{case['id']}",
-                    system="Answer only from the retrieved evidence, cite IDs, and abstain when unsupported.",
-                    messages=[Message(role="user", text=case["question"])],
+                    system="",
+                    messages=[
+                        Message(
+                            role="user",
+                            text=(
+                                "You are a strict customer support bot for Northstar.\n"
+                                "You must answer the user's question using ONLY the provided Reference Document.\n"
+                                "If the Reference Document does not contain the answer, you must output \"I don't know.\"\n"
+                                "\n<reference_document>\n"
+                                f"{_reference_document(case)}\n"
+                                "</reference_document>\n\n"
+                                f"User Question: {case['question']}\n"
+                            ),
+                        )
+                    ],
                 ),
             ]
         )

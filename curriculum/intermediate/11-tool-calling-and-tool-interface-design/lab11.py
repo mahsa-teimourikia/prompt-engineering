@@ -23,7 +23,7 @@ CASES = json.loads((Path(__file__).parent / "fixtures/cases.json").read_text())
 ORDERS = json.loads((Path(__file__).parent / "fixtures/orders.json").read_text())
 GET_ORDER_STATUS = ToolSpec(
     name="get_order_status",
-    description="Read the current status of one order.",
+    description=CASES[0]["tool_docstring_source"],
     parameters={
         "type": "object",
         "properties": {"order_id": {"type": "string", "pattern": r"^ORD-\d+$"}},

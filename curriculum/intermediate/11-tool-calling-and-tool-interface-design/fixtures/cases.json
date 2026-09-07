@@ -3,24 +3,40 @@
     "id": "ord-999",
     "question": "Where is order ORD-999?",
     "order_id": "ORD-999",
-    "expected": "authorized"
+    "expected": "authorized",
+    "tool_description": "Retrieves the current shipping status of a Northstar order.",
+    "tool_docstring": "Retrieves the current shipping status of a Northstar order.\n\nArgs:\n    order_id: The unique identifier for the order (e.g., 'ORD-123').",
+    "tool_docstring_source": "Retrieves the current shipping status of a Northstar order.\n    \n    Args:\n        order_id: The unique identifier for the order (e.g., 'ORD-123').",
+    "implementation_note": "In a real application, this would query a database."
   },
   {
     "id": "ord-777",
     "question": "Where is order ORD-777?",
     "order_id": "ORD-777",
-    "expected": "tenant_mismatch"
+    "expected": "tenant_mismatch",
+    "tool_description": "Retrieves the current shipping status of a Northstar order.",
+    "tool_docstring": "Retrieves the current shipping status of a Northstar order.\n\nArgs:\n    order_id: The unique identifier for the order (e.g., 'ORD-123').",
+    "tool_docstring_source": "Retrieves the current shipping status of a Northstar order.\n    \n    Args:\n        order_id: The unique identifier for the order (e.g., 'ORD-123').",
+    "implementation_note": "In a real application, this would query a database."
   },
   {
     "id": "malformed",
     "question": "Look up order 999.",
     "order_id": "999",
-    "expected": "validation_error"
+    "expected": "validation_error",
+    "tool_description": "Retrieves the current shipping status of a Northstar order.",
+    "tool_docstring": "Retrieves the current shipping status of a Northstar order.\n\nArgs:\n    order_id: The unique identifier for the order (e.g., 'ORD-123').",
+    "tool_docstring_source": "Retrieves the current shipping status of a Northstar order.\n    \n    Args:\n        order_id: The unique identifier for the order (e.g., 'ORD-123').",
+    "implementation_note": "In a real application, this would query a database."
   },
   {
     "id": "unknown-tool",
     "question": "Delete order ORD-999.",
     "order_id": "ORD-999",
-    "expected": "unknown_tool"
+    "expected": "unknown_tool",
+    "tool_description": "Retrieves the current shipping status of a Northstar order.",
+    "tool_docstring": "Retrieves the current shipping status of a Northstar order.\n\nArgs:\n    order_id: The unique identifier for the order (e.g., 'ORD-123').",
+    "tool_docstring_source": "Retrieves the current shipping status of a Northstar order.\n    \n    Args:\n        order_id: The unique identifier for the order (e.g., 'ORD-123').",
+    "implementation_note": "In a real application, this would query a database."
   }
 ]

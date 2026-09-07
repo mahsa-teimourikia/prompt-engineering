@@ -2,14 +2,40 @@
   {
     "id": "refund-conversation",
     "history": [
-      "Customer: I need help with order ORD-5592. The replacement item is damaged.",
-      "Agent: I can help investigate the order and refund policy.",
-      "Customer: Please process the refund after checking the policy."
+      {
+        "role": "user",
+        "content": "Hi, I need help with my order ORD-5592."
+      },
+      {
+        "role": "assistant",
+        "content": "I can help with that. What do you need to know?"
+      },
+      {
+        "role": "user",
+        "content": "Actually, before we get to that, do you ship to Alaska?"
+      },
+      {
+        "role": "assistant",
+        "content": "Yes, we ship to Alaska, but it takes an extra 2 days."
+      },
+      {
+        "role": "user",
+        "content": "What about Hawaii?"
+      },
+      {
+        "role": "assistant",
+        "content": "Yes, Hawaii also takes an extra 2 days."
+      }
     ],
     "window": "Customer: Please process the refund after checking the policy.",
     "summary": "Summary: customer is asking about a damaged replacement for order ORD-5592.",
     "state": "State: active_order_id=ORD-5592; issue=damaged replacement; needs_confirmation=false.",
-    "expected_order_id": "ORD-5592"
+    "expected_order_id": "ORD-5592",
+    "current_request": "Okay great. Anyway, can you give me an update on my order?",
+    "original_source_notes": [
+      "The model succeeds because the Order ID was in the summary.",
+      "Order ID (ORD-5592) because it was truncated from the window."
+    ]
   },
   {
     "id": "shipping-conversation",
@@ -21,6 +47,10 @@
     "window": "Customer: Can you tell me when it will arrive?",
     "summary": "Summary: customer is waiting for order ORD-7710 to arrive.",
     "state": "State: active_order_id=ORD-7710; issue=late shipment; needs_confirmation=false.",
-    "expected_order_id": "ORD-7710"
+    "expected_order_id": "ORD-7710",
+    "original_source_notes": [
+      "The model succeeds because the Order ID was in the summary.",
+      "Order ID (ORD-5592) because it was truncated from the window."
+    ]
   }
 ]

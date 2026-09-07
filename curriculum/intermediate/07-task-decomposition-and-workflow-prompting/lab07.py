@@ -9,7 +9,7 @@ from datetime import date
 from pathlib import Path
 from typing import Literal
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from northstar.contracts import check_constraints
 from northstar.metrics import Metric, rate
@@ -22,7 +22,11 @@ TODAY = date(2026, 3, 1)
 
 
 class Extraction(BaseModel):
-    order_id: str
+    order_id: str = Field(description="The extracted order ID, or 'UNKNOWN'")
+    customer_intent: str = Field(
+        default="refund",
+        description="What the customer wants (e.g. refund, exchange)",
+    )
 
 
 class Draft(BaseModel):
@@ -41,29 +45,30 @@ def build_requests() -> list[PromptRequest]:
         requests.append(
             PromptRequest(
                 case_id=f"i07/naive/{case['id']}",
-                system=(
-                    "Read the following email and draft a response. Only approve refunds "
-                    "if the order is within 30 days. If you do not know the order date, "
-                    "guess based on the email context."
-                ),
-                messages=[Message(role="user", text=case["email"])],
+                system="",
+                messages=[Message(role="user", text=case["original_naive_prompt"])],
                 response_schema=Draft,
             )
         )
         requests.append(
             PromptRequest(
                 case_id=f"i07/extract/{case['id']}",
-                system="Extract the order identifier from this email. Return UNKNOWN when absent.",
-                messages=[Message(role="user", text=case["email"])],
+                system="",
+                messages=[Message(role="user", text=case["extract_user"])],
                 response_schema=Extraction,
             )
         )
         if case["expected_terminal"] == "drafted":
+            eligible = refund_eligible(case["expected_order_id"])
+            draft_user = case["original_draft_prompt"].format(
+                customer_intent="refund",
+                is_eligible=eligible == "eligible",
+            )
             requests.append(
                 PromptRequest(
                     case_id=f"i07/draft/{case['id']}",
-                    system="Draft a policy-grounded response without claiming an unauthorized refund.",
-                    messages=[Message(role="user", text=case["email"])],
+                    system="You are a customer support bot.",
+                    messages=[Message(role="user", text=draft_user)],
                     response_schema=Draft,
                 )
             )

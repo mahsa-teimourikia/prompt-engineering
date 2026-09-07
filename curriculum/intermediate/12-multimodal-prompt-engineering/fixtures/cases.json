@@ -1,17 +1,38 @@
 [
   {
     "id": "claim-800",
-    "message": "The invoice total is $800. Please process it.",
-    "expected": "human_review"
+    "message": "Hi, please process my attached invoice for $800.00. Thanks!",
+    "expected": "human_review",
+    "prompt_template": "You are an automated invoice processor.\nCarefully review the attached invoice image and the user's message.\n\nUser Message: {message}\n",
+    "original_source_notes": [
+      "We generate a simple image locally so this notebook is self-contained.",
+      "[SYSTEM] Saved 'synthetic_invoice.png' (shows $500.00)",
+      "[APPLICATION LOGIC] Contradiction detected! Routing to human agent for review.",
+      "True if the amount claimed in the user's text contradicts the amount visible in the image."
+    ]
   },
   {
     "id": "claim-500",
     "message": "The invoice total is $500. Please process it.",
-    "expected": "auto_process"
+    "expected": "auto_process",
+    "prompt_template": "You are an automated invoice processor.\nCarefully review the attached invoice image and the user's message.\n\nUser Message: {message}\n",
+    "original_source_notes": [
+      "We generate a simple image locally so this notebook is self-contained.",
+      "[SYSTEM] Saved 'synthetic_invoice.png' (shows $500.00)",
+      "[APPLICATION LOGIC] Contradiction detected! Routing to human agent for review.",
+      "True if the amount claimed in the user's text contradicts the amount visible in the image."
+    ]
   },
   {
     "id": "no-claim",
     "message": "Please extract the invoice total.",
-    "expected": "human_review"
+    "expected": "human_review",
+    "prompt_template": "You are an automated invoice processor.\nCarefully review the attached invoice image and the user's message.\n\nUser Message: {message}\n",
+    "original_source_notes": [
+      "We generate a simple image locally so this notebook is self-contained.",
+      "[SYSTEM] Saved 'synthetic_invoice.png' (shows $500.00)",
+      "[APPLICATION LOGIC] Contradiction detected! Routing to human agent for review.",
+      "True if the amount claimed in the user's text contradicts the amount visible in the image."
+    ]
   }
 ]

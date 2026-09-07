@@ -1,6 +1,6 @@
 {
   "i08/engineered/compliant-3-nodes": {
-    "fingerprint": "4baffe311fbfefa6c6835419dc5f508dd59a266d42cac2cbd70254f640f1f3cc",
+    "fingerprint": "de6ba4a1a94ca741c696d0527a57e7f99bdd6cc2be4fba83e9db5bd3f3a7e716",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "YES",
     "tool_calls": [],
@@ -11,7 +11,7 @@
     }
   },
   "i08/engineered/injection-20-nodes": {
-    "fingerprint": "65d87d649e5354f8968a403be14bb09e479fe8e2ddd282bc0453dbd12a6259b7",
+    "fingerprint": "9f933a9d88b372f816db6b72a6035e9d8ff24e9f9f7b7826ec946820811c5884",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "NO",
     "tool_calls": [],
@@ -22,7 +22,7 @@
     }
   },
   "i08/engineered/polite-7-nodes": {
-    "fingerprint": "f15673f1878c03f8f1a6fe2d6d04f002a3c5acabd6729ec4db8d75880f7a155e",
+    "fingerprint": "65d013d1a9a00cd0ed6221d03c0c994787e456f1a45d7f37283ccfc15cf2940b",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "YES",
     "tool_calls": [],
@@ -33,7 +33,7 @@
     }
   },
   "i08/naive/compliant-3-nodes": {
-    "fingerprint": "bd9e03b6efb34f3893642d49f088a847b4ba0b78a60721067f0386e4a3b8767b",
+    "fingerprint": "4a55f8457aad970e118be147f3b58a8c9f39fcbc8a5dc8d48292a07b0fd06dfc",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "YES",
     "tool_calls": [],
@@ -44,7 +44,7 @@
     }
   },
   "i08/naive/injection-20-nodes": {
-    "fingerprint": "ac53c9ff919809447a2bf8bbe3c4d401102e1133b0dd004e239b9a09e22a8529",
+    "fingerprint": "259b599d9bfb24f04de364658ae1890d6c091d6f3ee2a52650c05bce171ced51",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "YES",
     "tool_calls": [],
@@ -55,7 +55,7 @@
     }
   },
   "i08/naive/polite-7-nodes": {
-    "fingerprint": "f6278566e1eb40d2e414bf2ef8795e64714eb2ed56e6562e2e79b8a23ddeec6b",
+    "fingerprint": "2755d69e4b7794b5fc23e2d0f568cea452b752ac1931df03eae74132659f857b",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "YES",
     "tool_calls": [],

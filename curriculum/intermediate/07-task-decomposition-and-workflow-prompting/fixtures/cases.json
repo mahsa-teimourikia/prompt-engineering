@@ -1,20 +1,44 @@
 [
   {
     "id": "original-email",
-    "email": "I ordered ORD-8812 a while ago and the item is broken. Please refund me.",
+    "email": "From: alice@example.com\nSubject: Broken widget\n\nHi, my order #ORD-8812 arrived yesterday and it's completely shattered. I would like a refund please.",
     "expected_order_id": "ORD-8812",
-    "expected_terminal": "drafted"
+    "expected_terminal": "drafted",
+    "naive_user": "Read the following email and draft a response.\nOnly approve refunds if the order is within 30 days. If you don't know the order date, guess based on the email context.\n\nEmail:\nFrom: alice@example.com\nSubject: Broken widget\n\nHi, my order #ORD-8812 arrived yesterday and it's completely shattered. I would like a refund please.\n",
+    "extract_user": "Extract the facts from the email.\nEmail:\nFrom: alice@example.com\nSubject: Broken widget\n\nHi, my order #ORD-8812 arrived yesterday and it's completely shattered. I would like a refund please.",
+    "draft_user": "Draft a polite email to the customer. If they are not eligible, politely decline and state it is outside the 30-day window.",
+    "original_naive_prompt": "You are a customer support bot.\nRead the following email and draft a response.\nOnly approve refunds if the order is within 30 days. If you don't know the order date, guess based on the email context.\n\nEmail:\nFrom: alice@example.com\nSubject: Broken widget\n\nHi, my order #ORD-8812 arrived yesterday and it's completely shattered. I would like a refund please.\n",
+    "original_draft_prompt": "You are a customer support bot.\nCustomer Intent: {customer_intent}\nSystem Policy Check: Refund Eligible = {is_eligible}\n\nDraft a polite email to the customer. If they are not eligible, politely decline and state it is outside the 30-day window.",
+    "original_source_notes": [
+      "Mock logic: Pretend ORD-8812 is actually 60 days old and NOT eligible."
+    ]
   },
   {
     "id": "recent-order",
     "email": "My ORD-8813 shipment arrived damaged. Please help with a refund.",
     "expected_order_id": "ORD-8813",
-    "expected_terminal": "drafted"
+    "expected_terminal": "drafted",
+    "naive_user": "Read the following email and draft a response.\nOnly approve refunds if the order is within 30 days. If you don't know the order date, guess based on the email context.\n\nEmail:\nMy ORD-8813 shipment arrived damaged. Please help with a refund.\n",
+    "extract_user": "Extract the facts from the email.\nEmail:\nMy ORD-8813 shipment arrived damaged. Please help with a refund.",
+    "draft_user": "Draft a polite email to the customer. If they are not eligible, politely decline and state it is outside the 30-day window.",
+    "original_naive_prompt": "You are a customer support bot.\nRead the following email and draft a response.\nOnly approve refunds if the order is within 30 days. If you don't know the order date, guess based on the email context.\n\nEmail:\nMy ORD-8813 shipment arrived damaged. Please help with a refund.\n",
+    "original_draft_prompt": "You are a customer support bot.\nCustomer Intent: {customer_intent}\nSystem Policy Check: Refund Eligible = {is_eligible}\n\nDraft a polite email to the customer. If they are not eligible, politely decline and state it is outside the 30-day window.",
+    "original_source_notes": [
+      "Mock logic: Pretend ORD-8812 is actually 60 days old and NOT eligible."
+    ]
   },
   {
     "id": "missing-order",
     "email": "The item is broken and I need help with a refund.",
     "expected_order_id": "UNKNOWN",
-    "expected_terminal": "clarification_required"
+    "expected_terminal": "clarification_required",
+    "naive_user": "Read the following email and draft a response.\nOnly approve refunds if the order is within 30 days. If you don't know the order date, guess based on the email context.\n\nEmail:\nThe item is broken and I need help with a refund.\n",
+    "extract_user": "Extract the facts from the email.\nEmail:\nThe item is broken and I need help with a refund.",
+    "draft_user": "Draft a polite email to the customer. If they are not eligible, politely decline and state it is outside the 30-day window.",
+    "original_naive_prompt": "You are a customer support bot.\nRead the following email and draft a response.\nOnly approve refunds if the order is within 30 days. If you don't know the order date, guess based on the email context.\n\nEmail:\nThe item is broken and I need help with a refund.\n",
+    "original_draft_prompt": "You are a customer support bot.\nCustomer Intent: {customer_intent}\nSystem Policy Check: Refund Eligible = {is_eligible}\n\nDraft a polite email to the customer. If they are not eligible, politely decline and state it is outside the 30-day window.",
+    "original_source_notes": [
+      "Mock logic: Pretend ORD-8812 is actually 60 days old and NOT eligible."
+    ]
   }
 ]

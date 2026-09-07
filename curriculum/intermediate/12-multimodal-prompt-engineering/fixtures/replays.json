@@ -1,8 +1,8 @@
 {
   "i12/claim-500": {
-    "fingerprint": "da8c34f7afe936789fe8798691041e9418b781d272a3d626c7f5154f37e612f8",
+    "fingerprint": "2ccada3f3d1f3052fb88f1b5e801fd64195ad8903534bdc790ea600d7e7e96a6",
     "recorded_model": "hand-authored (not a live recording)",
-    "text": "{\"invoice_id\":\"INV-0007\",\"total\":500.0,\"is_contradictory\":false}",
+    "text": "{\"is_contradictory\":false,\"extracted_amount\":500.0,\"reasoning\":\"The claimed amount matches the invoice image.\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
@@ -11,9 +11,9 @@
     }
   },
   "i12/claim-800": {
-    "fingerprint": "4ed61fc8bd1f91cbf8d4e2487acfcb3ebc013c43765127a68aab8ff2bbc73a9c",
+    "fingerprint": "65930869b0ebd1fc5f853b29a06cd7ed84399f7d32f43f0fba1b0758609bd7f0",
     "recorded_model": "hand-authored (not a live recording)",
-    "text": "{\"invoice_id\":\"INV-0007\",\"total\":500.0,\"is_contradictory\":false}",
+    "text": "{\"is_contradictory\":true,\"extracted_amount\":null,\"reasoning\":\"The claim is $800.00 while the invoice image shows $500.00.\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
@@ -22,9 +22,9 @@
     }
   },
   "i12/no-claim": {
-    "fingerprint": "ebb1b084e834774ab5dc8f8ed92bee2e556cfebd9a2d1ff6a2dc83d8dd91a26b",
+    "fingerprint": "fddf71a1d5625038752c83b1d37f2dced153c86d1ecd762ebb6068aba49d9c52",
     "recorded_model": "hand-authored (not a live recording)",
-    "text": "{\"invoice_id\":\"INV-0007\",\"total\":500.0,\"is_contradictory\":false}",
+    "text": "{\"is_contradictory\":false,\"extracted_amount\":500.0,\"reasoning\":\"The invoice image shows $500.00 and no contradictory amount was claimed.\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,

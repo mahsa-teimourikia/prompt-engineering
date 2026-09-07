@@ -17,13 +17,22 @@ CASES = json.loads((Path(__file__).parent / "fixtures/cases.json").read_text())
 
 
 class TriageRecommendation(BaseModel):
+    """StructuredCoTTriage: reasoning is emitted before the recommendation."""
+
     reasoning_steps: list[str] = Field(default_factory=list)
-    recommended_action: str
-    confidence: str
+    recommended_action: str = Field(
+        description="The exact action the on-call engineer should take."
+    )
+    confidence: str = Field(description="High, Medium, or Low.")
 
 
 class VerificationResult(BaseModel):
-    is_safe: bool
+    is_safe: bool = Field(
+        description=(
+            "True if the action is safe to execute automatically. "
+            "False if it risks data loss or cascading failure."
+        )
+    )
     reasoning: str
 
 
@@ -35,31 +44,20 @@ def build_requests() -> list[PromptRequest]:
             [
                 PromptRequest(
                     case_id=f"i06/naive/{case['id']}",
-                    system="You are an SRE. Recommend one triage action from the incident logs.",
-                    messages=[Message(role="user", text=logs)],
+                    system="You are an SRE.",
+                    messages=[Message(role="user", text=case["naive_user"])],
                     response_schema=TriageRecommendation,
                 ),
                 PromptRequest(
                     case_id=f"i06/cot/{case['id']}",
-                    system=(
-                        "Analyze the incident step by step, name the root cause, "
-                        "then recommend a reversible action."
-                    ),
-                    messages=[Message(role="user", text=logs)],
+                    system="You are an SRE.",
+                    messages=[Message(role="user", text=case["cot_user"])],
                     response_schema=TriageRecommendation,
                 ),
                 PromptRequest(
                     case_id=f"i06/verifier/{case['id']}",
-                    system=(
-                        "Verify whether the proposed action is safe for automatic "
-                        "execution. Reject actions that change capacity or restart databases."
-                    ),
-                    messages=[
-                        Message(
-                            role="user",
-                            text=f"Proposed action: {case['expected_action']}",
-                        )
-                    ],
+                    system="You are the Safety Verifier.",
+                    messages=[Message(role="user", text=case["verifier_user"])],
                     response_schema=VerificationResult,
                 ),
             ]

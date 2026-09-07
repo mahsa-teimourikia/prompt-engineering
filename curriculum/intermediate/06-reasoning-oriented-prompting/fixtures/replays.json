@@ -1,6 +1,6 @@
 {
   "i06/cot/disk-full": {
-    "fingerprint": "8c53999172519c3ce57218afe9d586782f88f8dca84e7cc399e4d2e466fac166",
+    "fingerprint": "033eb0e97d8b350006719d7eb4f6cf0511a1643fbcea1ca12c06ecef780e7911",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"reasoning_steps\":[\"The log volume reports no space left on device.\"],\"recommended_action\":\"Rotate and compress logs on the log volume (read-only investigation first)\",\"confidence\":\"high\"}",
     "tool_calls": [],
@@ -11,7 +11,7 @@
     }
   },
   "i06/cot/pool-exhaustion": {
-    "fingerprint": "e6e717a72990ea7613154c24f1deaba8cc11117c1ea42b66f0aeb5928d2b4dbf",
+    "fingerprint": "05e1c67cd4dff051a0d8dfd40ccfea7a88ca0d2be62e07ee2c211b178facf9c2",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"reasoning_steps\":[\"The logs show connection pool exhausted.\",\"The database is refusing new connections.\"],\"recommended_action\":\"Increase DB connection pool ceiling and page the DBA\",\"confidence\":\"high\"}",
     "tool_calls": [],
@@ -22,7 +22,7 @@
     }
   },
   "i06/naive/disk-full": {
-    "fingerprint": "6036b6385a3e9e4beaffbf70242d5bb67a06aec582de7ad324ff191da1c64f5c",
+    "fingerprint": "67380207c0ac3c1b2a8524529b96cf134633efb2b21e29b40447fa343d94647b",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"reasoning_steps\":[],\"recommended_action\":\"restart the application service\",\"confidence\":\"low\"}",
     "tool_calls": [],
@@ -33,7 +33,7 @@
     }
   },
   "i06/naive/pool-exhaustion": {
-    "fingerprint": "cd8bba17f09e47f6958c96ee66d19f97e30d1cc9e18b1eef9f9e48e9270105d5",
+    "fingerprint": "f957c3ba430ef880ea0d524bdf344393f1dc0049bbda4db59db67206d91b9651",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"reasoning_steps\":[],\"recommended_action\":\"restart the application service\",\"confidence\":\"low\"}",
     "tool_calls": [],
@@ -44,7 +44,7 @@
     }
   },
   "i06/self-consistency/sample-1": {
-    "fingerprint": "5264398a0115c40991da0e8831b8323ffe68df6bf0e5200437b37e393519f4f8",
+    "fingerprint": "5acecde44369d10122672183aff511b53aae224874c1b5dceb8ee28ce0f40d8c",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"reasoning_steps\":[\"The pool is exhausted.\"],\"recommended_action\":\"Increase DB connection pool ceiling\",\"confidence\":\"medium\"}",
     "tool_calls": [],
@@ -55,7 +55,7 @@
     }
   },
   "i06/self-consistency/sample-2": {
-    "fingerprint": "5264398a0115c40991da0e8831b8323ffe68df6bf0e5200437b37e393519f4f8",
+    "fingerprint": "5acecde44369d10122672183aff511b53aae224874c1b5dceb8ee28ce0f40d8c",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"reasoning_steps\":[\"The pool is exhausted.\"],\"recommended_action\":\"Increase DB connection pool ceiling\",\"confidence\":\"medium\"}",
     "tool_calls": [],
@@ -66,7 +66,7 @@
     }
   },
   "i06/self-consistency/sample-3": {
-    "fingerprint": "5264398a0115c40991da0e8831b8323ffe68df6bf0e5200437b37e393519f4f8",
+    "fingerprint": "5acecde44369d10122672183aff511b53aae224874c1b5dceb8ee28ce0f40d8c",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"reasoning_steps\":[\"The service is failing.\"],\"recommended_action\":\"Restart the application service\",\"confidence\":\"low\"}",
     "tool_calls": [],
@@ -77,7 +77,7 @@
     }
   },
   "i06/verifier/disk-full": {
-    "fingerprint": "51a556c1b105ea177e187782770a7339b3ca91babc7a76d73f0f95cb5c9263b2",
+    "fingerprint": "bc75a196be892ceb49c306eed8bfd373dd5176967a541109f2d0aaac6383419c",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"is_safe\":true,\"reasoning\":\"Read-only log rotation is bounded.\"}",
     "tool_calls": [],
@@ -88,7 +88,7 @@
     }
   },
   "i06/verifier/optimistic": {
-    "fingerprint": "5c8bf225b5a3655d276bf21d924e2d66e7ef46ea9f2f844acd0efdd599e19dd4",
+    "fingerprint": "328b603b32f02a14412bb79d1f43cd615954e8d575f1ecea8c38a098c287e620",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"is_safe\":true,\"reasoning\":\"The verifier sees a restart as safe.\"}",
     "tool_calls": [],
@@ -99,7 +99,7 @@
     }
   },
   "i06/verifier/pool-exhaustion": {
-    "fingerprint": "32441340747dc9d0062990db2e2a27d8e691f219ab575223db7caae328272300",
+    "fingerprint": "265801c980aba07b518f59645d42285f47b130102e3a9f5c1401551f641e9091",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"is_safe\":false,\"reasoning\":\"Increasing capacity requires approval.\"}",
     "tool_calls": [],
