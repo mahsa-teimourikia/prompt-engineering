@@ -1,0 +1,26 @@
+[
+  {
+    "id": "refund-conversation",
+    "history": [
+      "Customer: I need help with order ORD-5592. The replacement item is damaged.",
+      "Agent: I can help investigate the order and refund policy.",
+      "Customer: Please process the refund after checking the policy."
+    ],
+    "window": "Customer: Please process the refund after checking the policy.",
+    "summary": "Summary: customer is asking about a damaged replacement for order ORD-5592.",
+    "state": "State: active_order_id=ORD-5592; issue=damaged replacement; needs_confirmation=false.",
+    "expected_order_id": "ORD-5592"
+  },
+  {
+    "id": "shipping-conversation",
+    "history": [
+      "Customer: Order ORD-7710 has not arrived.",
+      "Agent: I will check the shipping status.",
+      "Customer: Can you tell me when it will arrive?"
+    ],
+    "window": "Customer: Can you tell me when it will arrive?",
+    "summary": "Summary: customer is waiting for order ORD-7710 to arrive.",
+    "state": "State: active_order_id=ORD-7710; issue=late shipment; needs_confirmation=false.",
+    "expected_order_id": "ORD-7710"
+  }
+]
