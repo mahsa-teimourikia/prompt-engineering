@@ -1,0 +1,6 @@
+[
+  {"id": "clear-refund", "message": "I need a refund for a duplicate sandbox charge.", "expected": "refund", "slice": "clear"},
+  {"id": "clear-shipping", "message": "The replacement parcel has not arrived.", "expected": "shipping", "slice": "clear"},
+  {"id": "clear-account", "message": "I cannot sign in to my support account.", "expected": "account", "slice": "clear"},
+  {"id": "ambiguous-payment", "message": "The payment looks strange. Please help.", "expected": "unknown", "slice": "ambiguous"}
+]
