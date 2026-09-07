@@ -417,23 +417,23 @@ export const lessons = [
     "notebook": [
       {
         "title": "01 Milestone Foundation",
-        "path": "curriculum/capstone/01_milestone_foundation.ipynb"
+        "path": "curriculum/enterprise/29-ai-system-engineering-capstone/milestones/01_milestone_foundation.ipynb"
       },
       {
         "title": "02 Milestone Rag And Tools",
-        "path": "curriculum/capstone/02_milestone_rag_and_tools.ipynb"
+        "path": "curriculum/enterprise/29-ai-system-engineering-capstone/milestones/02_milestone_rag_and_tools.ipynb"
       },
       {
         "title": "03 Milestone Routing And Security",
-        "path": "curriculum/capstone/03_milestone_routing_and_security.ipynb"
+        "path": "curriculum/enterprise/29-ai-system-engineering-capstone/milestones/03_milestone_routing_and_security.ipynb"
       },
       {
         "title": "04 Milestone Portability",
-        "path": "curriculum/capstone/04_milestone_portability.ipynb"
+        "path": "curriculum/enterprise/29-ai-system-engineering-capstone/milestones/04_milestone_portability.ipynb"
       },
       {
         "title": "05 Milestone Production Release",
-        "path": "curriculum/capstone/05_milestone_production_release.ipynb"
+        "path": "curriculum/enterprise/29-ai-system-engineering-capstone/milestones/05_milestone_production_release.ipynb"
       }
     ],
     "refs": []
