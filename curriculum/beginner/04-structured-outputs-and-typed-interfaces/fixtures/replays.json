@@ -55,7 +55,7 @@
     }
   },
   "b04/semantic/hallucinated": {
-    "fingerprint": "a9cd5139b5ff166cac916ce99209cb91414eb1158465d8e839ac3f91d7545202",
+    "fingerprint": "c627b1fc4bf1aec5a6496f0a75695a5f0cdf28ed7c425546974d15de801119fb",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"intent\":\"refund_request\",\"customer_summary\":\"elite refund request\",\"evidence_cited\":\"pol_elite_instant_refund\",\"recommended_action\":\"review\"}",
     "tool_calls": [],
@@ -66,7 +66,7 @@
     }
   },
   "b04/syntax/good": {
-    "fingerprint": "1796ecf80b3c16fce02b10818895bc8196b63e456f89408a36696bfda53f2277",
+    "fingerprint": "651e8c6ad7864504591569b46d3a7e2bd114fbb444c7094e09708035e36fa4c1",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"intent\":\"missing_item\",\"customer_summary\":\"late parcel\",\"evidence_cited\":\"pol_shipping_delay\",\"recommended_action\":\"check shipment\"}",
     "tool_calls": [],

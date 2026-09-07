@@ -11,7 +11,7 @@ from northstar.runtime import Message, ModelClient, PromptRequest
 EVALUATION_SUITE = [
     {"id": "simple", "message": "My PRD-9921 arrived broken.", "expected": "PRD-9921"},
     {"id": "no_code", "message": "I have a question about shipping.", "expected": "NONE"},
-    {"id": "multiple_numbers", "message": "The order number is 88412. The broken item is PRD-4412.", "expected": "PRD-4412"},
+    {"id": "multiple_numbers", "message": "I ordered 2 items. The order number is 88412. The broken item is PRD-4412.", "expected": "PRD-4412"},
     {"id": "formatted_variant", "message": "The item is prd 9921.", "expected": "PRD-9921"},
 ]
 

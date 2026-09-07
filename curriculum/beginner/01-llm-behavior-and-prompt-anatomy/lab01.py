@@ -16,22 +16,27 @@ class SupportClassification(BaseModel):
 
 
 CASES = [
-    {"id": "clear-refund", "message": "I need a refund for a duplicate sandbox charge.", "expected": "refund", "slice": "clear"},
-    {"id": "clear-shipping", "message": "The replacement parcel has not arrived.", "expected": "shipping", "slice": "clear"},
-    {"id": "clear-account", "message": "I cannot sign in to my support account.", "expected": "account", "slice": "clear"},
-    {"id": "ambiguous-payment", "message": "The payment looks strange. Please help.", "expected": "unknown", "slice": "ambiguous"},
+    {"id": "clear-refund", "message": "I want to return my order #123.", "expected": "refund", "slice": "clear"},
+    {"id": "clear-shipping", "message": "Where is my package?", "expected": "shipping", "slice": "clear"},
+    {"id": "clear-account", "message": "I need to reset my password.", "expected": "account", "slice": "clear"},
+    {"id": "ambiguous-payment", "message": "Why did you charge me twice?", "expected": "unknown", "slice": "ambiguous"},
 ]
 
 EVIDENCE = (
-    "Approved evidence: duplicate sandbox charges may be refunded; "
-    "replacement parcels are shipping cases; account access requests are account cases."
+    "Approved Policies:\n"
+    "- Refunds: Allowed within 30 days of purchase.\n"
+    "- Shipping: Track via the carrier link in your email.\n"
+    "- Account: Reset passwords via the login page.\n"
 )
-INSTRUCTION = "Classify the support message using only approved evidence."
+INSTRUCTION = (
+    "Classify the support request using ONLY the approved evidence. "
+    "If the message doesn't match the evidence clearly, return 'unknown'."
+)
 
 
 def _messages(case: dict[str, str], *, position: str = "first") -> list[Message]:
     if position == "middle":
-        padding = "The customer is a sandbox account. " * 10
+        padding = "The customer is a highly valued member. Please be polite.\n" * 10
         text = f"{INSTRUCTION}\n{padding}{EVIDENCE}\n{padding}Message: {case['message']}"
         return [Message(role="user", text=text)]
     return [Message(role="user", text=f"{EVIDENCE}\nMessage: {case['message']}")]

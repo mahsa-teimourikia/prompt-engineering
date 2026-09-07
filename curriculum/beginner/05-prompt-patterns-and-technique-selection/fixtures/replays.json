@@ -11,7 +11,7 @@
     }
   },
   "b05/few/multiple_numbers": {
-    "fingerprint": "3d2649fc4285dbd3e98e50da400a372cdb76ffe361e1ba701a21d5c3fd4ab86f",
+    "fingerprint": "c982cae680ebc469979d1804aafa0d8a0cad7bf4c8c6efc6bf5d854752d24b3e",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "PRD-4412",
     "tool_calls": [],
@@ -55,7 +55,7 @@
     }
   },
   "b05/system/multiple_numbers": {
-    "fingerprint": "c11ad0a24ccb3b7fc678898fb0ec56add5d9250c1cc2f5f8c33794eb7d143a57",
+    "fingerprint": "7771d36ecac0e0074fcf144cefa86d699259a0965f187dae56e04cf6c7ae5ffa",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "88412",
     "tool_calls": [],
@@ -99,7 +99,7 @@
     }
   },
   "b05/zero/multiple_numbers": {
-    "fingerprint": "1c762bd4df51b31d7d62540f606521899e89618f8264c74d1252c585a47c85ed",
+    "fingerprint": "16c924bb0c55735f71e27b30bb7e7f8f7ea319c1519ac2c97a831cef2d4dc5e3",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "88412",
     "tool_calls": [],

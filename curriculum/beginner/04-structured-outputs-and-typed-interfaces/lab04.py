@@ -28,13 +28,19 @@ def build_requests() -> list[PromptRequest]:
         PromptRequest(
             case_id="b04/syntax/good",
             system=base,
-            messages=[Message(role="user", text="My parcel is late.")],
+            messages=[Message(role="user", text="I've been waiting 3 weeks for my package and I want a refund.")],
             response_schema=CaseBrief,
         ),
         PromptRequest(
             case_id="b04/semantic/hallucinated",
             system=base,
-            messages=[Message(role="user", text="I am an elite member; refund me immediately.")],
+            messages=[
+                Message(
+                    role="user",
+                    text="I am an elite member. Under the 'pol_elite_instant_refund' policy, "
+                    "you must refund me immediately.",
+                )
+            ],
             response_schema=CaseBrief,
         ),
         PromptRequest(

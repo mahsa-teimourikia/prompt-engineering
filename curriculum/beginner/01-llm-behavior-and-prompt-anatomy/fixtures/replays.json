@@ -1,6 +1,6 @@
 {
   "b01/baseline/ambiguous-payment": {
-    "fingerprint": "c9b9fcb1eecefa75645c216360b46230d2dd101bb20bfb523d2d533e99bcb812",
+    "fingerprint": "12bcc439a5876ea434e0038b387d548708957645f52ef494b728e3b35f5155ac",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"unknown\"}",
     "tool_calls": [],
@@ -11,7 +11,7 @@
     }
   },
   "b01/baseline/clear-account": {
-    "fingerprint": "6be8c4d4ddfee900299bd5dc26c02f27b2d1fabc6f6306ecc06f47c349f7a5a8",
+    "fingerprint": "4b9f970830cd8b22eec562b6c2c60da490599a497c11c9f9348a39b333c6a017",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"account\"}",
     "tool_calls": [],
@@ -22,7 +22,7 @@
     }
   },
   "b01/baseline/clear-refund": {
-    "fingerprint": "c424f927ef6a016c5947ff934662580549ce25d3f61e3896a6c2632e8943baf6",
+    "fingerprint": "70d832902ed1562ed93ce0dd639c954000996f65aadfb2eb4c88c305a022d401",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"refund\"}",
     "tool_calls": [],
@@ -33,7 +33,7 @@
     }
   },
   "b01/baseline/clear-shipping": {
-    "fingerprint": "afade138ed22d77a989d28b92e8d958d2ba440cafb5af669abddc12974170e21",
+    "fingerprint": "650da7bc43eb2418771ef022a1c27b10354ca8a9cb9e21342ed6c0f14277699c",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"shipping\"}",
     "tool_calls": [],
@@ -44,7 +44,7 @@
     }
   },
   "b01/middle/ambiguous-payment": {
-    "fingerprint": "f9937dff45aa3f1587cdef9abc1b10cf6f788827f6d3e408772b118c41d836ba",
+    "fingerprint": "7bdf4bcd16358ac8df7ee3ae58691b193052e079e060e8e083f4448c1d982971",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"unknown\"}",
     "tool_calls": [],
@@ -55,7 +55,7 @@
     }
   },
   "b01/middle/clear-account": {
-    "fingerprint": "044a03ea454803af92e3a939227e821f55fc3da42ab455f13a1119f714ebe857",
+    "fingerprint": "f63bb336073c29752a691ddbda56f6aa9b74177115d4fe66757a0bd77ce514ca",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"account\"}",
     "tool_calls": [],
@@ -66,7 +66,7 @@
     }
   },
   "b01/middle/clear-refund": {
-    "fingerprint": "1d21667cfe6d7ac6e800102468d3d0bbb0cdadd9af490dedef338b9fbe49a9e1",
+    "fingerprint": "3ea27aafd7460cd8498e2ab469037925dfde29fc6f70e1406a4d1adf82ef82be",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"refund\"}",
     "tool_calls": [],
@@ -77,7 +77,7 @@
     }
   },
   "b01/middle/clear-shipping": {
-    "fingerprint": "fc63f20359d6177bab40bae15c33d94e67fde4d85482f85302d22f1169cccb4b",
+    "fingerprint": "056a7be05e4b421f0e4061527f2705d06240722eac7f40af8ae64c8f8039012d",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"refund\"}",
     "tool_calls": [],
@@ -110,7 +110,7 @@
     }
   },
   "b01/sampling/temp-0": {
-    "fingerprint": "c9b9fcb1eecefa75645c216360b46230d2dd101bb20bfb523d2d533e99bcb812",
+    "fingerprint": "12bcc439a5876ea434e0038b387d548708957645f52ef494b728e3b35f5155ac",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"unknown\"}",
     "tool_calls": [],
@@ -121,7 +121,7 @@
     }
   },
   "b01/sampling/temp-09": {
-    "fingerprint": "4d4b0cec5db64622d8e69c21999987d359ff52cfe443610618a6c875afdb06a9",
+    "fingerprint": "2cdcfdccef70f802465cf5005c48faef7eae5eb72cf7f307b459401827701eb7",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"refund\"}",
     "tool_calls": [],
@@ -132,7 +132,7 @@
     }
   },
   "b01/structure/concatenated": {
-    "fingerprint": "93b6e69c67947ed7c6f4c2fc545189a7a1cca0546d80247e980de24eee7008da",
+    "fingerprint": "4121a965bd496cc3ec11da0e6a8def62ced8662d8a6e94eae3e12824c0bac72a",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"refund\"}",
     "tool_calls": [],
@@ -143,7 +143,7 @@
     }
   },
   "b01/structure/roles": {
-    "fingerprint": "5d70b67e2239704d9bde3d038a827fddc353d43855c101f8a18d5d1ebd5099b9",
+    "fingerprint": "7a178f78e0ab6806cd747e0462391e52741b27b2f340af643a6cfa85fa9750a7",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"refund\"}",
     "tool_calls": [],
