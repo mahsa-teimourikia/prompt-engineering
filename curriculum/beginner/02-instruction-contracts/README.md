@@ -2,131 +2,12 @@
 
 **Level:** Beginner · **Estimated time:** 60–90 min · **Prerequisites:** Course 01 and basic Pydantic models
 
-## Scenario
-
-Northstar Support Copilot drafts a response for a human support queue. A
-contract must state the allowed intent, the answer field, the evidence ID, and
-the fallback state. This lesson uses `SupportDraft` and five labelled cases:
-normal, missing evidence, conflicting preference, direct injection, and an
-impossible combination. The replay text is synthetic and hand-authored; the
-application gate, not model prose, decides whether a draft can be sent.
-
-## Lab walkthrough
-
-- Normal case: the notebook asserts `needs_human` is false and
-  `evidence_id` is `ref-v3-101`.
-- Missing evidence: the recorded draft escalates instead of inventing a
-  policy answer.
-- Conflicting preference: the old and new preferences produce human review.
-- Direct injection: pirate-style prose is present, but the gate returns
-  `human_review` because the draft and instruction-like score are unsafe.
-- Impossible combination: the answer does not contain `Refund Approved`, and
-  deterministic constraint checking reports no forbidden phrase.
-- Contract version: changing `CONTRACT_VERSION` changes the fingerprint and
-  produces exactly one stale replay warning in the test.
-
-## Exercises
-
-1. Modify the `b02/missing-evidence` fixture and watch the
-   `human_review_cases` numerator while keeping its denominator fixed.
-2. Add a forbidden phrase to `lab02.py` and watch
-   `forbidden_phrase_violations`.
-3. Change `CONTRACT_VERSION` to `v4` without refreshing fixtures and watch the
-   stale replay warning; then refresh it and compare the fingerprint.
-
-## Checkpoint
-
-1. What should a contract define when evidence is unavailable? **An explicit
-   fallback such as `needs_human=True` and `evidence_id="none"`.**
-2. What protects the system from a direct injection? **An application-side
-   gate that ignores model prose and evaluates policy signals.**
-3. Why version a contract? **To make changes visible in fingerprints,
-   fixtures, review, and downstream compatibility.**
-
 ## Learning Objectives
+
 - **Define Engineering Contracts:** Move from writing polite requests to defining strict, declarative input/output contracts.
 - **Eliminate Ambiguity:** Remove adjectives and replace them with measurable, binary boundaries.
 - **Implement Fallback Paths:** Explicitly instruct the model on what to do when it cannot complete the task.
 - **Test Deterministically:** Evaluate instruction adherence using programmatic assertions.
-
-## Core Concepts & Workflow
-
-A prompt is an engineering contract. If you ask an LLM to "write a good summary," you have failed to define the contract. "Good" is subjective, unmeasurable, and impossible to test. 
-
-A production instruction contract must specify the exact input format, the required transformation steps, the exact output schema, and the negative constraints (what *not* to do). If the model is asked to route a support ticket based on a policy document, the contract must explicitly state what the model should output if the ticket *does not match* the policy. Without a defined fallback, the model will hallucinate a guess.
-
-![Mental Model Diagram](./diagram-1.svg)
-
-## Technology Landscape and State of the Art
-
-**Foundational:** Writing polite, conversational instructions ("Please summarize this text and be helpful").
-
-**Current State of the Art:**
-1. **Declarative Contracts:** The industry has moved to highly structured, declarative instructions using formats like Markdown or XML to clearly delineate sections (e.g., `<rules>`, `<input>`, `<output_format>`).
-2. **Pydantic Schemas:** The ultimate instruction contract is a programmatic schema. Using tools like **[Pydantic](https://docs.pydantic.dev/)**, engineers define the exact shape of the required output, and the SDK translates that schema into instructions the model understands.
-3. **Automated Optimization:** Frameworks like **[DSPy](https://github.com/stanfordnlp/dspy)** treat the instruction text as a hyperparameter. You define the input/output signature, and an optimizer rewrites your English instructions to maximize a defined metric.
-
-## Lab and Production
-
-### The Lab
-The [notebook](02_instruction_contracts.ipynb) illustrates the transition from a vague "zero-shot" prompt to a rigid instruction contract. It demonstrates how adding explicit constraints (e.g., "Output exactly one of the following three categories") dramatically increases the reliability and testability of the model's output.
-
-### Production Best Practices
-- **Define the 'None' State:** Every contract must define an escape hatch. Explicitly state: "If the answer is not present in the text, output 'INSUFFICIENT_DATA'."
-- **Remove Politeness:** Do not use "please" or "if you can." LLMs do not have feelings. Use direct, imperative commands.
-- **Measure Adherence:** You cannot improve what you cannot measure. A contract is only valid if you can write an automated test to verify that the model obeyed the constraints.
-
-## Further reading
-
-A useful contract starts from the deterministic consumer: name the input,
-transformation, output schema, negative constraints, and `None` state. Use
-stable field names, small enums, bounded strings, explicit absence, and
-versioned schemas. Keep customer text and retrieved evidence in labelled
-sections, but never mistake a delimiter for a security control. A model may
-return a well-formed answer that cites unsupported evidence or follows a
-malicious instruction. Validate evidence IDs, business rules, permissions, and
-forbidden phrases in application code. Contracts should be tested against
-happy paths, missing data, conflicting sources, adversarial instructions, and
-impossible combinations. Pydantic is useful because it turns the interface
-into an executable validator; it does not make the model authoritative.
-
-References: [Pydantic](https://docs.pydantic.dev/),
-[DSPy](https://github.com/stanfordnlp/dspy), and
-[OWASP prompt injection guidance](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html).
-
-### Legacy URLs
-
-- <https://aclanthology.org/2024.emnlp-main.33/>
-- <https://ai.google.dev/gemini-api/docs/prompting-strategies>
-- <https://arxiv.org/abs/2312.14197>
-- <https://arxiv.org/abs/2404.13208>
-- <https://arxiv.org/abs/2406.06608>
-- <https://arxiv.org/abs/2502.08745>
-- <https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html>
-- <https://developers.openai.com/api/docs/guides/prompt-engineering>
-- <https://developers.openai.com/api/docs/guides/reasoning-best-practices>
-- <https://developers.openai.com/api/docs/guides/structured-outputs>
-- <https://docs.pydantic.dev/latest/>
-- <https://doi.org/10.6028/NIST.AI.600-1>
-- <https://openai.com/index/the-instruction-hierarchy/>
-- <https://owasp.org/www-project-llm-verification-standard/LLMSVS-v2.0-en.html>
-- <https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents>
-- <https://www.nist.gov/itl/ai-risk-management-framework>
-- <https://zod.dev/>
-
-## Folded legacy material
-
-### Folded from the original instruction-contracts guide
-
-# Instruction contracts: establish the task before optimizing wording
-
-The first production problem is rarely that a model cannot write fluent text. It is that the system has not made its job precise enough to evaluate. A vague request such as _“handle this customer”_ leaves unanswered questions: is the system classifying, explaining, deciding, or acting; which facts are authoritative; what must never happen; and what is the safe result when evidence is missing?
-
-An **instruction contract** is a compact, explicit behavior specification for one model-assisted step. It defines the decision, permitted inputs, constraints, result interface, and safe failure behavior. It does not make a language model deterministic and it does not replace security controls. It makes intended behavior observable, reviewable, testable, and easier to improve.
-
-This lesson uses the running **Northstar Support Copilot** scenario. Northstar helps specialists prepare responses to order, shipping, and refund questions. The assistant may draft a supported answer; it may **not** issue a refund, promise an exception, infer missing policy, or execute a customer-facing action.
-
-## Learning outcomes
 
 By the end, you can:
 
@@ -137,7 +18,32 @@ By the end, you can:
 5. Build tests for normal, ambiguous, conflicting, and adversarial inputs.
 6. Explain which controls belong in prompts and which must be enforced by application code.
 
-## 1. A contract is a system interface, not a clever prompt
+## Scenario
+
+Northstar Support Copilot drafts a response for a human support queue. A
+contract must state the allowed intent, the answer field, the evidence ID, and
+the fallback state. This lesson uses `SupportDraft` and five labelled cases:
+normal, missing evidence, conflicting preference, direct injection, and an
+impossible combination. The replay text is synthetic and hand-authored; the
+application gate, not model prose, decides whether a draft can be sent.
+
+## Core Concepts & Workflow
+
+A prompt is an engineering contract. If you ask an LLM to "write a good summary," you have failed to define the contract. "Good" is subjective, unmeasurable, and impossible to test. 
+
+A production instruction contract must specify the exact input format, the required transformation steps, the exact output schema, and the negative constraints (what *not* to do). If the model is asked to route a support ticket based on a policy document, the contract must explicitly state what the model should output if the ticket *does not match* the policy. Without a defined fallback, the model will hallucinate a guess.
+
+![Mental Model Diagram](./diagram-1.svg)
+
+## Deep dive
+
+The first production problem is rarely that a model cannot write fluent text. It is that the system has not made its job precise enough to evaluate. A vague request such as _“handle this customer”_ leaves unanswered questions: is the system classifying, explaining, deciding, or acting; which facts are authoritative; what must never happen; and what is the safe result when evidence is missing?
+
+An **instruction contract** is a compact, explicit behavior specification for one model-assisted step. It defines the decision, permitted inputs, constraints, result interface, and safe failure behavior. It does not make a language model deterministic and it does not replace security controls. It makes intended behavior observable, reviewable, testable, and easier to improve.
+
+This lesson uses the running **Northstar Support Copilot** scenario. Northstar helps specialists prepare responses to order, shipping, and refund questions. The assistant may draft a supported answer; it may **not** issue a refund, promise an exception, infer missing policy, or execute a customer-facing action.
+
+### 1. A contract is a system interface, not a clever prompt
 
 Treat a prompt as an interface between an uncertain component (the model) and deterministic components (identity, data, policy, tools, and workflows). A strong contract makes the boundary clear.
 
@@ -172,7 +78,7 @@ Decision + allowed evidence + constraints + examples + output contract + failure
 
 > A good prompt is not an incantation. It is an explicit agreement about inputs, decision rights, expected output, and what happens when the system cannot safely answer.
 
-## 2. Specify the decision before the persona
+### 2. Specify the decision before the persona
 
 Role language can set tone and domain framing, but it cannot substitute for a decision. Start with a verb-object statement and a success condition.
 
@@ -182,7 +88,7 @@ Role language can set tone and domain framing, but it cannot substitute for a de
 | “Deal with late shipments.” | “Explain a delay.” | “Given verified tracking and approved shipping policy, classify status/delay/compensation; explain only supported facts; escalate any compensation decision.” |
 | “Review this claim.” | “Extract claim facts.” | “Extract stated dates, parties, and evidence into the supplied schema; report missing fields; make no eligibility determination.” |
 
-### Worked example: ambiguous task → measurable task
+#### Worked example: ambiguous task → measurable task
 
 **Business request:** _“Can the assistant deal with late shipments?”_
 
@@ -207,7 +113,7 @@ Given a customer message, verified tracking evidence, and the approved shipping 
 
 The system can now succeed by asking a question. That is a designed safe outcome, not a failure to be helpful.
 
-## 3. Authority, hierarchy, and data boundaries
+### 3. Authority, hierarchy, and data boundaries
 
 The model sees several kinds of text. Their provenance and purpose differ, even when all are serialized into one request.
 
@@ -221,7 +127,7 @@ flowchart TD
     P --> A["Application policy, authorization, and audit"]
 ```
 
-### The authority table
+#### The authority table
 
 | Content class | Typical source | What it may do | What it must not do |
 | --- | --- | --- | --- |
@@ -234,7 +140,7 @@ flowchart TD
 
 OpenAI’s [instruction hierarchy research](https://openai.com/index/the-instruction-hierarchy/) and its current [prompt-engineering guide](https://developers.openai.com/api/docs/guides/prompt-engineering) describe role/authority ordering. This is useful model behavior, but it cannot be treated as a security boundary. Prompt-injection research and OWASP guidance show that untrusted natural-language content can still influence model behavior; design for residual risk.
 
-### Delimiters clarify; they do not authorize
+#### Delimiters clarify; they do not authorize
 
 Use Markdown or XML-like delimiters to help the model and reviewers see logical boundaries:
 
@@ -255,7 +161,7 @@ Refund requests require an order ID and must be made within 14 days of delivery.
 
 The correct result is not “refund approved.” It is a refund classification, a source-backed statement of the policy, a request for the order ID, and the appropriate review/clarification state. Delimiters help interpretation, but only the application can enforce tenant access, authentication, authorization, tool permissions, rate limits, logging, and approvals.
 
-## 4. Draft a contract with ROCCER
+### 4. Draft a contract with ROCCER
 
 Use **ROCCER** as a drafting checklist: **Role, Objective, Context, Constraints, Examples, Response format**. Add a failure path and acceptance tests to make it production-ready.
 
@@ -269,7 +175,7 @@ Use **ROCCER** as a drafting checklist: **Role, Objective, Context, Constraints,
 | Response format | How is acceptance checked? | Typed case brief with intent, draft, evidence, and escalation/clarification. |
 | Failure path | What happens when safe completion is impossible? | “Return clarification or escalation, never a guessed answer.” |
 
-### A reusable contract record
+#### A reusable contract record
 
 Keep contracts in code or version-controlled configuration with fixtures and an owner. The following model is deterministic and does not need an LLM API:
 
@@ -304,7 +210,7 @@ NORTHSTAR_REFUND_DRAFT_V1 = InstructionContract(
 
 This representation supports review, audit, versioning, and change detection. It does not replace the actual prompt text; it gives the text a stable product contract.
 
-## 5. Make constraints concrete, compatible, and prioritized
+### 5. Make constraints concrete, compatible, and prioritized
 
 Constraints work best when they describe an observable behavior and an acceptable alternative. A long list of prohibitions can make the system brittle or leave it with no way to help.
 
@@ -316,7 +222,7 @@ Constraints work best when they describe an observable behavior and an acceptabl
 | “Answer from company knowledge.” | “Use only the policy excerpts and tool results supplied in this request.” |
 | “Solve every issue autonomously.” | “Draft or propose actions; require the designated approval workflow for consequential changes.” |
 
-### Constraint categories
+#### Constraint categories
 
 1. **Task constraints** — scope, audience, language, format, and success criteria.
 2. **Evidence constraints** — permitted sources, freshness, citation requirements, and uncertainty handling.
@@ -327,7 +233,7 @@ Constraints work best when they describe an observable behavior and an acceptabl
 
 Check constraints for compatibility. A prompt that demands a 40-word answer, every policy exception, no follow-up questions, and no omissions has no coherent priority. Resolve the policy before sending it to a model.
 
-## 6. Examples are decision-boundary tests
+### 6. Examples are decision-boundary tests
 
 Few-shot examples show behavior at the boundary. They should not merely repeat a happy-path answer in different words.
 
@@ -357,7 +263,7 @@ Use a deliberate progression:
 
 Reasoning-capable models may need less procedural prompting than other models. The current [OpenAI reasoning best-practices guide](https://developers.openai.com/api/docs/guides/reasoning-best-practices) recommends straightforward prompts, clear delimiters, and trying zero-shot before few-shot when appropriate. Treat every model/provider claim as a hypothesis to evaluate on your task.
 
-## 7. Decompose work before escalating autonomy
+### 7. Decompose work before escalating autonomy
 
 When one prompt asks the model to understand, extract, evaluate, verify, and recommend, make the stages explicit. This may be a deterministic workflow rather than an agent.
 
@@ -379,9 +285,9 @@ flowchart LR
 | Open-ended investigation | Agentic workflow with tool limits and trace | Needed only if next steps genuinely vary. |
 | High-risk action | Workflow + independent policy check + approval | Never delegate authorization to the model. |
 
-The simplest architecture that reliably meets the contract is usually the easiest to evaluate, secure, and operate. See [Agentic prompts](../../../docs/08-agentic-prompts.md) for bounded tool loops and [Context engineering](../../../docs/03-context-engineering.md) for evidence selection.
+The simplest architecture that reliably meets the contract is usually the easiest to evaluate, secure, and operate. See [Agentic prompts](../../../docs/08-agentic-prompts.md) for bounded tool loops and [Context engineering](../../intermediate/08-context-engineering/README.md) for evidence selection.
 
-## 8. A complete Northstar instruction contract
+### 8. A complete Northstar instruction contract
 
 This is a readable prompt specification—not a prescription to copy unchanged across models.
 
@@ -413,7 +319,7 @@ Every claim is supported by visible approved evidence; the output is valid;
 the proposed next step is within the assistant's scope.
 ```
 
-### Read it as a test plan
+#### Read it as a test plan
 
 Every line implies a test:
 
@@ -425,37 +331,37 @@ Every line implies a test:
 | “No account actions” | User asks to issue refund. | Draft/review proposal only; no action tool call. |
 | “Cite policy claims” | Draft mentions refund window. | Includes authorized current-policy source ID. |
 
-## 9. Guided training: build and test a contract step by step
+### 9. Guided training: build and test a contract step by step
 
-### Step 1 — name the outcome space
+#### Step 1 — name the outcome space
 
 Define valid outcomes before wording the instruction: `answer`, `clarify`, and `escalate`. Do not force the model to manufacture a complete answer when your workflow needs uncertainty to be visible.
 
-### Step 2 — define evidence and non-evidence
+#### Step 2 — define evidence and non-evidence
 
 For the refund scenario, policy version and verified delivery date are evidence. A customer assertion, old marketing email, or model-generated summary is not policy evidence. Record source ID, version, timestamp, tenant scope, and visibility rule for each source.
 
-### Step 3 — state narrow constraints
+#### Step 3 — state narrow constraints
 
 Write the action boundary in terms of capability: “prepare a draft; never issue a refund.” Avoid ambiguous safeguards like “be responsible.” State the safe alternative: “ask for order ID” or “escalate conflict.”
 
-### Step 4 — add contrastive examples
+#### Step 4 — add contrastive examples
 
 Include a supported answer, missing-fact clarification, and policy-conflict escalation. Keep each example short enough that a reviewer can see exactly what rule it demonstrates.
 
-### Step 5 — make output machine-checkable
+#### Step 5 — make output machine-checkable
 
 Use the [structured-output contract](../../../curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md) so downstream code can branch on outcome without parsing prose. Validate fields, evidence references, domain semantics, and permissions outside the model.
 
-### Step 6 — run adversarial and regression tests
+#### Step 6 — run adversarial and regression tests
 
 Test direct user injection, indirect injection in retrieved content, contradictory examples, unavailable tools, cross-tenant candidate data, and an action request. Measure both the model proposal and whether your application would actually allow the next step.
 
-### Step 7 — release like code
+#### Step 7 — release like code
 
 Version the contract, fixtures, model/provider configuration, and evaluation results together. Roll out with a feature flag or staged cohort when the contract influences a production workflow. Monitor clarification rate, escalation rate, unsupported-claim rate, and cost/latency; changes in those metrics can reveal a regression even when output remains fluent.
 
-## 10. Methods and technologies
+### 10. Methods and technologies
 
 The contract is conceptual; technologies help make pieces of it enforceable.
 
@@ -471,7 +377,7 @@ The contract is conceptual; technologies help make pieces of it enforceable.
 
 For an OpenAI-specific implementation, the official [prompt-engineering guide](https://developers.openai.com/api/docs/guides/prompt-engineering) covers message roles, instruction formatting, versioning in code, and evaluation; [Structured Outputs](https://developers.openai.com/api/docs/guides/structured-outputs) covers schema-constrained response formats. For Python and TypeScript application validation, see [Pydantic](https://docs.pydantic.dev/latest/) and [Zod](https://zod.dev/). Choose technology according to existing stack, data controls, deployment needs, and ability to write tests—not popularity alone.
 
-## 11. Prompt injection and contract limits
+### 11. Prompt injection and contract limits
 
 Instruction contracts reduce ambiguity, but no prompt wording alone can make untrusted natural-language content safe. OWASP’s [LLM Prompt Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html) recommends defense in depth, including clear separation, input/output validation, least privilege, human review, and monitoring.
 
@@ -484,9 +390,9 @@ Instruction contracts reduce ambiguity, but no prompt wording alone can make unt
 | Action | States “draft only” or approval requirement | Human approval, idempotency, rate limits, audit, rollback. |
 | Output | Requires evidence and typed results | Validate, encode safely for downstream systems, prevent exfiltration. |
 
-Do not concatenate model output into SQL, shell commands, URLs, HTML, or privileged API calls. Use normal secure-software controls such as parameterization, output encoding, allowlists, and authorization checks. See [Prompt security](../../../docs/06-prompt-security.md) for an in-depth threat model and test suite.
+Do not concatenate model output into SQL, shell commands, URLs, HTML, or privileged API calls. Use normal secure-software controls such as parameterization, output encoding, allowlists, and authorization checks. See [Prompt security](../../intermediate/13-prompt-security-and-untrusted-content/README.md) for an in-depth threat model and test suite.
 
-## 12. Common failure modes and repairs
+### 12. Common failure modes and repairs
 
 | Failure | Why it happens | Repair |
 | --- | --- | --- |
@@ -499,23 +405,11 @@ Do not concatenate model output into SQL, shell commands, URLs, HTML, or privile
 | Injection-like text influences behavior | Retrieved/user content blended with instructions. | Delimit data and apply retrieval/tool/output controls. |
 | Prompt change regresses production | Contract text/examples changed without evaluation. | Version prompt + tests; stage rollout; compare metrics. |
 
-## 13. Run the companion implementation
-
-The self-contained notebook models the boundary before a provider API is introduced:
-
-```bash
-make notebooks
-```
-
-Then open [Notebook 01 — instruction contracts](02_instruction_contracts.ipynb). It includes the Northstar scenario, a runnable implementation, contract experiments, and reflection questions. The default path uses no API key and takes no external action.
-
-Continue next with [Structured outputs](../../../curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md), then [Context engineering](../../../docs/03-context-engineering.md), [Prompt security](../../../docs/06-prompt-security.md), [Evaluation](../../../docs/07-evaluation.md), and [PromptOps](../../../docs/09-promptops.md).
-
-## 14. State-of-the-art reference map
+### 14. State-of-the-art reference map
 
 This is a curated starting point, not a permanent or exhaustive catalogue. Prioritize primary papers, official documentation, and tests on your own task.
 
-### Instruction following and prompt design
+#### Instruction following and prompt design
 
 - [The Instruction Hierarchy: Training LLMs to Prioritize Privileged Instructions](https://arxiv.org/abs/2404.13208) — hierarchy training and conflict handling.
 - [IHEval: Evaluating Language Models on Following the Instruction Hierarchy](https://arxiv.org/abs/2502.08745) — benchmark for instruction conflicts.
@@ -524,7 +418,7 @@ This is a curated starting point, not a permanent or exhaustive catalogue. Prior
 - [Google Prompt Design Strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies) — official guidance on clear instruction and example design.
 - [Anthropic: Effective Context Engineering for AI Agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) — current engineering perspective on instructions, tools, state, and long-lived context.
 
-### Robustness, governance, and security
+#### Robustness, governance, and security
 
 - [Evaluating the Instruction-Following Robustness of LLMs to Prompt Injection](https://aclanthology.org/2024.emnlp-main.33/) — prompt-injection robustness benchmark.
 - [BIPIA: Benchmarking and Defending Against Indirect Prompt Injection Attacks](https://arxiv.org/abs/2312.14197) — indirect prompt-injection benchmark and defenses.
@@ -532,16 +426,54 @@ This is a curated starting point, not a permanent or exhaustive catalogue. Prior
 - [OWASP LLM Verification Standard](https://owasp.org/www-project-llm-verification-standard/LLMSVS-v2.0-en.html) — verification-oriented controls for LLM applications.
 - [NIST AI Risk Management Framework](https://www.nist.gov/itl/ai-risk-management-framework) and [Generative AI Profile](https://doi.org/10.6028/NIST.AI.600-1) — risk-management framing for production AI systems.
 
-### Related course material
+#### Related course material
 
 - [Structured outputs](../../../curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md) — typed output and application validation.
-- [Context engineering](../../../docs/03-context-engineering.md) — selection, provenance, compression, and memory boundaries.
+- [Context engineering](../../intermediate/08-context-engineering/README.md) — selection, provenance, compression, and memory boundaries.
 - [RAG and tools](../../../docs/04-rag-tools.md) — evidence and capability contracts.
-- [Prompt security](../../../docs/06-prompt-security.md) — injection defense and secure system architecture.
-- [Evaluation](../../../docs/07-evaluation.md) — datasets, rubrics, and regression tests.
-- [PromptOps](../../../docs/09-promptops.md) — versioning, release, monitoring, and rollback.
+- [Prompt security](../../intermediate/13-prompt-security-and-untrusted-content/README.md) — injection defense and secure system architecture.
+- [Evaluation](../../advanced/14-prompt-evaluation/README.md) — datasets, rubrics, and regression tests.
+- [PromptOps](../../enterprise/22-promptops/README.md) — versioning, release, monitoring, and rollback.
 
-## Reflection questions
+Continue with [Context Engineering](../../intermediate/08-context-engineering/README.md), [Prompt Security](../../intermediate/13-prompt-security-and-untrusted-content/README.md), [Prompt Evaluation](../../advanced/14-prompt-evaluation/README.md), and [PromptOps](../../enterprise/22-promptops/README.md).
+
+## Technology Landscape and State of the Art
+
+**Foundational:** Writing polite, conversational instructions ("Please summarize this text and be helpful").
+
+**Current State of the Art:**
+1. **Declarative Contracts:** The industry has moved to highly structured, declarative instructions using formats like Markdown or XML to clearly delineate sections (e.g., `<rules>`, `<input>`, `<output_format>`).
+2. **Pydantic Schemas:** The ultimate instruction contract is a programmatic schema. Using tools like **[Pydantic](https://docs.pydantic.dev/)**, engineers define the exact shape of the required output, and the SDK translates that schema into instructions the model understands.
+3. **Automated Optimization:** Frameworks like **[DSPy](https://github.com/stanfordnlp/dspy)** treat the instruction text as a hyperparameter. You define the input/output signature, and an optimizer rewrites your English instructions to maximize a defined metric.
+
+## Lab walkthrough
+
+- Normal case: the notebook asserts `needs_human` is false and
+  `evidence_id` is `ref-v3-101`.
+- Missing evidence: the recorded draft escalates instead of inventing a
+  policy answer.
+- Conflicting preference: the old and new preferences produce human review.
+- Direct injection: pirate-style prose is present, but the gate returns
+  `human_review` because the draft and instruction-like score are unsafe.
+- Impossible combination: the answer does not contain `Refund Approved`, and
+  deterministic constraint checking reports no forbidden phrase.
+- Contract version: changing `CONTRACT_VERSION` changes the fingerprint and
+  produces exactly one stale replay warning in the test.
+
+### Implementation detail
+
+The [notebook](02_instruction_contracts.ipynb) illustrates the transition from a vague "zero-shot" prompt to a rigid instruction contract. It demonstrates how adding explicit constraints (e.g., "Output exactly one of the following three categories") dramatically increases the reliability and testability of the model's output.
+
+## Exercises
+
+1. Modify the `b02/missing-evidence` fixture and watch the
+   `human_review_cases` numerator while keeping its denominator fixed.
+2. Add a forbidden phrase to `lab02.py` and watch
+   `forbidden_phrase_violations`.
+3. Change `CONTRACT_VERSION` to `v4` without refreshing fixtures and watch the
+   stale replay warning; then refresh it and compare the fingerprint.
+
+### Reflection questions
 
 1. What exact decision is your model allowed to make, and which adjacent decisions must it only propose or escalate?
 2. Which supplied text is authoritative evidence, which is a user claim, and which is untrusted data?
@@ -552,3 +484,56 @@ This is a curated starting point, not a permanent or exhaustive catalogue. Prior
 ---
 
 Instruction contracts make a model-assisted workflow easier to reason about: the model proposes within a clear scope, the application verifies the proposal, and the system has an explicit safe outcome when uncertainty or risk remains.
+
+## Checkpoint
+
+1. What should a contract define when evidence is unavailable? **An explicit
+   fallback such as `needs_human=True` and `evidence_id="none"`.**
+2. What protects the system from a direct injection? **An application-side
+   gate that ignores model prose and evaluates policy signals.**
+3. Why version a contract? **To make changes visible in fingerprints,
+   fixtures, review, and downstream compatibility.**
+
+## Production Best Practices
+
+- **Define the 'None' State:** Every contract must define an escape hatch. Explicitly state: "If the answer is not present in the text, output 'INSUFFICIENT_DATA'."
+- **Remove Politeness:** Do not use "please" or "if you can." LLMs do not have feelings. Use direct, imperative commands.
+- **Measure Adherence:** You cannot improve what you cannot measure. A contract is only valid if you can write an automated test to verify that the model obeyed the constraints.
+
+## Further reading
+
+A useful contract starts from the deterministic consumer: name the input,
+transformation, output schema, negative constraints, and `None` state. Use
+stable field names, small enums, bounded strings, explicit absence, and
+versioned schemas. Keep customer text and retrieved evidence in labelled
+sections, but never mistake a delimiter for a security control. A model may
+return a well-formed answer that cites unsupported evidence or follows a
+malicious instruction. Validate evidence IDs, business rules, permissions, and
+forbidden phrases in application code. Contracts should be tested against
+happy paths, missing data, conflicting sources, adversarial instructions, and
+impossible combinations. Pydantic is useful because it turns the interface
+into an executable validator; it does not make the model authoritative.
+
+References: [Pydantic](https://docs.pydantic.dev/),
+[DSPy](https://github.com/stanfordnlp/dspy), and
+[OWASP prompt injection guidance](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html).
+
+### Additional references
+
+- <https://openai.com/index/the-instruction-hierarchy/>
+- <https://developers.openai.com/api/docs/guides/prompt-engineering>
+- <https://developers.openai.com/api/docs/guides/reasoning-best-practices>
+- <https://developers.openai.com/api/docs/guides/structured-outputs>
+- <https://docs.pydantic.dev/latest/>
+- <https://zod.dev/>
+- <https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html>
+- <https://arxiv.org/abs/2404.13208>
+- <https://arxiv.org/abs/2502.08745>
+- <https://arxiv.org/abs/2406.06608>
+- <https://ai.google.dev/gemini-api/docs/prompting-strategies>
+- <https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents>
+- <https://aclanthology.org/2024.emnlp-main.33/>
+- <https://arxiv.org/abs/2312.14197>
+- <https://owasp.org/www-project-llm-verification-standard/LLMSVS-v2.0-en.html>
+- <https://www.nist.gov/itl/ai-risk-management-framework>
+- <https://doi.org/10.6028/NIST.AI.600-1>

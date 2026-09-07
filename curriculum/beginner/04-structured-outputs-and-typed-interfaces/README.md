@@ -2,124 +2,12 @@
 
 **Level:** Beginner · **Estimated time:** 60–90 min · **Prerequisites:** Courses 01–03 and Pydantic validation basics
 
-## Scenario
-
-Northstar converts a customer message into a `CaseBrief` for a review queue.
-The model proposes intent, summary, evidence, and an action; the application
-decides whether that proposal is structurally valid, semantically supported,
-and safe to continue. The replay lab demonstrates that valid JSON can still
-cite a fabricated policy, and that a repair loop must have a strict bound.
-
-## Lab walkthrough
-
-- Demonstration 1 parses a valid typed `CaseBrief`.
-- Demonstration 2 parses a hallucinated `pol_elite_instant_refund` citation,
-  then fails application-side validation with `unknown_evidence_id`.
-- Demonstration 3 makes exactly two attempts; the second uses `NONE` and is
-  valid.
-- Repair-exhausted uses two invalid outputs and returns `None` with terminal
-  state `human_review`.
-- Demonstration 4 feeds truncated JSON to `parse_structured`; the result has
-  `error_code == "not_json"` and raises no exception.
-
-## Exercises
-
-1. Add an approved evidence ID and watch the `unknown_evidence` metric when a
-   replay changes from fabricated to approved.
-2. Change the repair prompt feedback and watch `repair_attempts` while keeping
-   the maximum at two.
-3. Add a semantic rule for intent and watch whether the syntax and semantic
-   metrics remain separate.
-
-## Checkpoint
-
-1. What does a schema prove? **Shape and types, not factual support or
-   authorization.**
-2. What should an unknown evidence citation do? **Fail semantic validation
-   with `unknown_evidence_id`.**
-3. What happens when bounded repair is exhausted? **Return no proposal and
-   route to `human_review`.**
-
 ## Learning Objectives
+
 - **Enforce Output Shapes:** Transition from parsing raw strings to demanding strict JSON or schema-validated objects.
 - **Separate Syntax from Semantics:** Understand that valid JSON syntax does not guarantee factual or business-logic correctness.
 - **Implement Application-Side Validation:** Write deterministic code to verify the semantic accuracy of the model's proposed data.
 - **Build Bounded Repair Loops:** Design safe retry mechanisms to handle model hallucinations without infinite loops.
-
-## Core Concepts & Workflow
-
-“Return JSON” is not an application interface. If your application expects a case brief containing specific enums, dates, and evidence citations, you cannot rely on a raw string prompt to guarantee that shape. 
-
-A model *proposes* data; the application decides whether it is valid and authorized. Modern systems use native Structured Outputs to guarantee that the syntax (the JSON shape) is 100% correct. However, no API can guarantee that the *content* inside that JSON is factually true or aligns with your business policies. That requires strict, deterministic application-side validation.
-
-![Mental Model Diagram](./diagram-1.svg)
-
-## Technology Landscape and State of the Art
-
-**Foundational:** Asking the model to "Return JSON", parsing it with `json.loads()`, and hoping it doesn't crash.
-
-**Current State of the Art:**
-1. **Native Structured Decoding:** Providers (like Google via `response_schema`) now natively guarantee JSON shape by restricting the token generation space at the API level. "Output JSON only" prompts are obsolete.
-2. **Pydantic Integration:** Modern SDKs map directly to **[Pydantic](https://docs.pydantic.dev/)** models. You define the schema in Python/TypeScript, and the SDK handles the API translation and response deserialization entirely.
-3. **Application-Side Semantic Validation:** Because structural constraints do not guarantee factual correctness, state-of-the-art systems heavily rely on deterministic application-side code to verify that the proposed JSON payload matches approved evidence.
-4. **Bounded Repair:** If validation fails, the system enters a controlled, short-circuiting repair loop, passing the specific failure reason back to the model, rather than infinitely retrying.
-
-## Lab and Production
-
-### The Lab
-The [notebook](04_structured_outputs_and_typed_interfaces.ipynb) demonstrates how native Structured Outputs (via the Google GenAI SDK) guarantee syntax validity, preventing malformed JSON entirely. It then highlights the critical gap: semantic hallucination. It implements an application-side validation step followed by a bounded-repair loop to fix hallucinated evidence citations.
-
-### Production Best Practices
-- **Version Your Schemas:** Treat your Pydantic schemas like database migrations. Version them alongside your prompts to prevent breaking downstream consumers.
-- **Never Execute Directly:** Never execute an external effect (like sending an email or dropping a database table) directly from model output without an application-side authorization gate.
-- **Monitor Repair Rates:** Track how often your repair loop is triggered. A high repair rate indicates a flawed prompt or a task that is too complex for the chosen model.
-
-## Further reading
-
-Structured output patterns include prose, JSON mode, schema-constrained
-responses, function calls, and grammar-constrained decoding. Select based on
-what the next consumer needs: a human may need prose, a program needs a typed
-response, and an external capability needs a separately authorized tool
-request. Parseable JSON is the weakest guarantee. Schema-valid data adds
-required fields and closed values. Semantic validation checks evidence,
-relationships, current policy, and domain rules. Authorization and safety
-checks remain outside the model. Prefer explicit absence (`NONE`, `null`, a
-clarification variant, or escalation) to invented defaults. Keep schemas
-small, versioned, and backwards-compatible. Bounded repair should pass the
-specific validation error back to the model, cap attempts, record repair
-rates, and escalate rather than loop forever.
-
-References: [Pydantic](https://docs.pydantic.dev/),
-[JSON Schema](https://json-schema.org/specification),
-[OpenAI structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs),
-and [The Prompt Report](https://arxiv.org/abs/2406.06608).
-
-### Legacy URLs
-
-- <https://arxiv.org/abs/2406.06608>
-- <https://arxiv.org/abs/2501.10868>
-- <https://developers.openai.com/api/docs/guides/function-calling#strict-mode>
-- <https://developers.openai.com/api/docs/guides/structured-outputs>
-- <https://docs.pydantic.dev/latest/>
-- <https://docs.pydantic.dev/latest/concepts/json_schema/>
-- <https://json-schema.org/specification>
-- <https://openreview.net/pdf/87f0994dff5f854cb02110866e3c61a8e14c80f2.pdf>
-- <https://openreview.net/pdf?id=p84kZ3ZFux>
-- <https://zod.dev/>
-
-## Folded legacy material
-
-### Folded from the original structured-outputs guide
-
-# Structured outputs: turn model responses into dependable interfaces
-
-Natural language is excellent for people and weak as a software interface. An answer such as _“This looks like a refund issue; probably ask for the order number”_ may be useful to a support agent, but a workflow cannot reliably route, validate, audit, or measure it. Structured output turns a model response into a **typed proposal** that software can inspect before it has any downstream effect.
-
-This is not the same as asking a model to “return JSON.” JSON is syntax. A dependable interface also needs a contract, generation constraints when available, runtime validation, semantic checks, versioning, observability, and a safe failure path.
-
-This module uses **Northstar**, a fictional subscription service. The system must classify a customer case, prepare a customer-facing draft, cite its evidence, and decide whether a specialist review is required. The same engineering pattern applies to document extraction, UI generation, evaluation records, agent handoffs, API request proposals, and tool results.
-
-## Learning outcomes
 
 By the end, you should be able to:
 
@@ -131,7 +19,31 @@ By the end, you should be able to:
 - evaluate an output contract using structural, semantic, and operational measures; and
 - select technologies such as JSON Schema, Pydantic, Zod, constrained decoding, and provider-native structured-output APIs with clear trade-offs.
 
-## 1. The core idea: a model proposes; the application decides
+## Scenario
+
+Northstar converts a customer message into a `CaseBrief` for a review queue.
+The model proposes intent, summary, evidence, and an action; the application
+decides whether that proposal is structurally valid, semantically supported,
+and safe to continue. The replay lab demonstrates that valid JSON can still
+cite a fabricated policy, and that a repair loop must have a strict bound.
+
+## Core Concepts & Workflow
+
+“Return JSON” is not an application interface. If your application expects a case brief containing specific enums, dates, and evidence citations, you cannot rely on a raw string prompt to guarantee that shape. 
+
+A model *proposes* data; the application decides whether it is valid and authorized. Modern systems use native Structured Outputs to guarantee that the syntax (the JSON shape) is 100% correct. However, no API can guarantee that the *content* inside that JSON is factually true or aligns with your business policies. That requires strict, deterministic application-side validation.
+
+![Mental Model Diagram](./diagram-1.svg)
+
+## Deep dive
+
+Natural language is excellent for people and weak as a software interface. An answer such as _“This looks like a refund issue; probably ask for the order number”_ may be useful to a support agent, but a workflow cannot reliably route, validate, audit, or measure it. Structured output turns a model response into a **typed proposal** that software can inspect before it has any downstream effect.
+
+This is not the same as asking a model to “return JSON.” JSON is syntax. A dependable interface also needs a contract, generation constraints when available, runtime validation, semantic checks, versioning, observability, and a safe failure path.
+
+This module uses **Northstar**, a fictional subscription service. The system must classify a customer case, prepare a customer-facing draft, cite its evidence, and decide whether a specialist review is required. The same engineering pattern applies to document extraction, UI generation, evaluation records, agent handoffs, API request proposals, and tool results.
+
+### 1. The core idea: a model proposes; the application decides
 
 Structured output creates a boundary between probabilistic generation and deterministic software. The model can propose a case classification or tool arguments; the application decides whether the proposal conforms to the contract and whether it is allowed to proceed.
 
@@ -157,7 +69,7 @@ The pipeline has four increasingly strong guarantees:
 
 > **Key principle:** structured output is a reliability tool, not an authorization mechanism. A model can return a perfectly valid `{"action": "refund"}` object that must still be rejected because the requester lacks permission, evidence is insufficient, or human approval is required.
 
-## 2. JSON mode, schema-constrained output, and function calls
+### 2. JSON mode, schema-constrained output, and function calls
 
 These patterns solve different problems. Do not pick one because it is the most familiar.
 
@@ -171,7 +83,7 @@ These patterns solve different problems. Do not pick one because it is the most 
 
 OpenAI’s current [Structured Outputs guide](https://developers.openai.com/api/docs/guides/structured-outputs) makes the same practical distinction: use a structured response format when the model’s answer itself must be consumed as data, and use function calling when it must bridge to application capabilities. In both cases, retain application-side validation.
 
-### A decision rule
+#### A decision rule
 
 ```mermaid
 flowchart TD
@@ -187,7 +99,7 @@ flowchart TD
     G -->|"no"| Y["Clarify, reject, or escalate"]
 ```
 
-## 3. Design a contract before writing a prompt
+### 3. Design a contract before writing a prompt
 
 Start from the next deterministic consumer. What precise data does it need? Which outcomes are safe when facts are missing? Which values must never be supplied by the model?
 
@@ -237,7 +149,7 @@ class CaseResponse(BaseModel):
 
 This schema makes an important design choice: it does **not** include a `refund_amount` or `execute_refund` field. A response format should represent the lowest-risk next step. A separate authorized service calculates amounts and a separate approval workflow handles money movement.
 
-### Contract design checklist
+#### Contract design checklist
 
 - Choose stable, descriptive field names. Schema keys are developer-facing instructions too; ambiguous names such as `status` or `data` conceal meaning.
 - Use enums for closed routing decisions, but keep them small. Do not encode an entire knowledge taxonomy in a 500-value enum.
@@ -246,7 +158,7 @@ This schema makes an important design choice: it does **not** include a `refund_
 - Prefer a discriminated union over a single object with many optional, mutually exclusive fields.
 - Keep the schema versioned and backwards-compatible where possible. Consumers need a migration plan, not a surprise field rename.
 
-## 4. Schema generation is not business validation
+### 4. Schema generation is not business validation
 
 Most schema engines can validate types, enums, lengths, and object shape. They cannot prove that a policy excerpt supports a refund claim, that an order belongs to the user, or that a cancellation is authorized.
 
@@ -281,11 +193,11 @@ Think in layers:
 | Authorization | Actor may request/approve/execute this operation | Identity and policy layer |
 | Safety | Amount/country/rate/approval limits are satisfied | Workflow and controls |
 
-## 5. A guided build: case briefs for the Northstar support desk
+### 5. A guided build: case briefs for the Northstar support desk
 
 The goal is to build an interface that works on normal, incomplete, and adversarial requests without credentials. Run the linked self-contained notebook as you progress.
 
-### Step 1 — model the required outcomes
+#### Step 1 — model the required outcomes
 
 Write three fixtures before calling a model:
 
@@ -311,7 +223,7 @@ CONFLICTING_POLICY = {
 
 This step prevents the common failure of designing the schema around one happy-path answer.
 
-### Step 2 — start with a small, explicit schema
+#### Step 2 — start with a small, explicit schema
 
 Avoid mirroring your entire database. The model does not need an internal account object to answer a policy question. Start with the contract above and generate the portable JSON Schema that a provider or API gateway can consume:
 
@@ -326,7 +238,7 @@ print(json.dumps(case_schema, indent=2))
 
 Pydantic’s [JSON Schema documentation](https://docs.pydantic.dev/latest/concepts/json_schema/) explains how Python models can generate JSON Schema. The JSON Schema specification itself is a language-neutral contract; its [Core and Validation specifications](https://json-schema.org/specification) are the primary reference when you exchange schemas across services.
 
-### Step 3 — give the model instructions and contrastive examples
+#### Step 3 — give the model instructions and contrastive examples
 
 Examples demonstrate a decision boundary; they are not a substitute for validation. Keep them varied and close to real ambiguity.
 
@@ -349,7 +261,7 @@ Result: {"kind":"clarify", "missing_fields":["order_id"], ...}
 
 Do not include many near-identical examples. Add examples for missing data, conflicting evidence, and out-of-scope requests; keep a held-out evaluation set that never enters the prompt.
 
-### Step 4 — use provider-native constraint when available
+#### Step 4 — use provider-native constraint when available
 
 Provider-native structured output can eliminate many formatting retries. Here is an **optional** OpenAI adapter; keep its credential/configuration outside the self-contained notebook.
 
@@ -375,7 +287,7 @@ def generate_case_brief(system_instruction: str, user_message: str) -> CaseBrief
 
 Use this only after checking current SDK and model compatibility in the [official guide](https://developers.openai.com/api/docs/guides/structured-outputs). The same architecture works with any provider or self-hosted constrained-decoding engine: generate against a supported schema, parse, then run independent domain and policy checks.
 
-### Step 5 — validate an intentionally bad response
+#### Step 5 — validate an intentionally bad response
 
 ```python
 from pydantic import TypeAdapter, ValidationError
@@ -397,7 +309,7 @@ except ValidationError as error:
 
 Then create a response that passes the schema but cites `policy/refunds-v1#window`. Structural validation should pass; semantic validation should reject the retired source. This is the difference between a typed object and a trustworthy decision.
 
-### Step 6 — render, route, or request an action
+#### Step 6 — render, route, or request an action
 
 Only now should downstream code branch on `kind`:
 
@@ -413,7 +325,7 @@ def route_case(case: CaseBrief) -> str:
 
 Notice what is absent: no `refund()` call. Returning a structured answer is not a license to create a financial side effect. If an action is needed, expose a narrow tool with its own authorization, approval, idempotency, and audit rules.
 
-## 6. Repair, refusal, truncation, and safe failure
+### 6. Repair, refusal, truncation, and safe failure
 
 Malformed output is a normal integration event; hiding it is not reliability. A safe repair policy is bounded, observable, and conservative.
 
@@ -459,7 +371,7 @@ Handle these outcomes separately in traces and user-facing behavior:
 
 OpenAI’s structured-output guide documents that JSON mode and schema-constrained output differ, and it calls out incomplete and refusal outcomes that applications must handle. Other providers and self-hosted engines expose different status fields; normalize them into your own error taxonomy.
 
-## 7. Function calls: a contract for proposals, not permission slips
+### 7. Function calls: a contract for proposals, not permission slips
 
 For a tool request, model the minimal capability. This is dangerous:
 
@@ -492,7 +404,7 @@ This is more reviewable:
 
 The tool handler must still verify the requester, order ownership, source visibility, rate limits, and whether a review is appropriate. In OpenAI’s current [function-calling strict-mode documentation](https://developers.openai.com/api/docs/guides/function-calling#strict-mode), strict schemas have compatibility requirements such as required fields and disabled additional properties. Treat those as provider contract requirements, not as universal JSON Schema rules.
 
-## 8. Technology and state-of-the-art map
+### 8. Technology and state-of-the-art map
 
 Structured generation has moved from brittle “please output JSON” prompts toward grammar/schema-constrained generation and typed SDK helpers. The hard problem has also become clearer: syntax can be constrained, but factuality, authorization, and complex cross-field business rules need external validation.
 
@@ -515,7 +427,7 @@ Relevant research is increasingly evaluating not only format validity but effici
 
 Read these as design inputs, not proof that any one decoder or library will work best for your traffic. Test with your schemas, language mix, error budget, and safety controls.
 
-## 9. Evaluate the contract, not only the answer
+### 9. Evaluate the contract, not only the answer
 
 Use an evaluation set with normal, incomplete, ambiguous, malformed, adversarial, and policy-changing cases. Test the output object and the workflow it enables.
 
@@ -538,11 +450,11 @@ def score_case(actual: CaseBrief, expected_kind: str, allowed_sources: set[str])
     return score
 ```
 
-Do not optimize only for `schema_valid_rate`. A system that always returns a valid but empty answer object can score perfectly on structure while failing users. For a full methodology, continue to [Evaluation](../../../docs/07-evaluation.md); for production rollouts and trace design, see [PromptOps](../../../docs/09-promptops.md).
+Do not optimize only for `schema_valid_rate`. A system that always returns a valid but empty answer object can score perfectly on structure while failing users. For a full methodology, continue to [Evaluation](../../advanced/14-prompt-evaluation/README.md); for production rollouts and trace design, see [PromptOps](../../enterprise/22-promptops/README.md).
 
-## 10. Best practices and anti-patterns
+### 10. Best practices and anti-patterns
 
-### Do
+#### Do
 
 - Design from the downstream consumer and safe failure modes, not from a sample model response.
 - Keep schemas narrow, named, versioned, and attached to fixtures/tests.
@@ -553,7 +465,7 @@ Do not optimize only for `schema_valid_rate`. A system that always returns a val
 - Bound repair attempts, track them, and make escalation a normal product path.
 - Separate tool arguments from authorization, approval, idempotency, and side-effect execution.
 
-### Avoid
+#### Avoid
 
 - Treating JSON mode as proof of schema adherence or factual truth.
 - Encoding important business policy solely in a prompt or field description.
@@ -564,13 +476,44 @@ Do not optimize only for `schema_valid_rate`. A system that always returns a val
 - Retrying malformed output indefinitely or hiding refusal/incomplete response states.
 - Assuming a provider’s supported JSON Schema subset matches every validator’s subset.
 
-## 11. Run the practical material
+Continue with [Context Engineering](../../intermediate/08-context-engineering/README.md), [Prompt Security](../../intermediate/13-prompt-security-and-untrusted-content/README.md), [Prompt Evaluation](../../advanced/14-prompt-evaluation/README.md), and [PromptOps](../../enterprise/22-promptops/README.md).
 
-- Work through [Notebook 02 — structured outputs](04_structured_outputs_and_typed_interfaces.ipynb) for the Northstar scenario, embedded deterministic implementation, examples, invalid fixtures, and reflection prompts.
-- Continue with [Context engineering](../../../docs/03-context-engineering.md) to decide which approved evidence belongs in a structured result.
-- Continue with [RAG and tools](../../../docs/04-rag-tools.md) for retrieval and tool contracts, and [Prompt security](../../../docs/06-prompt-security.md) for injection and boundary controls.
+## Technology Landscape and State of the Art
 
-## Reflection questions
+**Foundational:** Asking the model to "Return JSON", parsing it with `json.loads()`, and hoping it doesn't crash.
+
+**Current State of the Art:**
+1. **Native Structured Decoding:** Providers (like Google via `response_schema`) now natively guarantee JSON shape by restricting the token generation space at the API level. "Output JSON only" prompts are obsolete.
+2. **Pydantic Integration:** Modern SDKs map directly to **[Pydantic](https://docs.pydantic.dev/)** models. You define the schema in Python/TypeScript, and the SDK handles the API translation and response deserialization entirely.
+3. **Application-Side Semantic Validation:** Because structural constraints do not guarantee factual correctness, state-of-the-art systems heavily rely on deterministic application-side code to verify that the proposed JSON payload matches approved evidence.
+4. **Bounded Repair:** If validation fails, the system enters a controlled, short-circuiting repair loop, passing the specific failure reason back to the model, rather than infinitely retrying.
+
+## Lab walkthrough
+
+- Demonstration 1 parses a valid typed `CaseBrief`.
+- Demonstration 2 parses a hallucinated `pol_elite_instant_refund` citation,
+  then fails application-side validation with `unknown_evidence_id`.
+- Demonstration 3 makes exactly two attempts; the second uses `NONE` and is
+  valid.
+- Repair-exhausted uses two invalid outputs and returns `None` with terminal
+  state `human_review`.
+- Demonstration 4 feeds truncated JSON to `parse_structured`; the result has
+  `error_code == "not_json"` and raises no exception.
+
+### Implementation detail
+
+The [notebook](04_structured_outputs_and_typed_interfaces.ipynb) demonstrates how native Structured Outputs (via the Google GenAI SDK) guarantee syntax validity, preventing malformed JSON entirely. It then highlights the critical gap: semantic hallucination. It implements an application-side validation step followed by a bounded-repair loop to fix hallucinated evidence citations.
+
+## Exercises
+
+1. Add an approved evidence ID and watch the `unknown_evidence` metric when a
+   replay changes from fabricated to approved.
+2. Change the repair prompt feedback and watch `repair_attempts` while keeping
+   the maximum at two.
+3. Add a semantic rule for intent and watch whether the syntax and semantic
+   metrics remain separate.
+
+### Reflection questions
 
 1. What is the first deterministic consumer of your model’s output, and what does it actually need?
 2. Which values should be closed enums, which require free text, and which should never be model-supplied?
@@ -581,3 +524,51 @@ Do not optimize only for `schema_valid_rate`. A system that always returns a val
 ---
 
 Structured outputs are most valuable when they make uncertainty and failure visible. A good contract gives the model a clear way to say **answer**, **ask**, or **escalate**—and gives the application the final say over every consequential step.
+
+## Checkpoint
+
+1. What does a schema prove? **Shape and types, not factual support or
+   authorization.**
+2. What should an unknown evidence citation do? **Fail semantic validation
+   with `unknown_evidence_id`.**
+3. What happens when bounded repair is exhausted? **Return no proposal and
+   route to `human_review`.**
+
+## Production Best Practices
+
+- **Version Your Schemas:** Treat your Pydantic schemas like database migrations. Version them alongside your prompts to prevent breaking downstream consumers.
+- **Never Execute Directly:** Never execute an external effect (like sending an email or dropping a database table) directly from model output without an application-side authorization gate.
+- **Monitor Repair Rates:** Track how often your repair loop is triggered. A high repair rate indicates a flawed prompt or a task that is too complex for the chosen model.
+
+## Further reading
+
+Structured output patterns include prose, JSON mode, schema-constrained
+responses, function calls, and grammar-constrained decoding. Select based on
+what the next consumer needs: a human may need prose, a program needs a typed
+response, and an external capability needs a separately authorized tool
+request. Parseable JSON is the weakest guarantee. Schema-valid data adds
+required fields and closed values. Semantic validation checks evidence,
+relationships, current policy, and domain rules. Authorization and safety
+checks remain outside the model. Prefer explicit absence (`NONE`, `null`, a
+clarification variant, or escalation) to invented defaults. Keep schemas
+small, versioned, and backwards-compatible. Bounded repair should pass the
+specific validation error back to the model, cap attempts, record repair
+rates, and escalate rather than loop forever.
+
+References: [Pydantic](https://docs.pydantic.dev/),
+[JSON Schema](https://json-schema.org/specification),
+[OpenAI structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs),
+and [The Prompt Report](https://arxiv.org/abs/2406.06608).
+
+### Additional references
+
+- <https://developers.openai.com/api/docs/guides/structured-outputs>
+- <https://docs.pydantic.dev/latest/concepts/json_schema/>
+- <https://json-schema.org/specification>
+- <https://developers.openai.com/api/docs/guides/function-calling#strict-mode>
+- <https://docs.pydantic.dev/latest/>
+- <https://zod.dev/>
+- <https://arxiv.org/abs/2501.10868>
+- <https://openreview.net/pdf/87f0994dff5f854cb02110866e3c61a8e14c80f2.pdf>
+- <https://openreview.net/pdf?id=p84kZ3ZFux>
+- <https://arxiv.org/abs/2406.06608>
