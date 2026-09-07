@@ -1,0 +1,14 @@
+[
+  {
+    "id": "pool-exhaustion",
+    "logs": "[10:01:05] INFO: Service started.\n[10:15:22] WARN: Database connection latency spike (200ms).\n[10:15:25] ERROR: Connection pool exhausted. Failed to acquire connection to DB_MAIN.\n[10:15:26] ERROR: HTTP 500 returned to client (Timeout).",
+    "root_cause_keyword": "connection pool exhausted",
+    "expected_action": "Increase DB connection pool ceiling and page the DBA"
+  },
+  {
+    "id": "disk-full",
+    "logs": "[11:02:10] WARN: Log volume is at 99% capacity.\n[11:02:12] ERROR: No space left on device.\n[11:02:13] ERROR: HTTP 500 returned while writing the request log.",
+    "root_cause_keyword": "no space left on device",
+    "expected_action": "Rotate and compress logs on the log volume (read-only investigation first)"
+  }
+]
