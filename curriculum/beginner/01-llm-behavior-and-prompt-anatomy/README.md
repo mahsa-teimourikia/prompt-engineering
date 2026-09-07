@@ -102,3 +102,13 @@ References: [prompting strategies](https://ai.google.dev/gemini-api/docs/prompti
 [OpenAI prompting guide](https://platform.openai.com/docs/guides/prompting),
 [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165), and
 [Lost in the Middle](https://arxiv.org/abs/2307.03172).
+
+
+### Legacy URLs
+
+- <https://ai.google.dev/gemini-api/docs/long-context>
+- <https://ai.google.dev/gemini-api/docs/prompting-strategies>
+- <https://arxiv.org/abs/2005.14165>
+- <https://arxiv.org/abs/2307.03172>
+- <https://arxiv.org/abs/2406.06608>
+- <https://platform.openai.com/docs/guides/prompting>

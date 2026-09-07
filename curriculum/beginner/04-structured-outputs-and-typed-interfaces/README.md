@@ -93,3 +93,17 @@ References: [Pydantic](https://docs.pydantic.dev/),
 [JSON Schema](https://json-schema.org/specification),
 [OpenAI structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs),
 and [The Prompt Report](https://arxiv.org/abs/2406.06608).
+
+
+### Legacy URLs
+
+- <https://arxiv.org/abs/2406.06608>
+- <https://arxiv.org/abs/2501.10868>
+- <https://developers.openai.com/api/docs/guides/function-calling#strict-mode>
+- <https://developers.openai.com/api/docs/guides/structured-outputs>
+- <https://docs.pydantic.dev/latest/>
+- <https://docs.pydantic.dev/latest/concepts/json_schema/>
+- <https://json-schema.org/specification>
+- <https://openreview.net/pdf/87f0994dff5f854cb02110866e3c61a8e14c80f2.pdf>
+- <https://openreview.net/pdf?id=p84kZ3ZFux>
+- <https://zod.dev/>

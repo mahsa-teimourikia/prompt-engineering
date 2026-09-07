@@ -94,3 +94,8 @@ metric.
 References: [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165),
 [DSPy](https://github.com/stanfordnlp/dspy), and
 [JSON Schema](https://json-schema.org/specification).
+
+
+### Legacy URLs
+
+- <https://arxiv.org/abs/2406.06608>

@@ -101,3 +101,22 @@ References: [DSPy](https://github.com/stanfordnlp/dspy),
 [LangGraph](https://langchain-ai.github.io/langgraph/),
 [LangSmith](https://www.langchain.com/langsmith), and
 [Braintrust](https://www.braintrust.dev/).
+
+
+### Legacy URLs
+
+- <https://ai.google.dev/gemini-api/docs/prompting-strategies>
+- <https://arxiv.org/abs/2201.11903>
+- <https://arxiv.org/abs/2203.11171>
+- <https://arxiv.org/abs/2205.10625>
+- <https://arxiv.org/abs/2210.03629>
+- <https://arxiv.org/abs/2211.10435>
+- <https://arxiv.org/abs/2302.04761>
+- <https://arxiv.org/abs/2303.11366>
+- <https://arxiv.org/abs/2305.04091>
+- <https://arxiv.org/abs/2305.10601>
+- <https://arxiv.org/abs/2308.09687>
+- <https://arxiv.org/abs/2402.07927>
+- <https://arxiv.org/abs/2406.06608>
+- <https://developers.openai.com/api/docs/guides/evals>
+- <https://genai.owasp.org/llm-top-10/>

@@ -93,3 +93,24 @@ into an executable validator; it does not make the model authoritative.
 References: [Pydantic](https://docs.pydantic.dev/),
 [DSPy](https://github.com/stanfordnlp/dspy), and
 [OWASP prompt injection guidance](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html).
+
+
+### Legacy URLs
+
+- <https://aclanthology.org/2024.emnlp-main.33/>
+- <https://ai.google.dev/gemini-api/docs/prompting-strategies>
+- <https://arxiv.org/abs/2312.14197>
+- <https://arxiv.org/abs/2404.13208>
+- <https://arxiv.org/abs/2406.06608>
+- <https://arxiv.org/abs/2502.08745>
+- <https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html>
+- <https://developers.openai.com/api/docs/guides/prompt-engineering>
+- <https://developers.openai.com/api/docs/guides/reasoning-best-practices>
+- <https://developers.openai.com/api/docs/guides/structured-outputs>
+- <https://docs.pydantic.dev/latest/>
+- <https://doi.org/10.6028/NIST.AI.600-1>
+- <https://openai.com/index/the-instruction-hierarchy/>
+- <https://owasp.org/www-project-llm-verification-standard/LLMSVS-v2.0-en.html>
+- <https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents>
+- <https://www.nist.gov/itl/ai-risk-management-framework>
+- <https://zod.dev/>
