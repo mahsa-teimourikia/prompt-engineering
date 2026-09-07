@@ -1,5 +1,48 @@
 # 02 — Instruction Contracts
 
+**Level:** Beginner · **Estimated time:** 60–90 min · **Prerequisites:** Course 01 and basic Pydantic models
+
+## Scenario
+
+Northstar Support Copilot drafts a response for a human support queue. A
+contract must state the allowed intent, the answer field, the evidence ID, and
+the fallback state. This lesson uses `SupportDraft` and five labelled cases:
+normal, missing evidence, conflicting preference, direct injection, and an
+impossible combination. The replay text is synthetic and hand-authored; the
+application gate, not model prose, decides whether a draft can be sent.
+
+## Lab walkthrough
+
+- Normal case: the notebook asserts `needs_human` is false and
+  `evidence_id` is `ref-v3-101`.
+- Missing evidence: the recorded draft escalates instead of inventing a
+  policy answer.
+- Conflicting preference: the old and new preferences produce human review.
+- Direct injection: pirate-style prose is present, but the gate returns
+  `human_review` because the draft and instruction-like score are unsafe.
+- Impossible combination: the answer does not contain `Refund Approved`, and
+  deterministic constraint checking reports no forbidden phrase.
+- Contract version: changing `CONTRACT_VERSION` changes the fingerprint and
+  produces exactly one stale replay warning in the test.
+
+## Exercises
+
+1. Modify the `b02/missing-evidence` fixture and watch the
+   `human_review_cases` numerator while keeping its denominator fixed.
+2. Add a forbidden phrase to `lab02.py` and watch
+   `forbidden_phrase_violations`.
+3. Change `CONTRACT_VERSION` to `v4` without refreshing fixtures and watch the
+   stale replay warning; then refresh it and compare the fingerprint.
+
+## Checkpoint
+
+1. What should a contract define when evidence is unavailable? **An explicit
+   fallback such as `needs_human=True` and `evidence_id="none"`.**
+2. What protects the system from a direct injection? **An application-side
+   gate that ignores model prose and evaluates policy signals.**
+3. Why version a contract? **To make changes visible in fingerprints,
+   fixtures, review, and downstream compatibility.**
+
 ## Learning Objectives
 - **Define Engineering Contracts:** Move from writing polite requests to defining strict, declarative input/output contracts.
 - **Eliminate Ambiguity:** Remove adjectives and replace them with measurable, binary boundaries.
@@ -32,3 +75,21 @@ The [notebook](02_instruction_contracts.ipynb) illustrates the transition from a
 - **Define the 'None' State:** Every contract must define an escape hatch. Explicitly state: "If the answer is not present in the text, output 'INSUFFICIENT_DATA'."
 - **Remove Politeness:** Do not use "please" or "if you can." LLMs do not have feelings. Use direct, imperative commands.
 - **Measure Adherence:** You cannot improve what you cannot measure. A contract is only valid if you can write an automated test to verify that the model obeyed the constraints.
+
+## Further reading
+
+A useful contract starts from the deterministic consumer: name the input,
+transformation, output schema, negative constraints, and `None` state. Use
+stable field names, small enums, bounded strings, explicit absence, and
+versioned schemas. Keep customer text and retrieved evidence in labelled
+sections, but never mistake a delimiter for a security control. A model may
+return a well-formed answer that cites unsupported evidence or follows a
+malicious instruction. Validate evidence IDs, business rules, permissions, and
+forbidden phrases in application code. Contracts should be tested against
+happy paths, missing data, conflicting sources, adversarial instructions, and
+impossible combinations. Pydantic is useful because it turns the interface
+into an executable validator; it does not make the model authoritative.
+
+References: [Pydantic](https://docs.pydantic.dev/),
+[DSPy](https://github.com/stanfordnlp/dspy), and
+[OWASP prompt injection guidance](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html).
