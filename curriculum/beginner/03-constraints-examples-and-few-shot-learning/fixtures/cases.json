@@ -1,0 +1,7 @@
+[
+  {"id": "clear-refund", "message": "I need a refund for a duplicate sandbox charge.", "expected": "refund", "slice": "clear"},
+  {"id": "clear-shipping", "message": "Where is the replacement parcel?", "expected": "shipping", "slice": "clear"},
+  {"id": "ambiguous-payment", "message": "There is a payment issue.", "expected": "unknown", "slice": "ambiguous"},
+  {"id": "edge-case-return", "message": "Can I send back the defective item?", "expected": "refund", "slice": "boundary"},
+  {"id": "ambiguous-account-payment", "message": "My account is showing a weird charge.", "expected": "unknown", "slice": "ambiguous"}
+]

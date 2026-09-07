@@ -1,0 +1,222 @@
+{
+  "b03/random/ambiguous-account-payment": {
+    "fingerprint": "bcdbf4ba5629d3825d3ff530d58ad1d599837537390731397c66057aafbcae5a",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"unknown\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/random/ambiguous-payment": {
+    "fingerprint": "52f98ecaf6695832287d85e670d02d4ad4d10a61f24df0bb7feb0bf627e6f493",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"refund\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/random/clear-refund": {
+    "fingerprint": "a335d8bb1f14daa2efb12aae7e77840cd301afc0ab5e8f7c616ae7134eec67dc",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"refund\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/random/clear-shipping": {
+    "fingerprint": "659c028090121fc798dcf107f032d4c08b9b3541ebeeba4f243f5cc03dca0b54",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"account\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/random/edge-case-return": {
+    "fingerprint": "8f5cb7eaa7405460e0bfff2b490e0c5bc5b30e85b47b29f34cf6e050459be726",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"refund\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/similarity/ambiguous-account-payment": {
+    "fingerprint": "0dca191f212cdb91291d2eb76dfa0e892091fb1896ed1f3e848704efecc0b6c0",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"unknown\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/similarity/ambiguous-payment": {
+    "fingerprint": "c953854e32829c28146e9e8a048550fed959e19bcb7c0f4ed62d3aa07c3f69b9",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"unknown\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/similarity/clear-refund": {
+    "fingerprint": "54c4adda662adbb2813ff216459dceffeb510d43fe3b91a6f0bc6eadb3400dfd",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"refund\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/similarity/clear-shipping": {
+    "fingerprint": "1145f644fa2e88247b5f0d306f87c71519653375c2c73cbefe574954609f5c8a",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"shipping\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/similarity/edge-case-return": {
+    "fingerprint": "4b67b1d8cfaf3c67c371dce751588c1d48f34866ebed1f61161508b480a33044",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"refund\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/static/ambiguous-account-payment": {
+    "fingerprint": "3ff73c54da1e535c1efb8e6909f4dccdeb022547bba1a1288c6edb5068e97bb2",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"unknown\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/static/ambiguous-payment": {
+    "fingerprint": "f1a2c95562286ad3aca3bb5574fd48498d561935277d4043b651dc702bd468af",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"unknown\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/static/clear-refund": {
+    "fingerprint": "5f0d2475cdc8219c51242ee09628bf68048532f1e1e5645d7b80a5505ceb7d66",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"refund\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/static/clear-shipping": {
+    "fingerprint": "27d026e35ec07e5e589448eee2633664567bbf33a191bdf1e21b866ed8977821",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"shipping\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/static/edge-case-return": {
+    "fingerprint": "002f3695cd060d0987b14869a56bbd18f1ae869a86cb3902b7c4fd1e0a618afc",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"account\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 30,
+      "output_tokens": 4
+    }
+  },
+  "b03/zero/ambiguous-account-payment": {
+    "fingerprint": "7686d18f1fccbb6d946afd237378b8d84fbaea69b4bf8bf0b99b1c4aaa4b45b7",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"unknown\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 15,
+      "output_tokens": 4
+    }
+  },
+  "b03/zero/ambiguous-payment": {
+    "fingerprint": "0978d31f506c079e80bf36d5e350902ef6bc4306d9e93c6436b19b7a8216937f",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"refund\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 15,
+      "output_tokens": 4
+    }
+  },
+  "b03/zero/clear-refund": {
+    "fingerprint": "0e0f8ef39ac45381a27ca3a55727bd58b09f7c5795b1ca72c1d7dcab439a9ee1",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"refund\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 15,
+      "output_tokens": 4
+    }
+  },
+  "b03/zero/clear-shipping": {
+    "fingerprint": "96e68fb52fe75df6a6119900a335a4181901c83e0c58d3a0072d3f8332d6a1e5",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"refund\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 15,
+      "output_tokens": 4
+    }
+  },
+  "b03/zero/edge-case-return": {
+    "fingerprint": "6290677ef0eb9c29bb44da84ec7a2fa79df3b2a78e3e625f038975f937d180cc",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"category\":\"refund\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 15,
+      "output_tokens": 4
+    }
+  }
+}
