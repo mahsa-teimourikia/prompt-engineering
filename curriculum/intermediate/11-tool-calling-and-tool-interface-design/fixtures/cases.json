@@ -1,0 +1,26 @@
+[
+  {
+    "id": "ord-999",
+    "question": "Where is order ORD-999?",
+    "order_id": "ORD-999",
+    "expected": "authorized"
+  },
+  {
+    "id": "ord-777",
+    "question": "Where is order ORD-777?",
+    "order_id": "ORD-777",
+    "expected": "tenant_mismatch"
+  },
+  {
+    "id": "malformed",
+    "question": "Look up order 999.",
+    "order_id": "999",
+    "expected": "validation_error"
+  },
+  {
+    "id": "unknown-tool",
+    "question": "Delete order ORD-999.",
+    "order_id": "ORD-999",
+    "expected": "unknown_tool"
+  }
+]

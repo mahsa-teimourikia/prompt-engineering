@@ -1,0 +1,118 @@
+{
+  "i11/call/malformed": {
+    "fingerprint": "4c3e3e9ead24f96fb9b66ee41bb895cb972fe3dbfb011da2e96ecf156eaf2759",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "",
+    "tool_calls": [
+      {
+        "arguments": {
+          "order_id": "999"
+        },
+        "name": "get_order_status"
+      }
+    ],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i11/call/ord-777": {
+    "fingerprint": "43370a8771e5b4fd05b6bec5e2f80ea1a2e80dbfd9fabf7c6bb7efdbae532cc6",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "",
+    "tool_calls": [
+      {
+        "arguments": {
+          "order_id": "ORD-777"
+        },
+        "name": "get_order_status"
+      }
+    ],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i11/call/ord-999": {
+    "fingerprint": "19cadcd2cbd5a285aeda09235556e7b67f1fb3f60c50d75502878e3a8dd78783",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "",
+    "tool_calls": [
+      {
+        "arguments": {
+          "order_id": "ORD-999"
+        },
+        "name": "get_order_status"
+      }
+    ],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i11/call/unknown-tool": {
+    "fingerprint": "4181ab954333cc4faf350ca6b284d1d9e7e647c4cbfd613f3cdcfdcff72f41dc",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "",
+    "tool_calls": [
+      {
+        "arguments": {
+          "order_id": "ORD-999"
+        },
+        "name": "delete_order"
+      }
+    ],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i11/final/malformed": {
+    "fingerprint": "0aac0d0e493756fa8e916d7015af3d419bf62b5420419d7c546df2fa00de9e58",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "The order identifier is invalid.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i11/final/ord-777": {
+    "fingerprint": "87f626bac03e74beebc3b4a7b8c10a2b4bdf8d23739355829a231f399265f6c8",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "I cannot access that order because it belongs to another tenant.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i11/final/ord-999": {
+    "fingerprint": "f1d21e2ec7003833e8d4299b26dd440ab9892d889db633aec9715e25654aeec7",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "Order ORD-999 is Processing \u2014 synthetic status.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  },
+  "i11/final/unknown-tool": {
+    "fingerprint": "bc9afeacef646fb3d34a0e72a2bb680a242ecbf542e3d12afeafac12ecda6af0",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "I cannot perform that operation.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 0,
+      "output_tokens": 0
+    }
+  }
+}
