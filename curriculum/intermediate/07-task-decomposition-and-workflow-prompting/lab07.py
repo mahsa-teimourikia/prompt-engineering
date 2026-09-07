@@ -126,8 +126,20 @@ def run_lab(client: ModelClient) -> dict[str, Metric | list[str]]:
         if eligibility == "eligible" and "outside the 30-day" in draft:
             violations += 1
     naive_violation = int(bool(check_constraints(naive.answer, forbidden_phrases=("approved",))))
+    drafted_cases = [case for case in CASES if case["expected_terminal"] == "drafted"]
+    baseline_cases = [case for case in CASES if case["id"] == "original-email"]
     return {
-        "policy_violations": rate("policy_violations", violations, 2, "lower_is_better"),
-        "naive_policy_violations": rate("naive_policy_violations", naive_violation, 1, "lower_is_better"),
+        "policy_violations": rate(
+            "policy_violations",
+            violations,
+            len(drafted_cases),
+            "lower_is_better",
+        ),
+        "naive_policy_violations": rate(
+            "naive_policy_violations",
+            naive_violation,
+            len(baseline_cases),
+            "lower_is_better",
+        ),
         "terminal_states": [trace.terminal_state for trace in traces],
     }

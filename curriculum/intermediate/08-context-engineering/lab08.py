@@ -77,7 +77,12 @@ def run_lab(client: ModelClient) -> dict[str, Metric | bool | str]:
     packet = build_packet(sections, budget_tokens=15)
     return {
         "policy_decisions": ",".join(decisions),
-        "approved_cases": rate("approved_cases", decisions.count("approved"), 3, "higher_is_better"),
+        "approved_cases": rate(
+            "approved_cases",
+            decisions.count("approved"),
+            len(CASES),
+            "higher_is_better",
+        ),
         "injection_score": instruction_like_score(USER_DATA),
         "policy_retained": "[policy]" in packet,
         "chat_history_dropped": "[chat history]" not in packet,

@@ -72,7 +72,7 @@
     }
   },
   "i11/final/malformed": {
-    "fingerprint": "0aac0d0e493756fa8e916d7015af3d419bf62b5420419d7c546df2fa00de9e58",
+    "fingerprint": "cd3d4873ca44ce814276ffa90542ba8380b53b4ee38b0f2f2522c500fbae59e9",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "The order identifier is invalid.",
     "tool_calls": [],
@@ -83,7 +83,7 @@
     }
   },
   "i11/final/ord-777": {
-    "fingerprint": "87f626bac03e74beebc3b4a7b8c10a2b4bdf8d23739355829a231f399265f6c8",
+    "fingerprint": "a713d681c05813544a16c0586db9c23a3721a56f6be6e49d6eeb31a1dc1d4547",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "I cannot access that order because it belongs to another tenant.",
     "tool_calls": [],
@@ -94,7 +94,7 @@
     }
   },
   "i11/final/ord-999": {
-    "fingerprint": "f1d21e2ec7003833e8d4299b26dd440ab9892d889db633aec9715e25654aeec7",
+    "fingerprint": "babc025ae37b98d749b45eadae4c02f561c08d58d9fd8f4238909647033b2f53",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "Order ORD-999 is Processing \u2014 synthetic status.",
     "tool_calls": [],
@@ -105,7 +105,7 @@
     }
   },
   "i11/final/unknown-tool": {
-    "fingerprint": "bc9afeacef646fb3d34a0e72a2bb680a242ecbf542e3d12afeafac12ecda6af0",
+    "fingerprint": "6608d977bec0533c226925d0560372387391a1f9a5139ca5151b1736e96d9e19",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "I cannot perform that operation.",
     "tool_calls": [],

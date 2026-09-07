@@ -71,7 +71,6 @@ def is_abstention(text: str) -> bool:
 
 
 def run_lab(client: ModelClient) -> dict[str, Metric]:
-    answers = []
     reports = []
     abstentions = 0
     for case in CASES:
@@ -84,7 +83,6 @@ def run_lab(client: ModelClient) -> dict[str, Metric]:
         )
         report = check_citations(answer.text, evidence)
         reports.append(report)
-        answers.append(answer.text)
         if case["expected_abstention"]:
             abstentions += int(is_abstention(answer.text))
     return {
