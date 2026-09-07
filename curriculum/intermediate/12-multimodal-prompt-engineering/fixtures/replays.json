@@ -13,7 +13,7 @@
   "i12/claim-800": {
     "fingerprint": "65930869b0ebd1fc5f853b29a06cd7ed84399f7d32f43f0fba1b0758609bd7f0",
     "recorded_model": "hand-authored (not a live recording)",
-    "text": "{\"is_contradictory\":true,\"extracted_amount\":null,\"reasoning\":\"The claim is $800.00 while the invoice image shows $500.00.\"}",
+    "text": "{\"is_contradictory\":false,\"extracted_amount\":500.0,\"reasoning\":\"The recorded model marked the image extraction as consistent, but the user claim differs.\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
