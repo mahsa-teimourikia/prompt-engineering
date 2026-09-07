@@ -1,5 +1,6 @@
 """Static checks for the GitHub Pages learning experience."""
 
+import json
 import re
 import subprocess
 from pathlib import Path
@@ -52,7 +53,7 @@ console.log(JSON.stringify(answers));
         text=True,
         check=True,
     )
-    answers = __import__("json").loads(result.stdout.splitlines()[-1])
+    answers = json.loads(result.stdout.splitlines()[-1])
     counts = {index: answers.count(index) for index in set(answers)}
     assert len(answers) == 58
     assert max(counts.values()) <= len(answers) / 2

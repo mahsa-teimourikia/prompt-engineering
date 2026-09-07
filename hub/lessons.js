@@ -440,16 +440,16 @@ export const lessons = [
   }
 ];
 
-const sourceChecks = {
+export const checks = {
   "behavior": [
     {
       "question": "Why is 'The prompt used to work' not a valid diagnosis for a failure?",
       "choices": [
-        "Models are deterministic",
         "The entire request packet, context, and decoding params must be analyzed",
-        "Prompts don't change behavior"
+        "Prompts don't change behavior",
+        "Models are deterministic"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "A production response is conditional generation inside a whole request packet. You must isolate what changed."
     },
     {
@@ -467,21 +467,21 @@ const sourceChecks = {
     {
       "question": "What is the primary flaw of asking an LLM to 'write a good summary'?",
       "choices": [
+        "Summaries are too hard for LLMs",
         "It uses too many tokens",
-        "'Good' is subjective, unmeasurable, and impossible to test",
-        "Summaries are too hard for LLMs"
+        "'Good' is subjective, unmeasurable, and impossible to test"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "A contract requires measurable, binary boundaries rather than ambiguous adjectives."
     },
     {
       "question": "Why must an instruction contract explicitly define a fallback path?",
       "choices": [
-        "To make the prompt longer",
         "To prevent the model from hallucinating a guess when facts are absent",
-        "To save API costs"
+        "To save API costs",
+        "To make the prompt longer"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "Without a defined fallback (like 'Output UNKNOWN'), the model's natural behavior is to guess plausibly."
     }
   ],
@@ -499,11 +499,11 @@ const sourceChecks = {
     {
       "question": "What happens if all your Few-Shot examples demonstrate 'success' paths and none demonstrate 'failure' paths?",
       "choices": [
-        "The model will hallucinate success when faced with a failing input",
         "The model becomes more accurate",
-        "Latency decreases"
+        "Latency decreases",
+        "The model will hallucinate success when faced with a failing input"
       ],
-      "answer": 0,
+      "answer": 2,
       "explanation": "The model learns the distribution of the examples. If it only sees positive responses, it becomes biased toward returning positive responses even for negative inputs."
     }
   ],
@@ -511,11 +511,11 @@ const sourceChecks = {
     {
       "question": "Why is 'Return JSON' inside the prompt text considered an anti-pattern?",
       "choices": [
-        "JSON is deprecated",
         "It relies on the model's language skills rather than native decoding enforcement",
-        "It uses more tokens"
+        "It uses more tokens",
+        "JSON is deprecated"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "Modern APIs natively enforce JSON schemas directly in the decoding phase, which is vastly more reliable than asking politely in text."
     },
     {
@@ -532,21 +532,21 @@ const sourceChecks = {
     {
       "question": "What is 'Pattern Bloat'?",
       "choices": [
+        "A token limit error",
         "A new type of model",
-        "Blindly stacking techniques (like CoT + Few-Shot) on every prompt without measuring if they actually help",
-        "A token limit error"
+        "Blindly stacking techniques (like CoT + Few-Shot) on every prompt without measuring if they actually help"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "Adding every technique increases latency and obscures failure causes. Use only the simplest pattern required."
     },
     {
       "question": "When should you use a complex multi-stage prompt instead of a simple deterministic script?",
       "choices": [
-        "Always",
         "Only when the task requires semantic flexibility that traditional code cannot handle",
-        "When writing Python is too hard"
+        "When writing Python is too hard",
+        "Always"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "If a problem can be solved with Regex or an SQL query, do not use an LLM."
     }
   ],
@@ -564,11 +564,11 @@ const sourceChecks = {
     {
       "question": "In a JSON schema enforcing reasoning, why must the 'reasoning' field come BEFORE the 'answer' field?",
       "choices": [
+        "It saves tokens",
         "JSON formatting rules",
-        "Because LLMs generate sequentially; if the answer comes first, the reasoning is just post-hoc justification",
-        "It saves tokens"
+        "Because LLMs generate sequentially; if the answer comes first, the reasoning is just post-hoc justification"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "The model must generate the intermediate logic tokens *before* it predicts the final answer token to benefit from CoT."
     }
   ],
@@ -576,11 +576,11 @@ const sourceChecks = {
     {
       "question": "What happens when you give an LLM a massive 10-step instruction list?",
       "choices": [
-        "It executes it perfectly",
         "It suffers from 'attention dilution' and will silently skip steps",
-        "It crashes the API"
+        "It crashes the API",
+        "It executes it perfectly"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "Models struggle to adhere to long, complex instruction sets. Decomposition is required for reliability."
     },
     {
@@ -598,21 +598,21 @@ const sourceChecks = {
     {
       "question": "What is the 'Lost in the Middle' phenomenon?",
       "choices": [
+        "A symptom of low temperature",
         "A network timeout error",
-        "Models paying high attention to the start and end of a prompt, but ignoring data in the center",
-        "A symptom of low temperature"
+        "Models paying high attention to the start and end of a prompt, but ignoring data in the center"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "Long-context models struggle to retrieve facts buried deep in the middle of massive context blocks."
     },
     {
       "question": "Where should the final instructions be placed relative to a massive injected document?",
       "choices": [
+        "At the very end, closest to generation",
         "At the very beginning",
-        "In the middle",
-        "At the very end, closest to generation"
+        "In the middle"
       ],
-      "answer": 2,
+      "answer": 0,
       "explanation": "Placing instructions immediately before the model's generation turn maximizes adherence."
     }
   ],
@@ -630,11 +630,11 @@ const sourceChecks = {
     {
       "question": "As a conversation history grows extremely long, what often happens to the System Instructions?",
       "choices": [
+        "They become cheaper to run",
         "They are prioritized",
-        "The model 'forgets' them because they are pushed too far back in the context window",
-        "They become cheaper to run"
+        "The model 'forgets' them because they are pushed too far back in the context window"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "System prompt reinforcement (reminding the model of its rules at the end of the transcript) is required for long chats."
     }
   ],
@@ -642,11 +642,11 @@ const sourceChecks = {
     {
       "question": "What is the fundamental purpose of RAG?",
       "choices": [
-        "To train a model on your data",
         "To ground answers strictly in retrieved evidence rather than the model's pre-trained parametric memory",
-        "To search the internet"
+        "To search the internet",
+        "To train a model on your data"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "RAG turns the LLM from a hallucinating encyclopedia into a strict reading comprehension engine."
     },
     {
@@ -664,21 +664,21 @@ const sourceChecks = {
     {
       "question": "How does an LLM execute a Python function?",
       "choices": [
+        "It sends an HTTP request",
         "It runs Python natively",
-        "It generates a JSON payload representing the arguments, pauses, and waits for the application to run the code and return the result",
-        "It sends an HTTP request"
+        "It generates a JSON payload representing the arguments, pauses, and waits for the application to run the code and return the result"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "Models are trapped in a text box. They only generate text (JSON). The application executes the tools."
     },
     {
       "question": "Why is giving an LLM autonomous write-access to a database extremely dangerous?",
       "choices": [
-        "It will delete everything",
         "LLMs hallucinate arguments and can get stuck in loops. Destructive actions require a Human-in-the-Loop approval step",
-        "It's too expensive"
+        "It's too expensive",
+        "It will delete everything"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "You must never let a probabilistic system execute an irreversible action autonomously."
     }
   ],
@@ -696,11 +696,11 @@ const sourceChecks = {
     {
       "question": "What is the best way to direct a multimodal model's attention in a massive video?",
       "choices": [
+        "Upload the video twice",
         "Ask a vague question",
-        "Use explicit text anchors, specifying timestamps or spatial quadrants",
-        "Upload the video twice"
+        "Use explicit text anchors, specifying timestamps or spatial quadrants"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "Grounding the model's reasoning with specific spatial/temporal coordinates dramatically improves extraction accuracy."
     }
   ],
@@ -708,11 +708,11 @@ const sourceChecks = {
     {
       "question": "What is Indirect Prompt Injection?",
       "choices": [
-        "A user typing a malicious command in a chatbox",
         "The application retrieving a poisoned document (e.g., from a web search) and blindly injecting it into the prompt's context",
-        "A network hack"
+        "A network hack",
+        "A user typing a malicious command in a chatbox"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "The model cannot distinguish between trusted system context and untrusted user data unless explicitly isolated."
     },
     {
@@ -730,21 +730,21 @@ const sourceChecks = {
     {
       "question": "Why is evaluating prompts with 'vibe checks' an anti-pattern?",
       "choices": [
+        "It requires too much code",
         "It's too slow",
-        "It doesn't scale and fails to catch regressions on edge cases when a prompt is modified",
-        "It requires too much code"
+        "It doesn't scale and fails to catch regressions on edge cases when a prompt is modified"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "You must use automated, deterministic regression testing against a frozen Golden Dataset to prove prompt efficacy."
     },
     {
       "question": "Which of the following belongs in a Golden Dataset?",
       "choices": [
-        "Only happy-path inputs",
         "Clear, ambiguous, adversarial, and missing-evidence inputs",
-        "Only inputs that failed previously"
+        "Only inputs that failed previously",
+        "Only happy-path inputs"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "A robust evaluation suite must test the prompt's ability to handle failure modes and edge cases gracefully."
     }
   ],
@@ -762,11 +762,11 @@ const sourceChecks = {
     {
       "question": "Why must an LLM Judge use Chain-of-Thought reasoning?",
       "choices": [
+        "To save money",
         "To make the logs longer",
-        "Because it needs 'compute time' to justify its score before outputting the final integer, dramatically increasing reliability",
-        "To save money"
+        "Because it needs 'compute time' to justify its score before outputting the final integer, dramatically increasing reliability"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "Forcing a judge to output its rubric-based critique before outputting the score prevents random guessing."
     }
   ],
@@ -774,11 +774,11 @@ const sourceChecks = {
     {
       "question": "What does treating prompt engineering as a 'gradient descent problem' mean?",
       "choices": [
-        "Using complex math",
         "Iteratively tuning prompts based solely on automated evaluation metrics rather than manual guessing",
-        "Optimizing the server architecture"
+        "Optimizing the server architecture",
+        "Using complex math"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "You measure the baseline, change the prompt, run the eval, and keep the prompt only if the metric goes up."
     },
     {
@@ -796,11 +796,11 @@ const sourceChecks = {
     {
       "question": "What is the primary value proposition of DSPy?",
       "choices": [
+        "It replaces Python",
         "It makes models run faster",
-        "It automates prompt generation by compiling declarative signatures into optimized prompt strings algorithmically",
-        "It replaces Python"
+        "It automates prompt generation by compiling declarative signatures into optimized prompt strings algorithmically"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "DSPy abstracts away manual prompt tweaking, letting an optimizer search for the best prompt based on your metrics."
     },
     {
@@ -828,11 +828,11 @@ const sourceChecks = {
     {
       "question": "Why do multi-agent systems often fail in production?",
       "choices": [
+        "They are too fast",
         "They are too deterministic",
-        "They get stuck in infinite reflection loops or veer completely off task due to compounding hallucinations",
-        "They are too fast"
+        "They get stuck in infinite reflection loops or veer completely off task due to compounding hallucinations"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "Autonomous loops are highly unstable. Strict state-machine guardrails (like LangGraph) are required to keep them on track."
     }
   ],
@@ -840,11 +840,11 @@ const sourceChecks = {
     {
       "question": "Why is Test-Driven Development (TDD) critical for Coding Agents?",
       "choices": [
-        "To write documentation",
         "Because syntactic hallucinations will crash code. The agent must compile/test its code in a sandbox and reflect on the errors to fix them",
-        "To save tokens"
+        "To save tokens",
+        "To write documentation"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "LLMs cannot write flawless code zero-shot. They need an execution loop to verify syntax and logic."
     },
     {
@@ -862,21 +862,21 @@ const sourceChecks = {
     {
       "question": "What does it mean that models have differing 'inductive biases'?",
       "choices": [
+        "They use different programming languages",
         "They cost different amounts",
-        "They respond differently to the same prompt formatting (e.g., Claude prefers XML, GPT prefers Markdown)",
-        "They use different programming languages"
+        "They respond differently to the same prompt formatting (e.g., Claude prefers XML, GPT prefers Markdown)"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "A highly optimized prompt for one model family will often perform poorly on a competitor's model without refactoring."
     },
     {
       "question": "Why is portability a challenge in prompt engineering?",
       "choices": [
-        "You can't copy text",
         "Because moving from a 70B model to an 8B model requires fundamentally simpler prompts and tighter schemas to succeed",
-        "API keys change"
+        "API keys change",
+        "You can't copy text"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "Smaller models have less reasoning capacity and require much more rigid instruction contracts."
     }
   ],
@@ -894,11 +894,11 @@ const sourceChecks = {
     {
       "question": "How do you minimize token costs in a RAG pipeline?",
       "choices": [
+        "By ignoring the context",
         "By switching to a smaller model",
-        "By aggressively pre-processing and stripping noise/HTML from the retrieved documents before injecting them",
-        "By ignoring the context"
+        "By aggressively pre-processing and stripping noise/HTML from the retrieved documents before injecting them"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "Injecting massive, messy logs wastes money. Clean your data before sending it to the LLM."
     }
   ],
@@ -906,11 +906,11 @@ const sourceChecks = {
     {
       "question": "What is the core philosophy of PromptOps?",
       "choices": [
-        "Prompts are just text files",
         "Prompt engineering is software engineering; prompts must pass strict CI/CD pipelines before deployment",
-        "Prompts should be edited live in production"
+        "Prompts should be edited live in production",
+        "Prompts are just text files"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "Treating prompts as versioned, tested artifacts prevents catastrophic regressions."
     },
     {
@@ -928,21 +928,21 @@ const sourceChecks = {
     {
       "question": "Why is HTTP 200 (Success) a dangerous metric for LLM APIs?",
       "choices": [
+        "It means the API is down",
         "It's deprecated",
-        "An LLM can return a HTTP 200 while delivering a catastrophic, confidently incorrect hallucination",
-        "It means the API is down"
+        "An LLM can return a HTTP 200 while delivering a catastrophic, confidently incorrect hallucination"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "Infrastructure observability is insufficient. You need semantic observability to measure output quality."
     },
     {
       "question": "What does Distributed Tracing for LLMs accomplish?",
       "choices": [
-        "It tracks network packets",
         "It captures the exact inputs, outputs, and token costs of every individual node in a complex multi-stage workflow",
-        "It speeds up the model"
+        "It speeds up the model",
+        "It tracks network packets"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "When an agent fails, tracing allows you to pinpoint exactly which intermediate reasoning step derailed the process."
     }
   ],
@@ -960,11 +960,11 @@ const sourceChecks = {
     {
       "question": "Why decouple prompt deployment from code deployment using feature flags?",
       "choices": [
+        "It uses fewer tokens",
         "To make the code larger",
-        "It enables instant hot-swapping and automated rollbacks of a bad prompt without requiring a full Kubernetes microservice restart",
-        "It uses fewer tokens"
+        "It enables instant hot-swapping and automated rollbacks of a bad prompt without requiring a full Kubernetes microservice restart"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "Feature flags allow immediate, zero-downtime remediation of prompt failures."
     }
   ],
@@ -972,11 +972,11 @@ const sourceChecks = {
     {
       "question": "Why must PII redaction occur BEFORE the API call?",
       "choices": [
-        "To save tokens",
         "Because sending raw PII/PHI to a third-party LLM is a massive compliance violation (HIPAA/GDPR)",
-        "The LLM will delete the data"
+        "The LLM will delete the data",
+        "To save tokens"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "You cannot rely on the LLM to 'keep a secret'. The data must be scrubbed by deterministic code before it leaves your network."
     },
     {
@@ -994,21 +994,21 @@ const sourceChecks = {
     {
       "question": "What is Automation Bias?",
       "choices": [
+        "A bug in the code",
         "Robots doing manual labor",
-        "The psychological tendency for humans to blindly trust highly confident automated systems, even when they hallucinate",
-        "A bug in the code"
+        "The psychological tendency for humans to blindly trust highly confident automated systems, even when they hallucinate"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "If you present a hallucination in a slick, authoritative UI, users will believe it. You must design to counteract this."
     },
     {
       "question": "What is 'Trust Calibration'?",
       "choices": [
-        "Making the user trust the AI 100%",
         "Designing the UI so the user's trust exactly matches the AI's actual reliability on that specific task (e.g., highlighting uncertainty)",
-        "A mathematical formula"
+        "A mathematical formula",
+        "Making the user trust the AI 100%"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "High-stakes tasks with low confidence should intentionally introduce UX friction (Human-in-the-Loop)."
     }
   ],
@@ -1026,11 +1026,11 @@ const sourceChecks = {
     {
       "question": "What must you do to ensure an automated fallback model is actually useful?",
       "choices": [
+        "Pay for a premium tier",
         "Assume it works",
-        "Run your automated evaluation suite against the fallback model continuously to ensure it meets quality thresholds",
-        "Pay for a premium tier"
+        "Run your automated evaluation suite against the fallback model continuously to ensure it meets quality thresholds"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "Portability of code doesn't guarantee portability of capability. The backup model must still pass the math."
     }
   ],
@@ -1038,11 +1038,11 @@ const sourceChecks = {
     {
       "question": "What is the core principle of System Selection?",
       "choices": [
-        "Always use the largest model",
         "Complexity is a liability; always select the simplest, most deterministic architecture that solves the business constraint",
-        "Never use code"
+        "Never use code",
+        "Always use the largest model"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "Moving from Prompt -> RAG -> Agents incurs massive latency and cost taxes. Default to simplicity."
     },
     {
@@ -1060,40 +1060,22 @@ const sourceChecks = {
     {
       "question": "What is the ultimate goal of Project Northstar?",
       "choices": [
+        "To test API keys",
         "To build a chat bot",
-        "To synthesize routing, RAG, tool calling, and governance into a production-grade, observable Compound AI System",
-        "To test API keys"
+        "To synthesize routing, RAG, tool calling, and governance into a production-grade, observable Compound AI System"
       ],
-      "answer": 1,
+      "answer": 2,
       "explanation": "The capstone proves you can integrate all the discrete layers of AI engineering into a single resilient architecture."
     },
     {
       "question": "Why is 'Prompt Engineering is Software Engineering' the central thesis?",
       "choices": [
-        "Because it sounds good",
         "Because treating prompts as versioned, evaluated, and governed code is the only way to deploy AI safely at enterprise scale",
-        "Because prompts require compilation"
+        "Because prompts require compilation",
+        "Because it sounds good"
       ],
-      "answer": 1,
+      "answer": 0,
       "explanation": "Without the rigor of traditional software engineering (CI/CD, evals, observability), prompt engineering is just a hobby."
     }
   ]
 };
-
-const answerTargets = Array.from({ length: 58 }, (_, index) => index % 3);
-let questionIndex = 0;
-export const checks = Object.fromEntries(
-  Object.entries(sourceChecks).map(([lessonId, questions]) => [
-    lessonId,
-    questions.map((question) => {
-      const target = answerTargets[questionIndex++];
-      const length = question.choices.length;
-      const shift = (question.answer - target + length) % length;
-      return {
-        ...question,
-        choices: question.choices.slice(shift).concat(question.choices.slice(0, shift)),
-        answer: (question.answer - shift + length) % length,
-      };
-    }),
-  ]),
-);
