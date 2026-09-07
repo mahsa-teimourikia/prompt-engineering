@@ -1,0 +1,28 @@
+name: Bug report
+description: Report a reproducible problem in the curriculum, Hub, tests, or CI.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: Remove credentials and private data before submitting.
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Commands, paths, and the smallest reproducible example.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
