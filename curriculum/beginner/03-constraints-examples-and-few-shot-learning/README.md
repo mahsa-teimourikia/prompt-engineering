@@ -95,7 +95,109 @@ References: [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.1
 [DSPy](https://github.com/stanfordnlp/dspy), and
 [JSON Schema](https://json-schema.org/specification).
 
-
 ### Legacy URLs
 
 - <https://arxiv.org/abs/2406.06608>
+
+## Folded legacy material
+
+### Folded catalog sections 1 and worksheet
+
+# Prompt technique catalog: choose a pattern by observed failure
+
+This is a **decision catalog**, not a leaderboard. It groups the most useful prompt and context patterns into families, explains the failure each family is meant to address, and links to the lesson that teaches the surrounding engineering practice. It is informed by the taxonomy in [The Prompt Report](https://arxiv.org/abs/2406.06608), but deliberately emphasizes techniques that can be evaluated and operated safely in applications.
+
+> **Rule of thumb:** establish a task contract and a small evaluation set first. Add the simplest technique that improves a measured failure. A more elaborate prompt can increase cost, latency, privacy exposure, and the number of ways a system fails.
+
+## How to read an entry
+
+Every technique answers five questions:
+
+1. **Mechanism** — what changes in the inputs, control flow, or output interface?
+2. **Use when** — what observable failure could it address?
+3. **Do not use when** — when it is needless or creates a new risk.
+4. **Control** — what must remain deterministic, validated, or human-reviewed?
+5. **Learn it here** — the course material and runnable companion where available.
+
+```mermaid
+flowchart LR
+    A["Baseline contract + evaluation set"] --> B{"Observed failure"}
+    B -->|"Format / label"| C["Examples or structured output"]
+    B -->|"Missing / stale evidence"| D["Context selection, RAG, or tools"]
+    B -->|"Multi-step reasoning"| E["Decomposition, program, or search"]
+    B -->|"Unsafe action / untrusted text"| F["Policy, validation, and approval"]
+    B -->|"Cost, latency, or drift"| G["Optimize only against release metrics"]
+    C --> H["Re-evaluate against baseline"]
+    D --> H
+    E --> H
+    F --> H
+    G --> H
+```
+
+## 1. Instruction, example, and output-interface patterns
+
+| Technique | Mechanism | Use when | Do not use when | Learn it here |
+| --- | --- | --- | --- | --- |
+| **Zero-shot instruction** | State the task, constraints, and success condition without demonstrations. | The task is familiar and output variability is acceptable. | A boundary, format, or label is repeatedly misunderstood. | [Instruction contracts](../../../curriculum/beginner/02-instruction-contracts/README.md) · [Notebook 01](03_constraints_examples_few_shot.ipynb) |
+| **Role or audience framing** | Set the decision perspective, reader, and scope. | An explanation needs a defined audience or review rubric. | It is only decorative persona text (“be an expert”). | [Instruction contracts](../../../curriculum/beginner/02-instruction-contracts/README.md) · [Application playbooks](../../../docs/15-application-playbooks.md) |
+| **One-shot / few-shot prompting** | Demonstrate input → output behavior, especially contrasts. | Labels, tone, edge cases, or formatting need a concrete boundary. | Examples are stale, confidential, unrepresentative, or consume needed context. | [Structured outputs](../../../curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md) · [Context engineering](../../../docs/03-context-engineering.md) |
+| **Contrastive examples** | Show a near-miss pair with different correct outputs. | The system confuses adjacent intents (for example, refund vs duplicate charge). | You only have one generic “happy path” example. | [Application playbooks](../../../docs/15-application-playbooks.md) |
+| **Delimited sections / templates** | Separate instructions, evidence, user input, and output contract with stable headings or tags. | The prompt mixes trusted instructions and variable data. | Delimiters are mistaken for a security boundary. | [LLM behavior and prompt structure](../../../curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md) · [Prompt security](../../../docs/06-prompt-security.md) |
+| **Structured output** | Constrain the response to a JSON schema or typed interface. | Software needs fields, enums, optional values, or detectable refusal/error states. | Schema conformance is treated as factual correctness. | [Structured outputs](../../../curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md) · [Notebook 02](03_constraints_examples_few_shot.ipynb) |
+| **Constrained decoding / grammar** | Limit legal tokens or structure at generation time. | Exact syntax, machine-readable forms, or safe enumerations are essential. | The semantic evidence still needs checking; grammar cannot validate truth. | [Technology review](../../../docs/10-technology-review.md) · [Structured outputs](../../../curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md) |
+
+### Mini pattern: use a contrast before adding many examples
+
+```text
+Classify one customer request. Allowed labels: duplicate_charge, refund_request,
+shipping, account, unknown.
+
+Contrast examples:
+- "My order was delivered but I want to return it." → refund_request
+- "Checkout failed but my bank shows two charges." → duplicate_charge
+
+Choose unknown when no label is supported by the request alone.
+Return JSON: {"intent":"...", "evidence":"short quote"}.
+```
+
+The application, not the model, should validate the enum and decide which internal route the label can trigger.
+
+## Technique selection worksheet
+
+For each proposed change, record the following before implementation:
+
+```text
+Observed failure:
+Baseline metric and dataset slice:
+Technique and mechanism:
+Expected improvement:
+Extra model calls / tokens / latency:
+New trust boundary or permission:
+Deterministic validator or human approval:
+Rollback or stop criterion:
+```
+
+If you cannot state an expected metric and stop criterion, the change is an experiment—not yet a production technique.
+
+
+## Guided practice: change one example variable
+
+Start with the zero-shot request and record the five expected labels, five
+observed labels, estimated prompt tokens, and the exact request fingerprints.
+Then add one contrastive example for the duplicate-charge boundary while leaving
+the instruction, model settings, and evaluation cases unchanged. The purpose is
+not to maximize the score by adding arbitrary context; it is to test whether a
+specific example repairs a named failure. If the boundary improves, check the
+clear cases for regressions and compare the added token cost.
+
+Next, replace the static example with a deterministic selector. Seed the selector
+with the case ID, exclude the query from the candidate bank, and print the
+selected examples. A random-looking result is not reproducible evidence if it
+depends on Python's process-randomized hash. Finally, compare the lexical-hash
+offline embedding path with a live semantic retriever only as a separate
+experiment. Record which documents were eligible, why they were selected, and
+which tenant or authorization filters ran before prompt construction.
+
+Use the worksheet for the decision record: observed failure, technique,
+expected metric, additional context cost, new trust boundary, validator, and
+rollback criterion. If those fields are blank, the change is still a hypothesis.
