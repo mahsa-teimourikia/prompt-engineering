@@ -84,6 +84,7 @@ export const lessons = [
     "outcome": "Force the model to emit intermediate reasoning tokens before generating a final answer.",
     "material": "curriculum/intermediate/06-reasoning-oriented-prompting/README.md",
     "notebook": "curriculum/intermediate/06-reasoning-oriented-prompting/06_reasoning_oriented_prompting.ipynb",
+    "checkpoint": "curriculum/intermediate/06-reasoning-oriented-prompting/README.md#checkpoint",
     "refs": [
       {
         "title": "O1 Native Reasoning",
@@ -101,6 +102,7 @@ export const lessons = [
     "outcome": "Orchestrate state machines to prevent compounding errors in complex tasks.",
     "material": "curriculum/intermediate/07-task-decomposition-and-workflow-prompting/README.md",
     "notebook": "curriculum/intermediate/07-task-decomposition-and-workflow-prompting/07_task_decomposition_and_workflow_prompting.ipynb",
+    "checkpoint": "curriculum/intermediate/07-task-decomposition-and-workflow-prompting/README.md#checkpoint",
     "refs": [
       {
         "title": "LangGraph",
@@ -118,6 +120,7 @@ export const lessons = [
     "outcome": "Use XML delimiters and pruning strategies to manage massive context windows.",
     "material": "curriculum/intermediate/08-context-engineering/README.md",
     "notebook": "curriculum/intermediate/08-context-engineering/08_context_engineering.ipynb",
+    "checkpoint": "curriculum/intermediate/08-context-engineering/README.md#checkpoint",
     "refs": [
       {
         "title": "Anthropic Context Engineering",
@@ -135,6 +138,7 @@ export const lessons = [
     "outcome": "Implement sliding windows and background summarization to prevent context collapse.",
     "material": "curriculum/intermediate/09-conversation-and-long-context-engineering/README.md",
     "notebook": "curriculum/intermediate/09-conversation-and-long-context-engineering/09_conversation_and_long_context_engineering.ipynb",
+    "checkpoint": "curriculum/intermediate/09-conversation-and-long-context-engineering/README.md#checkpoint",
     "refs": []
   },
   {
@@ -147,6 +151,7 @@ export const lessons = [
     "outcome": "Design strict citation contracts that force the model to hallucinate less and say 'I don't know' more.",
     "material": "curriculum/intermediate/10-evidence-grounded-prompting-and-rag-interfaces/README.md",
     "notebook": "curriculum/intermediate/10-evidence-grounded-prompting-and-rag-interfaces/10_evidence_grounded_prompting_and_rag_interfaces.ipynb",
+    "checkpoint": "curriculum/intermediate/10-evidence-grounded-prompting-and-rag-interfaces/README.md#checkpoint",
     "refs": [
       {
         "title": "LlamaIndex",
@@ -164,6 +169,7 @@ export const lessons = [
     "outcome": "Design clear function schemas and secure application-side execution loops.",
     "material": "curriculum/intermediate/11-tool-calling-and-tool-interface-design/README.md",
     "notebook": "curriculum/intermediate/11-tool-calling-and-tool-interface-design/11_tool_calling_and_tool_interface_design.ipynb",
+    "checkpoint": "curriculum/intermediate/11-tool-calling-and-tool-interface-design/README.md#checkpoint",
     "refs": []
   },
   {
@@ -176,6 +182,7 @@ export const lessons = [
     "outcome": "Use text anchors to ground the model's spatial and temporal reasoning over media.",
     "material": "curriculum/intermediate/12-multimodal-prompt-engineering/README.md",
     "notebook": "curriculum/intermediate/12-multimodal-prompt-engineering/12_multimodal_prompt_engineering.ipynb",
+    "checkpoint": "curriculum/intermediate/12-multimodal-prompt-engineering/README.md#checkpoint",
     "refs": []
   },
   {
@@ -188,6 +195,7 @@ export const lessons = [
     "outcome": "Isolate untrusted data using strict delimiters and outbound schema enforcement.",
     "material": "curriculum/intermediate/13-prompt-security-and-untrusted-content/README.md",
     "notebook": "curriculum/intermediate/13-prompt-security-and-untrusted-content/13_prompt_security_and_untrusted_content.ipynb",
+    "checkpoint": "curriculum/intermediate/13-prompt-security-and-untrusted-content/README.md#checkpoint",
     "refs": [
       {
         "title": "OWASP Injection Cheat Sheet",

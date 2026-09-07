@@ -170,7 +170,7 @@ After: 3 authorized, reranked excerpts + case summary + 2 relevant tools
        + 250-word answer with required citations
 ```
 
-Run the same evidence-support and completeness checks after each reduction. See [Context engineering](03-context-engineering.md) and [LLM behavior and prompt structure](../curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md).
+Run the same evidence-support and completeness checks after each reduction. See [Context engineering](../curriculum/intermediate/08-context-engineering/README.md) and [LLM behavior and prompt structure](../curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md).
 
 ### Step 3 — Cache stable, authorized prefixes and results
 
@@ -228,7 +228,7 @@ Retries are a reliability pattern that can quietly become a cost and latency inc
 | Missing evidence | Ask a clarification or abstain; do not hallucinate a substitute. |
 | Side-effect uncertainty | Do not blindly retry; check idempotency/status first. |
 
-Define `max_attempts`, a total time budget, and a maximum cost budget **outside** the prompt. Log the original error and final disposition. See [Prompt security](06-prompt-security.md) and [Reliability](19-reliability-and-human-centred-ai.md).
+Define `max_attempts`, a total time budget, and a maximum cost budget **outside** the prompt. Log the original error and final disposition. See [Prompt security](../curriculum/intermediate/13-prompt-security-and-untrusted-content/README.md) and [Reliability](19-reliability-and-human-centred-ai.md).
 
 ### Step 7 — Move non-interactive work to a batch path
 

@@ -430,7 +430,7 @@ This is a curated starting point, not a permanent or exhaustive catalogue. Prior
 
 - [Structured outputs](../../../curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md) — typed output and application validation.
 - [Context engineering](../../intermediate/08-context-engineering/README.md) — selection, provenance, compression, and memory boundaries.
-- [RAG and tools](../../../docs/04-rag-tools.md) — evidence and capability contracts.
+- [RAG and tools](../../intermediate/10-evidence-grounded-prompting-and-rag-interfaces/README.md) — evidence and capability contracts.
 - [Prompt security](../../intermediate/13-prompt-security-and-untrusted-content/README.md) — injection defense and secure system architecture.
 - [Evaluation](../../advanced/14-prompt-evaluation/README.md) — datasets, rubrics, and regression tests.
 - [PromptOps](../../enterprise/22-promptops/README.md) — versioning, release, monitoring, and rollback.

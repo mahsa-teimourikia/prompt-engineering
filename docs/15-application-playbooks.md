@@ -258,7 +258,7 @@ flowchart LR
     F --> G
 ```
 
-Evaluate in layers: retrieval recall (was the policy retrieved?), evidence support (does the cited excerpt support the answer?), citation correctness, answer usefulness, and abstention correctness. A high-quality generator cannot recover a policy that retrieval never returned. See the original [RAG paper](https://arxiv.org/abs/2005.11401), the course's [RAG and tools guide](04-rag-tools.md), and the [RAGAS paper](https://arxiv.org/abs/2309.15217) for evaluation concepts.
+Evaluate in layers: retrieval recall (was the policy retrieved?), evidence support (does the cited excerpt support the answer?), citation correctness, answer usefulness, and abstention correctness. A high-quality generator cannot recover a policy that retrieval never returned. See the original [RAG paper](https://arxiv.org/abs/2005.11401), the course's [RAG and tools guide](../curriculum/intermediate/10-evidence-grounded-prompting-and-rag-interfaces/README.md), and the [RAGAS paper](https://arxiv.org/abs/2309.15217) for evaluation concepts.
 
 ---
 
@@ -382,4 +382,4 @@ This one scenario shows why applications commonly combine playbooks. The classif
 - [RAGAS: Automated Evaluation of Retrieval Augmented Generation](https://arxiv.org/abs/2309.15217) — a research reference for retrieval and answer-quality evaluation.
 - [OWASP Top 10 for LLM Applications](https://genai.owasp.org/llm-top-10/) — risks including prompt injection and insecure output handling.
 
-Continue with [evaluation](07-evaluation.md), [RAG and tools](04-rag-tools.md), [multimodal prompting](05-multimodal.md), [prompt security](06-prompt-security.md), and [PromptOps](09-promptops.md).
+Continue with [evaluation](07-evaluation.md), [RAG and tools](../curriculum/intermediate/10-evidence-grounded-prompting-and-rag-interfaces/README.md), [multimodal prompting](../curriculum/intermediate/12-multimodal-prompt-engineering/README.md), [prompt security](../curriculum/intermediate/13-prompt-security-and-untrusted-content/README.md), and [PromptOps](09-promptops.md).

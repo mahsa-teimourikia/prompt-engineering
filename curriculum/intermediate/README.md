@@ -1,5 +1,8 @@
 # Intermediate track
 
+**Duration:** 75–120 minutes per course · **Prerequisites:** Beginner
+Courses 01–05 and basic Python; courses are completed in numerical order.
+
 Move from individual prompt contracts to context, retrieval, tools, and
 security boundaries.
 

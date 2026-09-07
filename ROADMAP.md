@@ -21,5 +21,6 @@ next layer of learning evidence easier to run and review.
 
 - Beginner courses 01–05 use the shared replay runtime, course-local fixtures,
   deterministic notebook assertions, and focused tests.
-- Continue the same offline-first pattern for intermediate, advanced, and
-  enterprise content.
+- Intermediate courses 06–13 now use fixture-backed labs, replayed responses,
+  executable notebooks, and integrated legacy documentation.
+- Advanced and enterprise content follow in the next content milestones.

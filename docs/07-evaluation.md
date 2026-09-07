@@ -439,4 +439,4 @@ This is a categorized map of prominent methods and resources, not an exhaustive 
 - [OpenTelemetry semantic conventions](https://opentelemetry.io/docs/concepts/semantic-conventions/) — portable observability vocabulary.
 - [PromptOps](09-promptops.md) — versioned artifacts, release gates, monitored rollout, and rollback.
 
-Continue with [Prompt security](06-prompt-security.md), [Agentic prompts](08-agentic-prompts.md), [PromptOps](09-promptops.md), [Technology review](10-technology-review.md), and [Evaluation-driven prompt optimization](21-evaluation-driven-prompt-optimization.md). The purpose of evaluation is not to create a number; it is to make a better decision about what to build, release, monitor, or stop.
+Continue with [Prompt security](../curriculum/intermediate/13-prompt-security-and-untrusted-content/README.md), [Agentic prompts](08-agentic-prompts.md), [PromptOps](09-promptops.md), [Technology review](10-technology-review.md), and [Evaluation-driven prompt optimization](21-evaluation-driven-prompt-optimization.md). The purpose of evaluation is not to create a number; it is to make a better decision about what to build, release, monitor, or stop.
