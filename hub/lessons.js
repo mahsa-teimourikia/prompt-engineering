@@ -9,6 +9,7 @@ export const lessons = [
     "outcome": "Deconstruct prompts into System Instructions, Context, and User Input, and diagnose stateless failures.",
     "material": "curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md",
     "notebook": "curriculum/beginner/01-llm-behavior-and-prompt-anatomy/01_llm_behavior_and_prompt_anatomy.ipynb",
+    "checkpoint": "curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md#checkpoint",
     "refs": [
       {
         "title": "Google GenAI SDK",
@@ -26,6 +27,7 @@ export const lessons = [
     "outcome": "Define exact inputs, constraints, and fallback paths to eliminate ambiguity.",
     "material": "curriculum/beginner/02-instruction-contracts/README.md",
     "notebook": "curriculum/beginner/02-instruction-contracts/02_instruction_contracts.ipynb",
+    "checkpoint": "curriculum/beginner/02-instruction-contracts/README.md#checkpoint",
     "refs": [
       {
         "title": "Pydantic Schemas",
@@ -43,6 +45,7 @@ export const lessons = [
     "outcome": "Implement strict Few-Shot examples to anchor tone, schema, and boundary behavior.",
     "material": "curriculum/beginner/03-constraints-examples-and-few-shot-learning/README.md",
     "notebook": "curriculum/beginner/03-constraints-examples-and-few-shot-learning/03_constraints_examples_few_shot.ipynb",
+    "checkpoint": "curriculum/beginner/03-constraints-examples-and-few-shot-learning/README.md#checkpoint",
     "refs": []
   },
   {
@@ -55,6 +58,7 @@ export const lessons = [
     "outcome": "Use native JSON mode and strict schemas to guarantee application-readable output.",
     "material": "curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md",
     "notebook": "curriculum/beginner/04-structured-outputs-and-typed-interfaces/04_structured_outputs_and_typed_interfaces.ipynb",
+    "checkpoint": "curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md#checkpoint",
     "refs": []
   },
   {
@@ -67,6 +71,7 @@ export const lessons = [
     "outcome": "Avoid pattern bloat by selecting only the techniques required to fix a measured failure.",
     "material": "curriculum/beginner/05-prompt-patterns-and-technique-selection/README.md",
     "notebook": "curriculum/beginner/05-prompt-patterns-and-technique-selection/05_prompt_patterns_and_technique_selection.ipynb",
+    "checkpoint": "curriculum/beginner/05-prompt-patterns-and-technique-selection/README.md#checkpoint",
     "refs": []
   },
   {

@@ -170,7 +170,7 @@ After: 3 authorized, reranked excerpts + case summary + 2 relevant tools
        + 250-word answer with required citations
 ```
 
-Run the same evidence-support and completeness checks after each reduction. See [Context engineering](03-context-engineering.md) and [LLM behavior and prompt structure](18-llm-behavior-and-prompt-structure.md).
+Run the same evidence-support and completeness checks after each reduction. See [Context engineering](03-context-engineering.md) and [LLM behavior and prompt structure](../curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md).
 
 ### Step 3 — Cache stable, authorized prefixes and results
 

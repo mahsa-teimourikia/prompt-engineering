@@ -7,7 +7,7 @@ can consult by need rather than complete as numbered courses.
 ## Reference material
 
 - [Technology landscape](../10-technology-review.md)
-- [Technique catalog](../14-technique-catalog.md)
+- [Technique catalog](../../curriculum/beginner/05-prompt-patterns-and-technique-selection/README.md)
 - [Model-aware guidance](../16-model-aware-guidance.md)
 - [Resource library](../17-resource-library.md)
 - [Coverage map](../20-course-coverage-map.md)

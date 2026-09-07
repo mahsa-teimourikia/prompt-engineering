@@ -21,7 +21,7 @@ This is a curated map, not a prompt dump. Start with the course's guided modules
 
 ## 2. Prompting and reasoning techniques
 
-Read these alongside [the technique catalog](14-technique-catalog.md) and [reasoning module](11-reasoning-techniques.md).
+Read these alongside [the technique catalog](../curriculum/beginner/05-prompt-patterns-and-technique-selection/README.md) and [reasoning module](11-reasoning-techniques.md).
 
 | Resource | Label | Study question |
 | --- | --- | --- |

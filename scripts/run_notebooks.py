@@ -54,6 +54,12 @@ def run_one(path: Path) -> tuple[str, str]:
         stale = stale_cells(notebook)
         if stale:
             return "FAIL", f"committed outputs/execution counts in cells {', '.join(stale)}"
+        existing_pythonpath = os.environ.get("PYTHONPATH")
+        os.environ["PYTHONPATH"] = (
+            str(ROOT)
+            if not existing_pythonpath
+            else f"{ROOT}{os.pathsep}{existing_pythonpath}"
+        )
         NotebookClient(
             notebook,
             timeout=120,

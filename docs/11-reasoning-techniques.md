@@ -496,4 +496,4 @@ The existing self-contained [evaluation notebook](../curriculum/advanced/14-prom
 - [Context engineering](03-context-engineering.md) for selecting authorized evidence.
 - [RAG and tools](04-rag-tools.md) for retrieval and tool boundaries.
 - [Prompt security](06-prompt-security.md) for untrusted content and tool safety.
-- [Evaluation](07-evaluation.md), [Agentic prompts](08-agentic-prompts.md), and [Technique catalog](14-technique-catalog.md) for deployment decisions.
+- [Evaluation](07-evaluation.md), [Agentic prompts](08-agentic-prompts.md), and [Technique catalog](../curriculum/beginner/05-prompt-patterns-and-technique-selection/README.md) for deployment decisions.
