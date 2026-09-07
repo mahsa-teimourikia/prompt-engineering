@@ -1,5 +1,43 @@
 # 05 — Prompt Patterns and Technique Selection
 
+**Level:** Beginner · **Estimated time:** 60–90 min · **Prerequisites:** Courses 01–04 and basic regular expressions
+
+## Scenario
+
+Northstar extracts product codes from support messages. Codes normally match
+`PRD-####`, but a message may also contain order numbers, prose, or a
+lowercase/space variant. The lab starts with the smallest possible technique,
+measures failures, adds a system instruction, adds one boundary example, and
+then compares the result with deterministic code.
+
+## Lab walkthrough
+
+- Phase 1 zero-shot records 1/3 on the original suite.
+- Phase 2 system instruction records 2/3; `multiple_numbers` returns `88412`
+  and remains wrong.
+- Phase 3 few-shot records 3/3 on the original suite and succeeds on the
+  recorded `formatted_variant`.
+- Phase 4 uses `validate_code(text)` with exact regex matching. Regex scores
+  3/3 on the original suite at zero tokens but fails on lowercase `prd 9921`.
+- The worksheet renders a small technique catalog dictionary as Markdown.
+
+## Exercises
+
+1. Add a new exact-format case to `fixtures/cases.json` and watch the phase
+   accuracy numerator over its denominator.
+2. Change the regex in `validate_code` and watch the zero-token metric on the
+   original suite.
+3. Add a boundary example to `_prompt` and watch few-shot accuracy on
+   `multiple_numbers` and `formatted_variant`.
+
+## Checkpoint
+
+1. What was the measured Phase 1 result? **1/3 on the original suite.**
+2. Which case remains wrong after the system instruction? **`multiple_numbers`,
+   where the recorded output is `88412`.**
+3. What is the lesson’s conclusion? **Measure, then pick the simplest tool that
+   meets the requirement.**
+
 ## Learning Objectives
 - **Map Failures to Techniques:** Learn to identify a specific observed failure and select the *smallest* prompt technique required to address it.
 - **Avoid Pattern Bloat:** Understand the hidden costs (latency, tokens, unreliability) of applying every known prompt technique simultaneously.
@@ -43,3 +81,23 @@ The [notebook](05_prompt_patterns_and_technique_selection.ipynb) demonstrates th
 - **Complexity is a Liability:** Always default to the simplest architecture. (Code > Prompt > Schema > Few-Shot > RAG > Tools > Agents).
 - **Rollback Together:** Version the problem statement, the technique choice, the evaluation cases, and the prompt together. If a technique is rolled back, the evaluation expectations must roll back with it.
 - **Track Latency Costs:** Every technique (especially Chain-of-Thought or Agents) adds significant latency. Ensure the quality gain justifies the SLA hit.
+
+## Further reading
+
+The catalog is a decision aid, not a recipe to apply everywhere. Start with a
+direct instruction and contract. Add contrastive examples for a label or
+format boundary, a schema for an unreliable interface, retrieval for missing
+knowledge, tools for live bounded data, and a planner/verifier workflow only
+for genuinely complex subproblems. Ask what the smallest intervention is,
+which frozen evaluation case proves it helped, and what regression it might
+introduce. Track quality, latency, token use, operational complexity, and
+rollback cost. Deterministic code is often preferable for exact extraction,
+normalization, routing, and arithmetic; a prompt is useful when language
+understanding or flexible interpretation is the hard part. Compound systems
+should keep each node narrow and measurable rather than hiding every concern
+inside one giant prompt.
+
+References: [DSPy](https://github.com/stanfordnlp/dspy),
+[LangGraph](https://langchain-ai.github.io/langgraph/),
+[LangSmith](https://www.langchain.com/langsmith), and
+[Braintrust](https://www.braintrust.dev/).
