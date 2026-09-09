@@ -2,7 +2,7 @@
 
 > This is a guide to the currently published library. The audited target
 > sequence and migration status live in the repository-level
-> [curriculum evolution plan](../CURRICULUM_EVOLUTION_PLAN.md).
+> [curriculum roadmap](../ROADMAP.md).
 
 ## Storyline
 

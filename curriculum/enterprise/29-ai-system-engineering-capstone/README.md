@@ -26,7 +26,16 @@ You will build "Project Northstar," an enterprise support copilot. It must safel
 ## Lab and Production
 
 ### The Capstone Implementation
-The `curriculum/Capstone/` directory contains the multi-milestone notebooks required to build this system. You will start with the foundational router, add RAG capabilities, integrate secure tool calling, and finally wrap the entire system in a rigid evaluation and governance harness. 
+The `milestones/` directory contains the multi-milestone notebooks required to build this system. You will start with the foundational router, add RAG capabilities, integrate secure tool calling, and finally wrap the entire system in a rigid evaluation and governance harness.
+
+## Milestone notebooks
+
+1. [Milestone 1: The Foundation](milestones/01_milestone_foundation.ipynb)
+2. [Milestone 2: Context & Action](milestones/02_milestone_rag_and_tools.ipynb)
+3. [Milestone 3: Security & Multi-Agent Routing](milestones/03_milestone_routing_and_security.ipynb)
+4. [Milestone 4: Portability & Fallbacks](milestones/04_milestone_portability.ipynb)
+5. [Milestone 5: Production Release Gate](milestones/05_milestone_production_release.ipynb)
+6. [Course 29 notebook](29_ai_system_engineering_capstone.ipynb)
 
 ### Production Best Practices (Final Review)
 - **Prompt Engineering is Software Engineering:** Treat your prompts as code. Version them, test them, and deploy them through CI/CD.

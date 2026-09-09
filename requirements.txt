@@ -1,3 +1,5 @@
+# Mirror of the dependencies in pyproject.toml.
+
 # Core Dependencies
 google-genai>=0.3.0
 pydantic>=2.0

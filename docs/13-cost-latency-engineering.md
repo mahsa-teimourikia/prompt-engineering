@@ -314,11 +314,11 @@ The field is shifting from “write shorter prompts” toward **systems-level in
 
 ## Guided practice and companion material
 
-1. Run the self-contained [PromptOps capstone notebook](../notebooks/09_promptops_capstone.ipynb).
+1. Run the self-contained [PromptOps capstone notebook](../curriculum/enterprise/22-promptops/22_promptops.ipynb).
 2. Add one trace field for a cost category that is currently invisible (for example, retry cost or retrieval latency).
 3. Choose one Northstar route, write its SLO, and identify its likely dominant latency component.
 4. Make one controlled change: remove duplicate context, route a deterministic path, or cache a static prefix in a privacy-safe design.
-5. Compare baseline and candidate in the [evaluation notebook](../notebooks/07_prompt_evaluation.ipynb), then write a promotion or rollback recommendation.
+5. Compare baseline and candidate in the [evaluation notebook](../curriculum/advanced/14-prompt-evaluation/14_prompt_evaluation.ipynb), then write a promotion or rollback recommendation.
 
 **Checkpoint:** A candidate reduces model tokens by 40%, but it drops evidence support from 97% to 89% and raises ambiguity misroutes. Should it ship? No. The optimization changed a quality and safety outcome; retain the baseline or redesign the route/context and test again.
 

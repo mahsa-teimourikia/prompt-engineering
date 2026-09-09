@@ -1,0 +1,33 @@
+name: Execute changed notebooks
+
+on:
+  pull_request:
+    paths:
+      - "**/*.ipynb"
+      - "scripts/run_notebooks.py"
+      - ".github/workflows/test-notebooks.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  notebooks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install contributor tools
+        run: pip install -e '.[contributor]'
+      - name: Register notebook kernel
+        run: python -m ipykernel install --user --name python3
+      - name: Execute changed notebooks
+        if: github.event_name == 'pull_request'
+        run: python scripts/run_notebooks.py --base origin/${{ github.base_ref }}
+      - name: Execute all notebooks
+        if: github.event_name == 'workflow_dispatch'
+        run: python scripts/run_notebooks.py --all

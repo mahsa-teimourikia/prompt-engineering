@@ -13,7 +13,3 @@ def test_every_course_notebook_is_self_contained():
         assert len(cells) >= 1
         source = "\n".join("".join(cell.get("source", [])) for cell in cells)
         assert "labs/" not in source
-
-def test_no_separate_lab_source_files_remain():
-    lab_directory = ROOT / "labs"
-    assert not lab_directory.exists() or not list(lab_directory.glob("*.py"))

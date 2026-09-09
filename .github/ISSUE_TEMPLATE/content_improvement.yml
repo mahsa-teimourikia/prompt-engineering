@@ -1,0 +1,23 @@
+name: Curriculum or documentation improvement
+description: Suggest a technical correction or learning-content improvement.
+title: "[Content]: "
+labels:
+  - content
+body:
+  - type: textarea
+    id: location
+    attributes:
+      label: Location
+      description: Identify the course, notebook, Hub page, or document.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed improvement
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source or evidence

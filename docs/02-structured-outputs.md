@@ -453,7 +453,7 @@ Do not optimize only for `schema_valid_rate`. A system that always returns a val
 
 ## 11. Run the practical material
 
-- Work through [Notebook 02 — structured outputs](../notebooks/02_structured_outputs.ipynb) for the Northstar scenario, embedded deterministic implementation, examples, invalid fixtures, and reflection prompts.
+- Work through [Notebook 02 — structured outputs](../curriculum/beginner/04-structured-outputs-and-typed-interfaces/04_structured_outputs_and_typed_interfaces.ipynb) for the Northstar scenario, embedded deterministic implementation, examples, invalid fixtures, and reflection prompts.
 - Continue with [Context engineering](03-context-engineering.md) to decide which approved evidence belongs in a structured result.
 - Continue with [RAG and tools](04-rag-tools.md) for retrieval and tool contracts, and [Prompt security](06-prompt-security.md) for injection and boundary controls.
 

@@ -28,7 +28,7 @@ This is "Few-Shot Learning." By providing a few examples of the exact Input and 
 ## Lab and Production
 
 ### The Lab
-The [notebook](03_constraints_examples_and_few_shot_learning.ipynb) demonstrates fixing a boundary failure. It first establishes a baseline where instructions alone fail to categorize an edge case correctly. It then injects a single, targeted Few-Shot example mapping that edge case, proving how examples override instruction ambiguity.
+The [notebook](03_constraints_examples_few_shot.ipynb) demonstrates fixing a boundary failure. It first establishes a baseline where instructions alone fail to categorize an edge case correctly. It then injects a single, targeted Few-Shot example mapping that edge case, proving how examples override instruction ambiguity.
 
 ### Production Best Practices
 - **Curate, Don't Hoard:** 3 highly specific boundary examples are vastly superior to 20 random examples.
