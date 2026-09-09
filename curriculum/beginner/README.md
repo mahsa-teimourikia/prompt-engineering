@@ -1,5 +1,8 @@
 # Beginner track
 
+**Duration:** 60–90 minutes per course · **Prerequisites:** Python basics;
+courses are completed in numerical order.
+
 Build a reliable mental model for prompt payloads and the contracts that
 make model behavior testable.
 

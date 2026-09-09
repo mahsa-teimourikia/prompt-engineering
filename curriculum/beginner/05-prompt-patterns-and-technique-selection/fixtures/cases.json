@@ -1,0 +1,13 @@
+{
+  "evaluation_suite": [
+    {"id": "simple", "message": "My PRD-9921 arrived broken.", "expected": "PRD-9921", "slice": "clear"},
+    {"id": "no_code", "message": "I have a question about shipping.", "expected": "NONE", "slice": "missing"},
+    {"id": "multiple_numbers", "message": "I ordered 2 items. The order number is 88412. The broken item is PRD-4412.", "expected": "PRD-4412", "slice": "boundary"},
+    {"id": "formatted_variant", "message": "The item is prd 9921.", "expected": "PRD-9921", "slice": "boundary"}
+  ],
+  "worksheet": [
+    {"failure": "unclear task", "first_technique": "direct instruction", "measure": "schema validity"},
+    {"failure": "label boundary", "first_technique": "few-shot example", "measure": "boundary accuracy"},
+    {"failure": "missing knowledge", "first_technique": "retrieval", "measure": "citation support"}
+  ]
+}

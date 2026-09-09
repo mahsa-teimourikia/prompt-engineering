@@ -1,0 +1,79 @@
+{
+  "b04/malformed": {
+    "fingerprint": "9cacb6aa42f46364d0203833896f7242caf6a64800e00ade36bb1f6f9955e977",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"intent\":\"unknown\"",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 10,
+      "output_tokens": 4
+    }
+  },
+  "b04/repair-exhausted/attempt-1": {
+    "fingerprint": "66763b95868a6d16e023292aa97fafab9137188e52855ce5e041404cdd13d33c",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"intent\":\"refund_request\",\"customer_summary\":\"bad\",\"evidence_cited\":\"fake-a\",\"recommended_action\":\"review\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 10,
+      "output_tokens": 9
+    }
+  },
+  "b04/repair-exhausted/attempt-2": {
+    "fingerprint": "ce8b9154a30b6f252b1a1989d725406a8b4885ad943035d65ee4c51eb9c477a4",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"intent\":\"refund_request\",\"customer_summary\":\"bad\",\"evidence_cited\":\"fake-b\",\"recommended_action\":\"review\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 10,
+      "output_tokens": 9
+    }
+  },
+  "b04/repair/attempt-1": {
+    "fingerprint": "d4ae1e46fccbda5d65758a1ba10654354ee000fd6c35e093ca65ec03606dc7fb",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"intent\":\"refund_request\",\"customer_summary\":\"duplicate charge\",\"evidence_cited\":\"pol_elite_instant_refund\",\"recommended_action\":\"review\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 10,
+      "output_tokens": 9
+    }
+  },
+  "b04/repair/attempt-2": {
+    "fingerprint": "d05c4f123f2e7873a8b338bb1855619100482709019ae84231b22d947748b227",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"intent\":\"refund_request\",\"customer_summary\":\"duplicate charge\",\"evidence_cited\":\"NONE\",\"recommended_action\":\"human review\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 12,
+      "output_tokens": 10
+    }
+  },
+  "b04/semantic/hallucinated": {
+    "fingerprint": "c627b1fc4bf1aec5a6496f0a75695a5f0cdf28ed7c425546974d15de801119fb",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"intent\":\"refund_request\",\"customer_summary\":\"elite refund request\",\"evidence_cited\":\"pol_elite_instant_refund\",\"recommended_action\":\"review\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 12,
+      "output_tokens": 9
+    }
+  },
+  "b04/syntax/good": {
+    "fingerprint": "651e8c6ad7864504591569b46d3a7e2bd114fbb444c7094e09708035e36fa4c1",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"intent\":\"missing_item\",\"customer_summary\":\"late parcel\",\"evidence_cited\":\"pol_shipping_delay\",\"recommended_action\":\"check shipment\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 12,
+      "output_tokens": 9
+    }
+  }
+}

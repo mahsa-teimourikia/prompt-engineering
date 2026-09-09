@@ -83,7 +83,7 @@ Use the Hub for the complete ordered course list, chapter, notebook, reusable la
 These useful resources are retained as supporting material during the migration; they are not canonical completion requirements.
 
 - [Technology landscape](docs/10-technology-review.md)
-- [Prompt technique catalog](docs/14-technique-catalog.md)
+- [Prompt technique catalog](curriculum/beginner/05-prompt-patterns-and-technique-selection/README.md)
 - [Application playbooks](docs/15-application-playbooks.md)
 - [Curated resource library](docs/17-resource-library.md)
 - [Current coverage map](docs/20-course-coverage-map.md)

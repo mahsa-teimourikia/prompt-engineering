@@ -1,0 +1,134 @@
+{
+  "b05/few/formatted_variant": {
+    "fingerprint": "622f53c24305e98880b439ab48483ef3a568a8d6f91ca4c031471011476b089e",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "PRD-9921",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 20,
+      "output_tokens": 2
+    }
+  },
+  "b05/few/multiple_numbers": {
+    "fingerprint": "c982cae680ebc469979d1804aafa0d8a0cad7bf4c8c6efc6bf5d854752d24b3e",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "PRD-4412",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 20,
+      "output_tokens": 2
+    }
+  },
+  "b05/few/no_code": {
+    "fingerprint": "c6b56df037412e5da1e662571b57e00c2a29a33626bfbd1d8cadac69f41f41c7",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "NONE",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 20,
+      "output_tokens": 1
+    }
+  },
+  "b05/few/simple": {
+    "fingerprint": "31991062a35fa25bafae5c8718b197a5a7d24be211be451c6e90892b51abd100",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "PRD-9921",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 20,
+      "output_tokens": 2
+    }
+  },
+  "b05/system/formatted_variant": {
+    "fingerprint": "5b3e44807f5c01191af21e6a8632b6479ef09144493569d59a79ac564aa824da",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "NONE",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 20,
+      "output_tokens": 1
+    }
+  },
+  "b05/system/multiple_numbers": {
+    "fingerprint": "7771d36ecac0e0074fcf144cefa86d699259a0965f187dae56e04cf6c7ae5ffa",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "88412",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 20,
+      "output_tokens": 2
+    }
+  },
+  "b05/system/no_code": {
+    "fingerprint": "21d88889a70aa910fe7ff8c6f1f00df2f98639de2295010d9ada8d384f19ce7f",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "NONE",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 20,
+      "output_tokens": 1
+    }
+  },
+  "b05/system/simple": {
+    "fingerprint": "3f7731c39996ce8adbec1e3d100d4b2766f1b3df14705abac56acd9121be9f87",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "PRD-9921",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 20,
+      "output_tokens": 2
+    }
+  },
+  "b05/zero/formatted_variant": {
+    "fingerprint": "aeaa16316ceb7dd037affe8b433c869d267ac90e767816227435aa84a952810f",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "The product code appears to be PRD-9921.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 15,
+      "output_tokens": 7
+    }
+  },
+  "b05/zero/multiple_numbers": {
+    "fingerprint": "16c924bb0c55735f71e27b30bb7e7f8f7ea319c1519ac2c97a831cef2d4dc5e3",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "88412",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 15,
+      "output_tokens": 2
+    }
+  },
+  "b05/zero/no_code": {
+    "fingerprint": "62977af6a40caa082fb07f7bd3daf8269c8de4ca02aa998157e758dce82259e5",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "NONE",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 15,
+      "output_tokens": 1
+    }
+  },
+  "b05/zero/simple": {
+    "fingerprint": "c9bb833b0f5495f35281078f5cc7dc1006ca46e59ed71203151bb4a31ed9b641",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "The product code is PRD-9921.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 15,
+      "output_tokens": 7
+    }
+  }
+}
