@@ -11,14 +11,15 @@ next layer of learning evidence easier to run and review.
 - Validate curriculum structure, Hub paths, quiz sources, and notebook artifacts.
 - Add changed-notebook CI without rewriting provider-dependent notebook content.
 
-## Phase 2 — Shared offline runtime — next
+## Phase 2 — Shared offline runtime — complete
 
 - Add a deterministic fixture and replay runtime for credential-free execution.
 - Keep live Gemini access optional and explicit when `GEMINI_API_KEY` is set.
 - Add shared schema, evidence, trust-boundary, and metric invariants.
 
-## Phase 3 — Per-level content — planned
+## Phase 3 — Per-level content — complete
 
-- Enrich course READMEs with the matching legacy guidance.
-- Rewrite notebooks to use the shared offline runtime and deterministic asserts.
-- Add course-specific fixtures, lab modules, and tests level by level.
+- Beginner courses 01–05 use the shared replay runtime, course-local fixtures,
+  deterministic notebook assertions, and focused tests.
+- Continue the same offline-first pattern for intermediate, advanced, and
+  enterprise content.

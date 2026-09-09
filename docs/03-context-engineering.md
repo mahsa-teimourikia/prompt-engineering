@@ -501,7 +501,7 @@ This is a curated starting map, not a permanent or exhaustive catalogue. Prefer 
 
 ### Related course modules
 
-- [Instruction contracts](01-instruction-contracts.md) — establish the policy and output contract.
+- [Instruction contracts](../curriculum/beginner/02-instruction-contracts/README.md) — establish the policy and output contract.
 - [RAG and tools](04-rag-tools.md) — retrieval pipelines, tool selection, and evidence-aware answers.
 - [Multimodal prompting](05-multimodal.md) — visual/document context and grounding.
 - [Prompt security](06-prompt-security.md) — injection, boundary, and validation controls.

@@ -1,0 +1,38 @@
+[
+  {
+    "id": "POL-0001",
+    "version": "v1",
+    "effective_from": "2026-01-01",
+    "text": "A duplicate sandbox charge may be refunded within 30 days."
+  },
+  {
+    "id": "POL-0002",
+    "version": "v2",
+    "effective_from": "2026-04-01",
+    "text": "A duplicate sandbox charge may be refunded within 14 days."
+  },
+  {
+    "id": "POL-0003",
+    "version": "v1",
+    "effective_from": "2026-01-01",
+    "text": "Shipping updates may be shared with the requesting tenant."
+  },
+  {
+    "id": "POL-0004",
+    "version": "v1",
+    "effective_from": "2026-01-01",
+    "text": "Account recovery requires verification before a reset."
+  },
+  {
+    "id": "POL-0005",
+    "version": "v1",
+    "effective_from": "2026-01-01",
+    "text": "Cross-tenant account and billing details must not be disclosed."
+  },
+  {
+    "id": "POL-0006",
+    "version": "v1",
+    "effective_from": "2026-01-01",
+    "text": "When evidence is missing or conflicting, the assistant must abstain."
+  }
+]

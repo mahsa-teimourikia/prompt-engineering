@@ -1,0 +1,46 @@
+{
+  "b01/baseline/ambiguous-payment": {
+    "fingerprint": "d16af9ac853c297c40110aedee00a5cf1bdebfe8cd505b565bd036f2223a1f46",
+    "recorded_model": "gemini-2.5-flash",
+    "text": "{\"category\": \"unknown\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 8,
+      "output_tokens": 5
+    }
+  },
+  "b01/baseline/clear-account": {
+    "fingerprint": "7bdbeab51d387d0bb7dfefe636a0d0b5e5443bf196e92bf13cc7b843d92d1d68",
+    "recorded_model": "gemini-2.5-flash",
+    "text": "{\"category\": \"account\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 8,
+      "output_tokens": 5
+    }
+  },
+  "b01/baseline/clear-refund": {
+    "fingerprint": "10021e34388296c023559c3646f8afd1dadb4dc9137e179b61daab2ae9b82100",
+    "recorded_model": "gemini-2.5-flash",
+    "text": "{\"category\": \"refund\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 9,
+      "output_tokens": 5
+    }
+  },
+  "b01/baseline/clear-shipping": {
+    "fingerprint": "101a4d5911b6623d1001d6290c62cd58203eacc4f5a411890c633cf00a924154",
+    "recorded_model": "gemini-2.5-flash",
+    "text": "{\"category\": \"shipping\"}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 8,
+      "output_tokens": 5
+    }
+  }
+}
