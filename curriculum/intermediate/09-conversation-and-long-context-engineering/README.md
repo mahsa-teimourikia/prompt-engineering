@@ -21,8 +21,6 @@ This creates a compounding problem: every turn of the conversation costs more to
 
 ![Conversation Workflow](./diagram-1.svg)
 
-![Course workflow](./diagram-1.svg)
-
 ## Deep dive
 
 ### 6. State, history, and memory are different tools

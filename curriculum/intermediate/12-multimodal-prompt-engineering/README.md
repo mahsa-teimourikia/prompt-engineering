@@ -19,8 +19,6 @@ Images, documents, audio, and video can enter a system through provider-native m
 
 ![Multimodal Workflow](./diagram-1.svg)
 
-![Course workflow](./diagram-1.svg)
-
 ## Deep dive
 
 ### Learning outcomes

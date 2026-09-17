@@ -41,6 +41,12 @@ def test_every_course_has_readme_notebook_lab_and_diagram():
         assert (course / "diagram-1.svg").is_file(), course
 
 
+def test_every_course_readme_embeds_its_diagram_once():
+    for course in course_directories():
+        readme = (course / "README.md").read_text(encoding="utf-8")
+        assert readme.count("diagram-1.svg") == 1, course
+
+
 def test_course_numbering_is_contiguous_by_level():
     for level, expected in LEVEL_RANGES.items():
         numbers = sorted(int(path.name[:2]) for path in (ROOT / "curriculum" / level).iterdir() if path.is_dir() and re.match(r"^\d{2}-", path.name))

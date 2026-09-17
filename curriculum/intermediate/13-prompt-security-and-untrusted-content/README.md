@@ -24,8 +24,6 @@ A prompt-only rule such as “do not follow hostile instructions” is not a com
 
 ![Security Workflow](./diagram-1.svg)
 
-![Course workflow](./diagram-1.svg)
-
 ## Deep dive
 
 ### Learning outcomes

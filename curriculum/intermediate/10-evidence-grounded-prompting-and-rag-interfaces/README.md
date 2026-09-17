@@ -25,8 +25,6 @@ The LLM is no longer acting as an encyclopedia; it is acting as a reading compre
 
 ![RAG Workflow](./diagram-1.svg)
 
-![Course workflow](./diagram-1.svg)
-
 ## Deep dive
 
 ### 1. Choose the evidence interface

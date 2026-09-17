@@ -25,8 +25,6 @@ By separating the concerns, you can use smaller, faster models for simple steps,
 
 ![Workflow Prompting](./diagram-1.svg)
 
-![Course workflow](./diagram-1.svg)
-
 ## Deep dive
 
 ### 3. Task decomposition

@@ -23,8 +23,6 @@ Crucially, the model *pauses*. It is the **Application's job** to catch that pay
 
 ![Tool Calling Workflow](./diagram-1.svg)
 
-![Course workflow](./diagram-1.svg)
-
 ## Deep dive
 
 ### 6. Tool interfaces: live facts and bounded actions

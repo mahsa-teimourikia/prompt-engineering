@@ -21,8 +21,6 @@ However, context is not infinite, and it is not free. Even with modern massive c
 
 ![Context Engineering Workflow](./diagram-1.svg)
 
-![Course workflow](./diagram-1.svg)
-
 ## Deep dive
 
 ### Learning outcomes

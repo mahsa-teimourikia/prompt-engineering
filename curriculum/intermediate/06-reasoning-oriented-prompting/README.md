@@ -19,8 +19,6 @@ Reasoning-oriented prompting changes how a model approaches a multi-step task, b
 
 ![Reasoning Workflow](./diagram-1.svg)
 
-![Course workflow](./diagram-1.svg)
-
 ## Deep dive
 
 ### Learning outcomes
