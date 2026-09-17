@@ -41,7 +41,7 @@ class MissingReplayError(LookupError):
 class Part(BaseModel):
     """One typed part of a message."""
 
-    kind: Literal["text", "image", "tool_result"]
+    kind: Literal["text", "image", "tool_call", "tool_result"]
     text: str | None = None
     path: str | None = None
     tool_name: str | None = None
@@ -293,18 +293,22 @@ class GeminiClient:
                     path = Path(item.path)
                     mime_type = mimetypes.guess_type(path.name)[0] or "application/octet-stream"
                     parts.append(types.Part.from_bytes(data=path.read_bytes(), mime_type=mime_type))
-                else:
+                elif item.kind == "tool_call":
                     parts.append(
-                        types.Part.from_text(
-                            text=json.dumps(
-                                {
-                                    "tool_name": item.tool_name,
-                                    "payload": item.payload,
-                                },
-                                sort_keys=True,
-                            )
+                        types.Part.from_function_call(
+                            name=item.tool_name or "",
+                            args=item.payload or {},
                         )
                     )
+                elif item.kind == "tool_result":
+                    parts.append(
+                        types.Part.from_function_response(
+                            name=item.tool_name or "",
+                            response=item.payload or {},
+                        )
+                    )
+                else:
+                    raise ValueError(f"unsupported part kind: {item.kind}")
             contents.append(
                 types.Content(
                     role="model" if message.role == "model" else "user",

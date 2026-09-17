@@ -1,90 +1,90 @@
 {
   "b01/baseline/ambiguous-payment": {
-    "fingerprint": "12bcc439a5876ea434e0038b387d548708957645f52ef494b728e3b35f5155ac",
+    "fingerprint": "7e2bc098602fdc2f00235ed428c9aa2b9a3a134758d543caae81e716878d3037",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"unknown\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 20,
-      "output_tokens": 4
+      "input_tokens": 405,
+      "output_tokens": 6
     }
   },
   "b01/baseline/clear-account": {
-    "fingerprint": "4b9f970830cd8b22eec562b6c2c60da490599a497c11c9f9348a39b333c6a017",
+    "fingerprint": "316f643794478d588390cf2ee5304e3a8e16e4cc66aac671e2f71a3ad7dcf6b8",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"account\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 20,
-      "output_tokens": 4
+      "input_tokens": 405,
+      "output_tokens": 6
     }
   },
   "b01/baseline/clear-refund": {
-    "fingerprint": "70d832902ed1562ed93ce0dd639c954000996f65aadfb2eb4c88c305a022d401",
+    "fingerprint": "e246fe6953a50a6b8806ccb504a54860c60891d1934e25e93cde6df6922be741",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"refund\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 20,
-      "output_tokens": 4
+      "input_tokens": 406,
+      "output_tokens": 6
     }
   },
   "b01/baseline/clear-shipping": {
-    "fingerprint": "650da7bc43eb2418771ef022a1c27b10354ca8a9cb9e21342ed6c0f14277699c",
+    "fingerprint": "e46bd1b897614cb02b7abd5f2b8e9cccc667cd2fbd943dc9d87f59187dfc9d16",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"shipping\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 20,
-      "output_tokens": 4
+      "input_tokens": 403,
+      "output_tokens": 6
     }
   },
   "b01/middle/ambiguous-payment": {
-    "fingerprint": "7bdf4bcd16358ac8df7ee3ae58691b193052e079e060e8e083f4448c1d982971",
+    "fingerprint": "242f1209534de26378e4ad5a940e6ba08318f46f7e4443f8faa2d2949ad9fd71",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"unknown\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 100,
-      "output_tokens": 4
+      "input_tokens": 405,
+      "output_tokens": 6
     }
   },
   "b01/middle/clear-account": {
-    "fingerprint": "f63bb336073c29752a691ddbda56f6aa9b74177115d4fe66757a0bd77ce514ca",
+    "fingerprint": "6051ed4828a2f1202f47d5f6440b7e8d2f7a311de8bf1e0a21446d16bd72214e",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"account\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 100,
-      "output_tokens": 4
+      "input_tokens": 405,
+      "output_tokens": 6
     }
   },
   "b01/middle/clear-refund": {
-    "fingerprint": "3ea27aafd7460cd8498e2ab469037925dfde29fc6f70e1406a4d1adf82ef82be",
+    "fingerprint": "4aa23bbc355c6ab687330b7f6e2d19f96586c5abb9b08eb004b56762eff7fbf6",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"refund\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 100,
-      "output_tokens": 4
+      "input_tokens": 406,
+      "output_tokens": 6
     }
   },
   "b01/middle/clear-shipping": {
-    "fingerprint": "056a7be05e4b421f0e4061527f2705d06240722eac7f40af8ae64c8f8039012d",
+    "fingerprint": "97e89fbb771d5d43aa905867c2c57ce54ba866a7fa651c36b7c5c84a435937b4",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"refund\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 100,
-      "output_tokens": 4
+      "input_tokens": 403,
+      "output_tokens": 6
     }
   },
   "b01/missing/abstain": {
@@ -94,8 +94,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 10,
-      "output_tokens": 4
+      "input_tokens": 25,
+      "output_tokens": 6
     }
   },
   "b01/missing/weak": {
@@ -105,30 +105,30 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 10,
-      "output_tokens": 4
+      "input_tokens": 16,
+      "output_tokens": 6
     }
   },
   "b01/sampling/temp-0": {
-    "fingerprint": "12bcc439a5876ea434e0038b387d548708957645f52ef494b728e3b35f5155ac",
+    "fingerprint": "688444672a9b1f29e639947a2a35e5f3c7f0b364f1784bd42d7f62ec58167249",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"unknown\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 20,
-      "output_tokens": 4
+      "input_tokens": 412,
+      "output_tokens": 6
     }
   },
   "b01/sampling/temp-09": {
-    "fingerprint": "2cdcfdccef70f802465cf5005c48faef7eae5eb72cf7f307b459401827701eb7",
+    "fingerprint": "3581306f382778959b8957ba959a75cd4932d7f4fda1ed065ff6755736b174cf",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"refund\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 20,
-      "output_tokens": 4
+      "input_tokens": 412,
+      "output_tokens": 6
     }
   },
   "b01/structure/concatenated": {
@@ -138,8 +138,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 15,
-      "output_tokens": 4
+      "input_tokens": 41,
+      "output_tokens": 6
     }
   },
   "b01/structure/roles": {
@@ -149,8 +149,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 15,
-      "output_tokens": 4
+      "input_tokens": 41,
+      "output_tokens": 6
     }
   }
 }

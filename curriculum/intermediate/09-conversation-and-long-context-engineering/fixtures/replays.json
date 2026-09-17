@@ -1,0 +1,90 @@
+{
+  "i09/state/extract-turn-1": {
+    "fingerprint": "df20be5c5c7cb3e094958e9d64d758a78b634e7b5df77789ba78fd9f69451dfc",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"active_order_id\":\"ORD-5592\",\"issue\":\"damaged replacement\",\"needs_confirmation\":false}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 24,
+      "output_tokens": 22
+    }
+  },
+  "i09/state/extract-turn-2": {
+    "fingerprint": "814ceb4023078e1de4749bf6e8e6027d5f49202a97864abee94bc7b6db74e222",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"active_order_id\":\"ORD-7710\",\"issue\":\"late shipment\",\"needs_confirmation\":false}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 23,
+      "output_tokens": 21
+    }
+  },
+  "i09/state/refund-conversation": {
+    "fingerprint": "be8f752d45559a19e4f3806c1b3e1caba58f3074ff3755647d25e9883044e6de",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "I can help with order ORD-5592.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 155,
+      "output_tokens": 8
+    }
+  },
+  "i09/state/shipping-conversation": {
+    "fingerprint": "1fa0ad3330915176742de6eb3c3bff13f8456fdbfa1fdf49e8573f4f22a474a1",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "I will check order ORD-7710.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 27,
+      "output_tokens": 7
+    }
+  },
+  "i09/summary/refund-conversation": {
+    "fingerprint": "b8ae5f2de2752346957b332c5f59f4565ef3005b05afc83075a52336239dcd12",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "I can help with order ORD-5592.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 143,
+      "output_tokens": 8
+    }
+  },
+  "i09/summary/shipping-conversation": {
+    "fingerprint": "3cb545dbdc6808d315a1fce988e0ac4f78475addabdafe7f24a152c427b1d346",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "I will check order ORD-7710.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 22,
+      "output_tokens": 7
+    }
+  },
+  "i09/window/refund-conversation": {
+    "fingerprint": "309f142f1522d4023cd245c9cd3328fcd9d67435bdb176f7be89b612258d3ae9",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "I need the order id before I can continue.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 114,
+      "output_tokens": 11
+    }
+  },
+  "i09/window/shipping-conversation": {
+    "fingerprint": "4e0a006961d1a94c86175eddc997edcf61927471cc0cd4af11b0c3161c7b29d0",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "Please provide the order id.",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 19,
+      "output_tokens": 7
+    }
+  }
+}

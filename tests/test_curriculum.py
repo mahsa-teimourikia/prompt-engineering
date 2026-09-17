@@ -15,7 +15,7 @@ LEVEL_RANGES = {
     "enterprise": range(22, 30),
 }
 MATERIAL = re.compile(r'"material":\s*"([^"]+)"')
-REGISTRY_PATH = re.compile(r'"(?:notebook|path)":\s*"([^"]+)"')
+REGISTRY_PATH = re.compile(r'"(?:notebook|lab|path)":\s*"([^"]+)"')
 
 
 def course_directories() -> list[Path]:
@@ -27,14 +27,17 @@ def course_directories() -> list[Path]:
     )
 
 
-def test_every_course_has_readme_notebook_and_diagram():
+def test_every_course_has_readme_notebook_lab_and_diagram():
     courses = course_directories()
     assert len(courses) == 29
     for course in courses:
         number = course.name[:2]
-        assert (course / "README.md").is_file(), course
+        readme = course / "README.md"
+        assert readme.is_file(), course
+        assert "## Checkpoint" in readme.read_text(encoding="utf-8"), course
         notebooks = sorted(course.glob(f"{number}_*.ipynb"))
         assert len(notebooks) == 1, course
+        assert (course / f"lab{number}.py").is_file(), course
         assert (course / "diagram-1.svg").is_file(), course
 
 
@@ -64,6 +67,9 @@ def test_hub_registry_matches_curriculum_paths():
 def test_no_notebook_has_committed_outputs():
     for path in ROOT.glob("curriculum/**/*.ipynb"):
         document = json.loads(path.read_text(encoding="utf-8"))
+        cell_ids = [cell.get("id") for cell in document.get("cells", [])]
+        assert all(cell_ids), path
+        assert len(cell_ids) == len(set(cell_ids)), path
         for cell in document.get("cells", []):
             if cell.get("cell_type") == "code":
                 assert not cell.get("outputs"), path

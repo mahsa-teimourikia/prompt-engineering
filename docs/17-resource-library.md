@@ -21,7 +21,7 @@ This is a curated map, not a prompt dump. Start with the course's guided modules
 
 ## 2. Prompting and reasoning techniques
 
-Read these alongside [the technique catalog](../curriculum/beginner/05-prompt-patterns-and-technique-selection/README.md) and [reasoning module](11-reasoning-techniques.md).
+Read these alongside [the technique catalog](../curriculum/beginner/05-prompt-patterns-and-technique-selection/README.md) and [reasoning module](../curriculum/intermediate/06-reasoning-oriented-prompting/README.md).
 
 | Resource | Label | Study question |
 | --- | --- | --- |
@@ -68,7 +68,7 @@ Use [the Awesome RAG Learning Hub](https://mahsa-teimourikia.github.io/awsome-ra
 
 | Resource | Label | What to learn |
 | --- | --- | --- |
-| [OpenAI Evals](https://platform.openai.com/docs/guides/evals) | Vendor-specific | Dataset/rubric design and evaluation workflow. |
+| [OpenAI Evals](https://developers.openai.com/api/docs/guides/evals) | Vendor-specific | Dataset/rubric design and evaluation workflow. |
 | [OpenAI Evals open-source framework](https://github.com/openai/evals) | Practical | Example evaluators and registry patterns. |
 | [G-Eval](https://arxiv.org/abs/2303.16634) | Foundational | Rubric-driven LLM judging; calibrate before trusting it. |
 | [TruthfulQA](https://arxiv.org/abs/2109.07958) | Foundational | Truthfulness and imitation of common falsehoods. |
@@ -91,7 +91,7 @@ Use [the Awesome RAG Learning Hub](https://mahsa-teimourikia.github.io/awsome-ra
 
 Provider capability and API behavior changes quickly. Use official documentation for current model limits, pricing, retention, tool semantics, structured-output support, and safety policies:
 
-- [OpenAI prompting](https://platform.openai.com/docs/guides/prompting), [structured outputs](https://platform.openai.com/docs/guides/structured-outputs), [function calling](https://platform.openai.com/docs/guides/function-calling), and [safety best practices](https://platform.openai.com/docs/guides/safety-best-practices)
+- [OpenAI prompt engineering](https://developers.openai.com/api/docs/guides/prompt-engineering), [structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs), [function calling](https://developers.openai.com/api/docs/guides/function-calling), and [safety best practices](https://developers.openai.com/api/docs/guides/safety-best-practices)
 - [Anthropic documentation](https://docs.anthropic.com/), [context engineering](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents), and [effective agents](https://www.anthropic.com/engineering/building-effective-agents)
 - [Gemini prompting](https://ai.google.dev/gemini-api/docs/prompting-strategies), [structured output](https://ai.google.dev/gemini-api/docs/structured-output), [function calling](https://ai.google.dev/gemini-api/docs/function-calling), and [long context](https://ai.google.dev/gemini-api/docs/long-context)
 

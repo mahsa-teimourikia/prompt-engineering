@@ -21,8 +21,11 @@ def test_course_02_gate_and_contract_metrics():
     client = ReplayClient(ROOT / "curriculum/beginner/02-instruction-contracts/fixtures/replays.json")
     results = lab02.run_lab(client)
     assert results["safe_normal_draft"].numerator == 1
+    assert results["routing_accuracy"].numerator == 5
+    assert results["routing_accuracy"].denominator == 5
     assert results["evidence_cited"].numerator == 1
-    assert results["forbidden_phrase_violations"].numerator == 0
+    assert results["unsafe_draft_rate"].numerator == 1
+    assert results["unsafe_send_outcomes"].numerator == 0
     assert results["actions"][3] == "human_review"
     assert all(not client.generate(request).stale for request in lab02.build_requests())
 
@@ -35,3 +38,20 @@ def test_course_02_version_change_is_stale():
         warnings.simplefilter("always")
         assert client.generate(changed).stale
     assert len(captured) == 1
+
+
+def test_course_02_gate_does_not_trust_a_safe_sounding_boolean():
+    missing_evidence = lab02.SupportDraft(
+        intent="refund",
+        answer="I can send this response.",
+        evidence_id="none",
+        needs_human=False,
+    )
+    forbidden_action = lab02.SupportDraft(
+        intent="refund",
+        answer="Refund Approved",
+        evidence_id="ref-v3-101",
+        needs_human=False,
+    )
+    assert lab02.decide_action(missing_evidence, "Please help") == "human_review"
+    assert lab02.decide_action(forbidden_action, "Please help") == "human_review"

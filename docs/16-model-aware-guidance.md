@@ -159,7 +159,7 @@ Move the decisive policy excerpt from the beginning to the middle and end of a l
 
 - [Google prompt design strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies)
 - [Google models](https://ai.google.dev/gemini-api/docs/models), [tools](https://ai.google.dev/gemini-api/docs/tools), and [thinking](https://ai.google.dev/gemini-api/docs/generate-content/thinking)
-- [OpenAI prompting guide](https://platform.openai.com/docs/guides/prompting) and [evals](https://platform.openai.com/docs/guides/evals)
+- [OpenAI prompt engineering](https://developers.openai.com/api/docs/guides/prompt-engineering) and [evals](https://developers.openai.com/api/docs/guides/evals)
 - [Anthropic documentation](https://docs.anthropic.com/)
 - [PromptBridge: Cross-Model Prompt Transfer](https://arxiv.org/abs/2512.01420)
 - [PromptBench](https://arxiv.org/abs/2312.07910)

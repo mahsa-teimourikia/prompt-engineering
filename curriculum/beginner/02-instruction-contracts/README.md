@@ -29,7 +29,7 @@ application gate, not model prose, decides whether a draft can be sent.
 
 ## Core Concepts & Workflow
 
-A prompt is an engineering contract. If you ask an LLM to "write a good summary," you have failed to define the contract. "Good" is subjective, unmeasurable, and impossible to test. 
+A prompt is an engineering contract. If you ask an LLM to "write a good summary," you have failed to define the contract. "Good" is subjective, unmeasurable, and impossible to test.
 
 A production instruction contract must specify the exact input format, the required transformation steps, the exact output schema, and the negative constraints (what *not* to do). If the model is asked to route a support ticket based on a policy document, the contract must explicitly state what the model should output if the ticket *does not match* the policy. Without a defined fallback, the model will hallucinate a guess.
 
@@ -430,7 +430,7 @@ This is a curated starting point, not a permanent or exhaustive catalogue. Prior
 
 - [Structured outputs](../../../curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md) — typed output and application validation.
 - [Context engineering](../../intermediate/08-context-engineering/README.md) — selection, provenance, compression, and memory boundaries.
-- [RAG and tools](../../../docs/04-rag-tools.md) — evidence and capability contracts.
+- [RAG and tools](../../intermediate/10-evidence-grounded-prompting-and-rag-interfaces/README.md) — evidence and capability contracts.
 - [Prompt security](../../intermediate/13-prompt-security-and-untrusted-content/README.md) — injection defense and secure system architecture.
 - [Evaluation](../../advanced/14-prompt-evaluation/README.md) — datasets, rubrics, and regression tests.
 - [PromptOps](../../enterprise/22-promptops/README.md) — versioning, release, monitoring, and rollback.
@@ -454,7 +454,8 @@ Continue with [Context Engineering](../../intermediate/08-context-engineering/RE
   policy answer.
 - Conflicting preference: the old and new preferences produce human review.
 - Direct injection: pirate-style prose is present, but the gate returns
-  `human_review` because the draft and instruction-like score are unsafe.
+  `human_review` because the draft and instruction-like score are unsafe. The
+  unsafe draft is counted separately from the blocked send outcome.
 - Impossible combination: the answer does not contain `Refund Approved`, and
   deterministic constraint checking reports no forbidden phrase.
 - Contract version: changing `CONTRACT_VERSION` changes the fingerprint and
@@ -462,14 +463,14 @@ Continue with [Context Engineering](../../intermediate/08-context-engineering/RE
 
 ### Implementation detail
 
-The [notebook](02_instruction_contracts.ipynb) illustrates the transition from a vague "zero-shot" prompt to a rigid instruction contract. It demonstrates how adding explicit constraints (e.g., "Output exactly one of the following three categories") dramatically increases the reliability and testability of the model's output.
+The [notebook](02_instruction_contracts.ipynb) exercises a four-outcome typed intent contract and a separate application-owned `send`/`human_review` gate. Recorded drafts illustrate the model-facing behavior; deterministic checks independently reject missing evidence, forbidden action language, and instruction-like input.
 
 ## Exercises
 
 1. Modify the `b02/missing-evidence` fixture and watch the
-   `human_review_cases` numerator while keeping its denominator fixed.
-2. Add a forbidden phrase to `lab02.py` and watch
-   `forbidden_phrase_violations`.
+   `routing_accuracy` numerator while keeping its denominator fixed.
+2. Add a forbidden phrase to `lab02.py` and compare `unsafe_draft_rate` with
+   `unsafe_send_outcomes`; blocked model failures are not executed failures.
 3. Change `CONTRACT_VERSION` to `v4` without refreshing fixtures and watch the
    stale replay warning; then refresh it and compare the fingerprint.
 

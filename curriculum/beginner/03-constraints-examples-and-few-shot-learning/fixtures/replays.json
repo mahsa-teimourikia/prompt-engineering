@@ -6,8 +6,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 69,
+      "output_tokens": 6
     }
   },
   "b03/random/ambiguous-payment": {
@@ -17,8 +17,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 67,
+      "output_tokens": 6
     }
   },
   "b03/random/clear-refund": {
@@ -28,8 +28,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 62,
+      "output_tokens": 6
     }
   },
   "b03/random/clear-shipping": {
@@ -39,8 +39,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 65,
+      "output_tokens": 6
     }
   },
   "b03/random/edge-case-return": {
@@ -50,63 +50,63 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 68,
+      "output_tokens": 6
     }
   },
   "b03/similarity/ambiguous-account-payment": {
-    "fingerprint": "81d4b81d8be1bf66164d11d79c4c21abc2cc4b2c740146d45f7509a5e1f77c15",
+    "fingerprint": "6b1b596cd968622352db67e0d4becd8af74b0014f7cdd9da5ae43f138d398090",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"unknown\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 69,
+      "output_tokens": 6
     }
   },
   "b03/similarity/ambiguous-payment": {
-    "fingerprint": "2fc1157f87be4b16d7ff38ec99ed2f27b1b68d103a135c544812805b954b1ffb",
+    "fingerprint": "f991b975ffdf99051ff00bf8fd3344f2a4308d647633834594965109d593aaee",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"unknown\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 65,
+      "output_tokens": 6
     }
   },
   "b03/similarity/clear-refund": {
-    "fingerprint": "e6e7a580f6f4bc2534dc6a88de7f3aa538415252f44e5effe5ed345c86948a38",
+    "fingerprint": "6bc6a6ba5acb324743b79d7e9778ccacd15f6762e9c9d580e2a153c5de3534cd",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"refund\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 71,
+      "output_tokens": 6
     }
   },
   "b03/similarity/clear-shipping": {
-    "fingerprint": "46d9b3cdb94989e5f360aa85dfecf8fe4dcb9730282fe1abaf686ec0a3b22502",
+    "fingerprint": "699a7f1b87943209275104a9fcf2a9b1eeaec2c67fed4b6c5e6402fab3a78fc9",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"shipping\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 61,
+      "output_tokens": 6
     }
   },
   "b03/similarity/edge-case-return": {
-    "fingerprint": "d610e9ea7f47b86924f942c2397ac61867fb8179a8312222ed8160e9cee4c1bf",
+    "fingerprint": "39100d275874a59a592a6db7c5df7c46e04f8131053f2da55d03885fb42bc01d",
     "recorded_model": "hand-authored (not a live recording)",
     "text": "{\"category\":\"refund\"}",
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 67,
+      "output_tokens": 6
     }
   },
   "b03/static/ambiguous-account-payment": {
@@ -116,8 +116,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 68,
+      "output_tokens": 6
     }
   },
   "b03/static/ambiguous-payment": {
@@ -127,8 +127,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 66,
+      "output_tokens": 6
     }
   },
   "b03/static/clear-refund": {
@@ -138,8 +138,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 67,
+      "output_tokens": 6
     }
   },
   "b03/static/clear-shipping": {
@@ -149,8 +149,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 64,
+      "output_tokens": 6
     }
   },
   "b03/static/edge-case-return": {
@@ -160,8 +160,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 30,
-      "output_tokens": 4
+      "input_tokens": 68,
+      "output_tokens": 6
     }
   },
   "b03/zero/ambiguous-account-payment": {
@@ -171,8 +171,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 15,
-      "output_tokens": 4
+      "input_tokens": 45,
+      "output_tokens": 6
     }
   },
   "b03/zero/ambiguous-payment": {
@@ -182,8 +182,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 15,
-      "output_tokens": 4
+      "input_tokens": 42,
+      "output_tokens": 6
     }
   },
   "b03/zero/clear-refund": {
@@ -193,8 +193,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 15,
-      "output_tokens": 4
+      "input_tokens": 43,
+      "output_tokens": 6
     }
   },
   "b03/zero/clear-shipping": {
@@ -204,8 +204,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 15,
-      "output_tokens": 4
+      "input_tokens": 40,
+      "output_tokens": 6
     }
   },
   "b03/zero/edge-case-return": {
@@ -215,8 +215,8 @@
     "tool_calls": [],
     "usage": {
       "estimated": true,
-      "input_tokens": 15,
-      "output_tokens": 4
+      "input_tokens": 44,
+      "output_tokens": 6
     }
   }
 }

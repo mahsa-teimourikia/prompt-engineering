@@ -19,6 +19,13 @@ def validate_code(text: str) -> str | None:
     return match.group(0) if match else None
 
 
+def deterministic_extract(message: str) -> str:
+    """Return the first canonical code, or the explicit absence value."""
+
+    match = re.search(r"\bPRD-\d{4}\b", message)
+    return match.group(0) if match else "NONE"
+
+
 def _prompt(strategy: str, case: dict[str, str]) -> str:
     if strategy == "zero":
         return f"Extract the product code from this message:\n{case['message']}"
@@ -62,10 +69,19 @@ def render_worksheet() -> str:
 
 def run_lab(client: ModelClient) -> dict[str, Metric | str]:
     first_three = EVALUATION_SUITE[:3]
+    deterministic_hits = sum(
+        deterministic_extract(case["message"]) == case["expected"]
+        for case in EVALUATION_SUITE
+    )
     return {
         "zero_accuracy": _metric(client, "zero", first_three),
         "system_accuracy": _metric(client, "system", first_three),
         "few_accuracy": _metric(client, "few", EVALUATION_SUITE),
-        "regex_zero_tokens_accuracy": rate("regex_zero_tokens_accuracy", 3, 3, "higher_is_better"),
+        "deterministic_accuracy": rate(
+            "deterministic_accuracy",
+            deterministic_hits,
+            len(EVALUATION_SUITE),
+            "higher_is_better",
+        ),
         "worksheet": render_worksheet(),
     }

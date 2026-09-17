@@ -21,5 +21,12 @@ next layer of learning evidence easier to run and review.
 
 - Beginner courses 01–05 use the shared replay runtime, course-local fixtures,
   deterministic notebook assertions, and focused tests.
-- Continue the same offline-first pattern for intermediate, advanced, and
-  enterprise content.
+- Intermediate courses 06–13 now use fixture-backed labs, replayed responses,
+  executable notebooks, and integrated legacy documentation.
+- Advanced courses 14–21 now use deterministic labs for evaluation, judge
+  calibration, optimization, bounded agents, coding contracts, model adapters,
+  and quality-aware efficiency.
+- Enterprise courses 22–29 now use executable release, observability,
+  governance, trust, portability, architecture-selection, and capstone gates.
+- Every canonical notebook and all five capstone milestones execute without
+  provider credentials; live-provider experiments remain optional.

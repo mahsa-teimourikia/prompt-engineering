@@ -1,34 +1,112 @@
 # 22 — PromptOps
 
-## Learning Objectives
-- **Treat Prompts as Code:** Integrate prompt engineering fully into traditional software engineering lifecycles.
-- **Implement CI/CD for Prompts:** Build automated pipelines that block prompt deployments if regression tests fail.
-- **Separate Prompts from Logic:** Decouple prompt definitions from application code to enable non-developer iteration.
-- **Maintain Audit Trails:** Track exactly who changed a prompt, when, and what evaluation score justified the release.
+## Learning outcomes
 
-## Core PromptOps Workflow
+- Version the full behavior artifact.
+- Make release policy deterministic.
+- Compare artifacts and preserve rollback evidence.
 
-In the enterprise, prompt engineering is indistinguishable from software engineering. An individual developer cannot simply change a prompt in a production codebase and push it live based on a "vibe check."
+## Why this matters
 
-PromptOps is the application of DevOps principles to AI. Prompts must be treated as versioned artifacts. When a prompt is updated, it must pass through a strict Continuous Integration (CI) pipeline. This pipeline automatically runs the new prompt against a frozen "Golden Dataset." If the accuracy drops, or if latency/cost limits are exceeded, the deployment is blocked. This ensures that a prompt optimized to fix one edge case doesn't silently break 100 others in production.
+Northstar promotes a complete behavior artifact only when reproducible quality and safety gates pass. A persuasive demonstration is not sufficient evidence: the system must expose its inputs, decisions, failures, metrics, and release policy.
 
-![PromptOps Workflow](./diagram-1.svg)
+## Prerequisites, success criteria, and boundaries
 
-## Technology Landscape and State of the Art
+**Prerequisites:** Courses 01–13 plus the preceding lesson in this track. Learners should be comfortable with Python, typed data, fixtures, exact assertions, and basic evaluation terminology.
 
-**Foundational:** Hardcoding prompt strings directly into Python files and relying on manual PR reviews to catch errors.
+**Success criteria:** the [notebook](22_promptops.ipynb) runs without credentials, its positive and failure assertions pass, and the learner can explain which controls are deterministic and which production behaviors would remain probabilistic.
 
-**Current State of the Art:**
-1. **Prompt Registries:** Organizations use external registries (e.g., **[PromptLayer](https://promptlayer.com/)**, **[Braintrust](https://www.braintrustdata.com/)**) to store, version, and serve prompts dynamically. Application code fetches the active prompt by an ID or tag (e.g., `get_prompt("support_router", version="production")`).
-2. **Evaluation-Driven CI/CD:** SOTA pipelines use GitHub Actions/GitLab CI integrated with tools like **[DeepEval](https://docs.confident-ai.com/)** or **Promptfoo**. A PR containing a prompt change automatically triggers a regression suite, and the PR cannot be merged unless the test passes.
-3. **Role-Based Access Control (RBAC):** Product Managers and Domain Experts can tweak and test prompts in a UI, but deploying those prompts requires passing the automated engineering gates.
+**Non-goals:** this course does not claim that a small deterministic fixture predicts live-model quality, and it does not grant production access or make provider benchmarks.
 
-## Lab and Production
+**Risk boundary:** identity, authorization, schemas, arithmetic, release gates, and consequential state changes belong to trusted application code. Model output may propose or interpret; it may not authorize itself.
 
-### The Lab
-The [notebook](22_promptops.ipynb) simulates a PromptOps CI/CD pipeline. It demonstrates extracting a hardcoded prompt into a standalone, versionable configuration payload. It then shows a simulated GitHub Action step that blocks a deployment when a proposed prompt candidate fails to beat the baseline score on a regression test.
+## Mental model
 
-### Production Best Practices
-- **Never Hardcode Prompts:** Prompts belong in configuration files (JSON/YAML) or external CMS/Registries, never hardcoded as strings in core business logic.
-- **Automated Rollbacks:** If a prompt causes a spike in production errors (measured via observability tools), the system must be able to automatically roll back to the previous known-good version without requiring a full code redeploy.
-- **Audit Logging:** Every prompt execution in production must be tagged with the exact `prompt_version_id` so failures can be traced back to the specific commit that introduced them.
+![PromptOps architecture](diagram-1.svg)
+
+Treat the AI feature as a versioned behavior system:
+
+```text
+contract + context + model/adapter + deterministic controls
+    -> observable result + evidence + metrics + terminal state
+    -> release, abstain, review, block, or rollback
+```
+
+This split matters because a schema or prompt can constrain a proposal, while the application still owns validation and policy enforcement.
+
+## Foundations and internal mechanics
+
+1. **Define the decision.** State the input, expected outcome, risk, and terminal states before choosing a model or framework.
+2. **Make evidence executable.** Use labelled fixtures, exact invariants, and named failure cases. Printed expected values and comments are not tests.
+3. **Retain measurement semantics.** Record numerator, denominator, slice, unit, and direction. Separate blocked attempts from completed violations and estimates from provider-reported usage.
+4. **Keep a reproducible path.** The default lab is synthetic and credential-free. A live provider is an optional experiment that needs its own versioned results.
+
+## Architecture and technology choices
+
+Git and CI may be sufficient at first. Add registries, evaluation platforms, tracing, and flags when team, artifact, or audit scale justifies them.
+
+Choose the smallest architecture that can satisfy the behavior contract. Framework adoption is a downstream decision; it does not replace the contract, fixtures, controls, or release evidence.
+
+## Worked Northstar scenario
+
+The [reusable lab](lab22.py) implements the deterministic primitive. The notebook introduces the scenario, runs the baseline and candidate on the same fixture, injects this failure—**Versioning only prompt text omits schema, model settings, evaluation data, and ownership.**—and finishes with assertions plus a production-upgrade exercise.
+
+Run it from the repository root:
+
+```bash
+PYTHONPATH=. .venv/bin/python scripts/run_notebooks.py curriculum/enterprise/22-promptops/22_promptops.ipynb
+.venv/bin/python -m pytest -q tests/test_advanced_enterprise_labs.py
+```
+
+## Evaluation design
+
+| Case family | What it proves | Release treatment |
+| --- | --- | --- |
+| Normal | Main behavior works on representative input | Count in the named quality metric |
+| Boundary | Ambiguity and limits are explicit | Review by slice; do not average away |
+| Failure | Recovery or terminal state is correct | Must produce the expected reason code |
+| Critical/adversarial | Forbidden disclosure or action is prevented | Hard blocker, independent of mean score |
+
+Evaluation should compare a baseline and candidate on identical cases. Development data may guide changes; a protected holdout supports the final claim. Re-run evaluation when the prompt, context policy, schema, tools, model, adapter, or metric implementation changes.
+
+## Failure modes and mitigations
+
+- **Metric gaming:** test whether a candidate exploits formatting or label leakage; use review samples and protected data.
+- **False authority:** derive identity, tenant, roles, and approval from trusted state before retrieval or tool exposure.
+- **Silent degradation:** make abstention, blocked, retryable, approval-required, and rollback states explicit.
+- **Misleading observability:** log versions, reason codes, evidence IDs, and terminal state without secrets or hidden reasoning.
+- **Framework overreach:** retain a deterministic baseline and add orchestration only when measured value justifies complexity.
+
+## Production upgrade
+
+Store immutable artifacts and evaluation reports, require accountable review for risk changes, deploy progressively, correlate production traces to an artifact digest, and rehearse rollback.
+
+Production systems additionally need concurrency handling, bounded retries, idempotency for side effects, tenant-scoped caches and memory, secret management, data-retention policy, service objectives, incident ownership, staged rollout, and a rehearsed rollback path. The exact set depends on risk; it should be recorded in an architecture decision rather than hidden in prompt text.
+
+## State of the art
+
+- **Established:** typed contracts, representative evaluation sets, deterministic validation, least privilege, versioned artifacts, and observable release gates.
+- **Emerging:** standardized generative-AI telemetry, automated evaluation pipelines, learned routing, and optimization frameworks tied to explicit metrics.
+- **Research frontier:** robust semantic judging, prompt-injection resistance, cross-model behavioral equivalence, calibrated uncertainty, and evaluation under distribution shift.
+
+The frontier is not a default architecture. Adopt an emerging technique only after it beats the simpler baseline on the course's stated quality, safety, latency, and cost criteria.
+
+## Checkpoint
+
+1. Which part of this course's decision must remain in deterministic application code, and why?
+2. Why does the failure case—Versioning only prompt text omits schema, model settings, evaluation data, and ownership.—invalidate a happy-path-only evaluation?
+3. What evidence would you require before replacing the lab's simulation with a live provider result?
+
+## Exercises and review questions
+
+1. Add one normal, one boundary, and one adversarial fixture. Which metric or hard gate changes?
+2. Replace one deterministic simulation with a recorded provider response and label the provenance. What new variance appears?
+3. Identify one prompt instruction that currently sounds like policy. Move enforcement into code and add a negative test.
+4. Write a short architecture decision covering owner, alternatives, failure policy, monitoring, and rollback.
+
+
+
+## References
+
+- [Deep course guide](../../../docs/09-promptops.md)
+- [OpenTelemetry semantic conventions](https://opentelemetry.io/docs/specs/semconv/)

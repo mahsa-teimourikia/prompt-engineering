@@ -32,6 +32,7 @@ function renderWorkspace() {
   } else {
       notebookBody += `<a class="button" href="${link(selected.notebook)}" target="_blank">Open self-contained notebook ↗</a>`;
   }
+  if (selected.lab) notebookBody += ` <a class="button secondary" href="${link(selected.lab)}" target="_blank">Open reusable lab ↗</a>`;
   
   let checkBody = `<p class="outcome">Knowledge Check</p>`;
   courseChecks.forEach((c, idx) => {

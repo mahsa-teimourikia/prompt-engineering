@@ -25,6 +25,12 @@ def test_course_01_replay_lab_metrics_and_requests():
     assert results["temperature_comparison"] == ("unknown", "refund")
     assert results["weak_missing_evidence"].numerator == 1
     assert results["abstention_missing_evidence"].numerator == 1
+    assert results["position_context_tokens"].unit == "estimated_tokens"
+    baseline, middle = lab01.build_requests()[:2]
+    assert baseline.system == middle.system
+    assert baseline.messages[0].text.startswith("TASK:")
+    assert not middle.messages[0].text.startswith("TASK:")
+    assert sorted(baseline.messages[0].text.split()) == sorted(middle.messages[0].text.split())
     assert all(not client.generate(request).stale for request in lab01.build_requests())
 
 
@@ -36,3 +42,11 @@ def test_course_01_schema_rejects_unknown_category():
     except ValidationError:
         return
     raise AssertionError("unsupported category was accepted")
+
+
+def test_course_01_rejects_an_unknown_position():
+    try:
+        lab01._messages(lab01.CASES[0], position="last")
+    except ValueError:
+        return
+    raise AssertionError("unknown prompt position was accepted")

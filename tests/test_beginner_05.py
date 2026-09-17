@@ -22,7 +22,8 @@ def test_course_05_technique_metrics_and_validator():
     assert results["zero_accuracy"].numerator == 1
     assert results["system_accuracy"].numerator == 2
     assert results["few_accuracy"].numerator == 4
-    assert results["regex_zero_tokens_accuracy"].numerator == 3
+    assert results["deterministic_accuracy"].numerator == 3
+    assert results["deterministic_accuracy"].denominator == 4
     assert "direct instruction" in results["worksheet"]
     assert all(not client.generate(request).stale for request in lab05.build_requests())
 
@@ -31,3 +32,6 @@ def test_course_05_validation_is_exact():
     assert lab05.validate_code("PRD-1234") == "PRD-1234"
     assert lab05.validate_code("The code is PRD-1234") is None
     assert lab05.validate_code("prd 1234") is None
+    assert lab05.deterministic_extract("Order 55 contains PRD-1234") == "PRD-1234"
+    assert lab05.deterministic_extract("No product code is supplied") == "NONE"
+    assert lab05.deterministic_extract("item prd 1234") == "NONE"

@@ -9,7 +9,6 @@ from pathlib import Path
 from pydantic import BaseModel
 
 from northstar.contracts import ParseResult, parse_structured
-from northstar.evidence import EvidenceItem, check_citations
 from northstar.metrics import Metric, rate
 from northstar.runtime import Message, ModelClient, PromptRequest
 
@@ -21,7 +20,13 @@ class CaseBrief(BaseModel):
     recommended_action: str
 
 
-APPROVED_EVIDENCE_IDS = {"pol_return_30d", "pol_shipping_delay", "NONE"}
+EVIDENCE_FOR_INTENT = {
+    "refund_request": "pol_return_30d",
+    "missing_item": "pol_shipping_delay",
+    "account_issue": "NONE",
+    "unknown": "NONE",
+}
+APPROVED_EVIDENCE_IDS = set(EVIDENCE_FOR_INTENT.values())
 CASES = json.loads((Path(__file__).parent / "fixtures/cases.json").read_text())
 
 
@@ -81,6 +86,11 @@ def build_requests() -> list[PromptRequest]:
 def validate_evidence(brief: CaseBrief) -> str | None:
     if brief.evidence_cited not in APPROVED_EVIDENCE_IDS:
         return "unknown_evidence_id"
+    expected = EVIDENCE_FOR_INTENT[brief.intent]
+    if brief.evidence_cited != expected:
+        return "evidence_intent_mismatch"
+    if brief.evidence_cited == "NONE" and "review" not in brief.recommended_action.lower():
+        return "missing_review_route"
     return None
 
 
@@ -106,10 +116,6 @@ def run_lab(client: ModelClient) -> dict[str, Metric | int | str | None]:
     repaired, attempts, repair_terminal = bounded_repair(client)
     exhausted, exhausted_attempts, exhausted_terminal = bounded_repair(client, exhausted=True)
     malformed = generate_case_brief(client, build_requests()[-1])
-    citation_report = check_citations(
-        hallucinated.value.evidence_cited if hallucinated.ok else "",
-        [EvidenceItem(id="pol_return_30d", source="fixture", version="v1", text="refund")],
-    )
     return {
         "syntax_valid": rate("syntax_valid", int(good.ok), 1, "higher_is_better"),
         "unknown_evidence": rate(

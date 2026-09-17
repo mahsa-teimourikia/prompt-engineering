@@ -7,7 +7,7 @@ import re
 
 
 MARKDOWN_LINK = re.compile(r"(?<!!)\[[^\]]+\]\(([^)\s]+)\)")
-REGISTRY_PATH = re.compile(r'"(?:material|notebook|path)":\s*"([^"]+)"')
+REGISTRY_PATH = re.compile(r'"(?:material|notebook|lab|path)":\s*"([^"]+)"')
 EXCLUDED = {".git", ".venv", "node_modules", "out"}
 
 

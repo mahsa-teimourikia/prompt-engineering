@@ -1,34 +1,113 @@
 # 27 — Prompt Portability and Multi-Model Systems
 
-## Learning Objectives
-- **Avoid Vendor Lock-In:** Design systems that can easily swap foundational models (e.g., OpenAI to Google) without rewriting business logic.
-- **Implement Unified SDKs:** Abstract provider-specific API idiosyncrasies behind unified routing layers.
-- **Design Multi-Model Fallbacks:** Build resilient systems that automatically failover to a backup provider if the primary API experiences an outage.
-- **Standardize Contracts:** Use programmatic schemas to ensure inputs and outputs remain consistent regardless of the underlying LLM.
+## Learning outcomes
 
-## Core Concepts & Workflow
+- Normalize provider responses at adapters.
+- Run the same conformance fixtures across providers.
+- Constrain fallback by operation semantics.
 
-Tying an enterprise application directly to a specific provider's API (e.g., hardcoding OpenAI's exact JSON structure) is a massive strategic risk. It creates vendor lock-in, prevents you from utilizing better/cheaper models when they are released by competitors, and makes your application vulnerable to single-provider outages.
+## Why this matters
 
-State-of-the-art architectures demand Prompt Portability. You must engineer your systems at the *Contract Layer*. By defining inputs and outputs via strict Pydantic schemas and using a unified proxy or SDK to translate those schemas into provider-specific API calls, you can hot-swap models instantly. If Provider A goes down, your code automatically routes the exact same Pydantic contract to Provider B.
+Two provider adapters must satisfy one output contract; failover is permitted for a read-only summary but not an unconfirmed side effect. A persuasive demonstration is not sufficient evidence: the system must expose its inputs, decisions, failures, metrics, and release policy.
 
-![Portability Workflow](./diagram-1.svg)
+## Prerequisites, success criteria, and boundaries
 
-## Technology Landscape and State of the Art
+**Prerequisites:** Courses 01–13 plus the preceding lesson in this track. Learners should be comfortable with Python, typed data, fixtures, exact assertions, and basic evaluation terminology.
 
-**Foundational:** Hardcoding `import openai` throughout the entire codebase and manually parsing specific response shapes.
+**Success criteria:** the [notebook](27_prompt_portability_and_multi_model_systems.ipynb) runs without credentials, its positive and failure assertions pass, and the learner can explain which controls are deterministic and which production behaviors would remain probabilistic.
 
-**Current State of the Art:**
-1. **Unified Proxies:** Tools like **[LiteLLM](https://github.com/BerriAI/litellm)** or **Portkey** act as universal translators. You write code using one standard API format, and the proxy translates it on the fly to Anthropic, Google, AWS Bedrock, or OpenAI.
-2. **Provider-Agnostic SDKs:** Libraries like **LangChain** or the unified **Google GenAI SDK** abstract the underlying API mechanics, allowing you to switch the `model_name` string without changing any downstream parsing logic.
-3. **Automated Fallbacks & Load Balancing:** Enterprise API gateways are configured to monitor the latency of Provider A. If it exceeds a 2-second threshold, the gateway automatically routes the prompt to Provider B, ensuring the end-user never experiences a timeout.
+**Non-goals:** this course does not claim that a small deterministic fixture predicts live-model quality, and it does not grant production access or make provider benchmarks.
 
-## Lab and Production
+**Risk boundary:** identity, authorization, schemas, arithmetic, release gates, and consequential state changes belong to trusted application code. Model output may propose or interpret; it may not authorize itself.
 
-### The Lab
-The [notebook](27_prompt_portability_and_multi_model_systems.ipynb) demonstrates true portability. It defines a complex extraction task and a rigid Pydantic schema, and then executes that exact same code block against two completely different model families (e.g., Gemini and a local open-weights model). It proves that the application code does not need to change when the model changes.
+## Mental model
 
-### Production Best Practices
-- **Test Fallbacks Continuously:** A fallback model is useless if you haven't tested it. Run your automated evaluation suite against your fallback models weekly to ensure they still meet your minimum quality thresholds.
-- **Normalize Telemetry:** Different providers report token usage differently. Your unified proxy must normalize these metrics so your cost dashboards remain accurate regardless of which model served the request.
-- **Beware Capability Gaps:** Portability of *code* does not mean portability of *capability*. Just because a smaller open-source model accepts the same JSON schema doesn't mean it has the reasoning power to successfully fill it out.
+![Prompt Portability and Multi-Model Systems architecture](diagram-1.svg)
+
+Treat the AI feature as a versioned behavior system:
+
+```text
+contract + context + model/adapter + deterministic controls
+    -> observable result + evidence + metrics + terminal state
+    -> release, abstain, review, block, or rollback
+```
+
+This split matters because a schema or prompt can constrain a proposal, while the application still owns validation and policy enforcement.
+
+## Foundations and internal mechanics
+
+1. **Define the decision.** State the input, expected outcome, risk, and terminal states before choosing a model or framework.
+2. **Make evidence executable.** Use labelled fixtures, exact invariants, and named failure cases. Printed expected values and comments are not tests.
+3. **Retain measurement semantics.** Record numerator, denominator, slice, unit, and direction. Separate blocked attempts from completed violations and estimates from provider-reported usage.
+4. **Keep a reproducible path.** The default lab is synthetic and credential-free. A live provider is an optional experiment that needs its own versioned results.
+
+## Architecture and technology choices
+
+Direct adapters maximize provider features; gateways centralize routing; self-hosting increases operational control. Measure contract conformance, quality, safety, latency, and cost.
+
+Choose the smallest architecture that can satisfy the behavior contract. Framework adoption is a downstream decision; it does not replace the contract, fixtures, controls, or release evidence.
+
+## Worked Northstar scenario
+
+The [reusable lab](lab27.py) implements the deterministic primitive. The notebook introduces the scenario, runs the baseline and candidate on the same fixture, injects this failure—**Blind failover can duplicate writes, change policy behavior, or silently return incompatible output.**—and finishes with assertions plus a production-upgrade exercise.
+
+Run it from the repository root:
+
+```bash
+PYTHONPATH=. .venv/bin/python scripts/run_notebooks.py curriculum/enterprise/27-prompt-portability-and-multi-model-systems/27_prompt_portability_and_multi_model_systems.ipynb
+.venv/bin/python -m pytest -q tests/test_advanced_enterprise_labs.py
+```
+
+## Evaluation design
+
+| Case family | What it proves | Release treatment |
+| --- | --- | --- |
+| Normal | Main behavior works on representative input | Count in the named quality metric |
+| Boundary | Ambiguity and limits are explicit | Review by slice; do not average away |
+| Failure | Recovery or terminal state is correct | Must produce the expected reason code |
+| Critical/adversarial | Forbidden disclosure or action is prevented | Hard blocker, independent of mean score |
+
+Evaluation should compare a baseline and candidate on identical cases. Development data may guide changes; a protected holdout supports the final claim. Re-run evaluation when the prompt, context policy, schema, tools, model, adapter, or metric implementation changes.
+
+## Failure modes and mitigations
+
+- **Metric gaming:** test whether a candidate exploits formatting or label leakage; use review samples and protected data.
+- **False authority:** derive identity, tenant, roles, and approval from trusted state before retrieval or tool exposure.
+- **Silent degradation:** make abstention, blocked, retryable, approval-required, and rollback states explicit.
+- **Misleading observability:** log versions, reason codes, evidence IDs, and terminal state without secrets or hidden reasoning.
+- **Framework overreach:** retain a deterministic baseline and add orchestration only when measured value justifies complexity.
+
+## Production upgrade
+
+Pin adapter and provider versions, normalize errors and usage, test schemas and safety policy per provider, enforce idempotency for retries, and decide whether degraded mode should abstain rather than silently switch.
+
+Production systems additionally need concurrency handling, bounded retries, idempotency for side effects, tenant-scoped caches and memory, secret management, data-retention policy, service objectives, incident ownership, staged rollout, and a rehearsed rollback path. The exact set depends on risk; it should be recorded in an architecture decision rather than hidden in prompt text.
+
+## State of the art
+
+- **Established:** typed contracts, representative evaluation sets, deterministic validation, least privilege, versioned artifacts, and observable release gates.
+- **Emerging:** standardized generative-AI telemetry, automated evaluation pipelines, learned routing, and optimization frameworks tied to explicit metrics.
+- **Research frontier:** robust semantic judging, prompt-injection resistance, cross-model behavioral equivalence, calibrated uncertainty, and evaluation under distribution shift.
+
+The frontier is not a default architecture. Adopt an emerging technique only after it beats the simpler baseline on the course's stated quality, safety, latency, and cost criteria.
+
+## Checkpoint
+
+1. Which part of this course's decision must remain in deterministic application code, and why?
+2. Why does the failure case—Blind failover can duplicate writes, change policy behavior, or silently return incompatible output.—invalidate a happy-path-only evaluation?
+3. What evidence would you require before replacing the lab's simulation with a live provider result?
+
+## Exercises and review questions
+
+1. Add one normal, one boundary, and one adversarial fixture. Which metric or hard gate changes?
+2. Replace one deterministic simulation with a recorded provider response and label the provenance. What new variance appears?
+3. Identify one prompt instruction that currently sounds like policy. Move enforcement into code and add a negative test.
+4. Write a short architecture decision covering owner, alternatives, failure policy, monitoring, and rollback.
+
+
+
+## References
+
+- [Deep course guide](../../../docs/10-technology-review.md)
+- [Google structured output](https://ai.google.dev/gemini-api/docs/structured-output)
+- [OpenTelemetry GenAI conventions](https://github.com/open-telemetry/semantic-conventions-genai)

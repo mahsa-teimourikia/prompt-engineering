@@ -283,7 +283,7 @@ Broad tools make vague prompts dangerous. Prefer narrow, auditable commands and 
 | `read_secret(name: str)` | Inject only the scoped secret into a controlled runtime if truly necessary; never expose value to the model. |
 | `database_query(sql: str)` | Read-only parameterized queries or a limited domain tool; no production writes. |
 
-Tool output is also untrusted. Build logs, issue text, documentation, and terminal output can contain misleading instructions. Treat them as evidence to inspect, not as authority to change scope or exfiltrate data. See [Prompt security](06-prompt-security.md).
+Tool output is also untrusted. Build logs, issue text, documentation, and terminal output can contain misleading instructions. Treat them as evidence to inspect, not as authority to change scope or exfiltrate data. See [Prompt security](../curriculum/intermediate/13-prompt-security-and-untrusted-content/README.md).
 
 ## 8. Verification hierarchy: what evidence is enough?
 
@@ -373,4 +373,4 @@ Use the Northstar refund-request scenario to practice the whole workflow.
 
 - [SWE-bench and SWE-bench Verified](https://www.swebench.com/verified.html)
 - [SWE-agent](https://arxiv.org/abs/2405.15793), [Agentless](https://arxiv.org/abs/2407.01489), and [Agentic Software Issue Resolution: A Survey](https://arxiv.org/abs/2512.22256)
-- [Agentic prompt contracts](08-agentic-prompts.md), [Prompt security](06-prompt-security.md), [Evaluation](07-evaluation.md), [Cost and latency](13-cost-latency-engineering.md), and [PromptOps](09-promptops.md)
+- [Agentic prompt contracts](08-agentic-prompts.md), [Prompt security](../curriculum/intermediate/13-prompt-security-and-untrusted-content/README.md), [Evaluation](07-evaluation.md), [Cost and latency](13-cost-latency-engineering.md), and [PromptOps](09-promptops.md)

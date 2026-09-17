@@ -67,7 +67,7 @@ Replays are recorded fixtures, not live model output.
 
 ## Canonical course navigation
 
-The canonical [29-course curriculum](curriculum/README.md) is available in the curriculum directory: Beginner (01–05), Intermediate (06–13), Advanced (14–21), and Enterprise (22–29). Every course contains a chapter and notebook. The Learning Hub and full quiz are generated from the same 29-course registry; legacy docs remain supporting material.
+The canonical [29-course curriculum](curriculum/README.md) is available in the curriculum directory: Beginner (01–05), Intermediate (06–13), Advanced (14–21), and Enterprise (22–29). Every course contains a chapter, a credential-free notebook, and a reusable lab. The Learning Hub and 58-question quiz use the same 29-course registry; legacy docs remain supporting material.
 
 | Level | Courses | Start point |
 | --- | --- | --- |
@@ -76,7 +76,7 @@ The canonical [29-course curriculum](curriculum/README.md) is available in the c
 | Advanced | 14–21 | [Course 14](curriculum/advanced/14-prompt-evaluation/README.md) |
 | Enterprise | 22–29 | [Course 22](curriculum/enterprise/22-promptops/README.md) |
 
-Use the Hub for the complete ordered course list, chapter, notebook, reusable lab, checkpoint, and full 29-question knowledge check.
+Use the Hub for the complete ordered course list, chapter, notebook, reusable lab, checkpoint, and full 58-question knowledge check.
 
 ## Supporting reference material
 
@@ -101,7 +101,7 @@ See [Technology review](docs/10-technology-review.md) for decision guidance cove
 - [Chain-of-Thought Prompting](https://arxiv.org/abs/2201.11903), [ReAct](https://arxiv.org/abs/2210.03629), and [Toolformer](https://arxiv.org/abs/2302.04761)
 - [Anthropic: effective context engineering for agents](https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents) and [building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
 - [Google prompt design strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies)
-- [OpenAI prompting guide](https://platform.openai.com/docs/guides/prompting), [structured outputs](https://platform.openai.com/docs/guides/structured-outputs), and [evals](https://platform.openai.com/docs/guides/evals)
+- [OpenAI prompt engineering](https://developers.openai.com/api/docs/guides/prompt-engineering), [structured outputs](https://developers.openai.com/api/docs/guides/structured-outputs), and [evals](https://developers.openai.com/api/docs/guides/evals)
 - [OWASP LLM Prompt Injection Prevention Cheat Sheet](https://cheatsheetseries.owasp.org/cheatsheets/LLM_Prompt_Injection_Prevention_Cheat_Sheet.html)
 
 ## Contributing

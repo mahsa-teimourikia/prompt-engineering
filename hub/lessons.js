@@ -5,10 +5,11 @@ export const lessons = [
     "step": 1,
     "slug": "llm-behavior-and-prompt-anatomy",
     "title": "LLM Behavior and Prompt Anatomy",
-    "summary": "Understand the fundamental structure of a prompt payload.",
-    "outcome": "Deconstruct prompts into System Instructions, Context, and User Input, and diagnose stateless failures.",
+    "summary": "Test how prompt position, sampling, and missing evidence affect behavior.",
+    "outcome": "Compare controlled variants and require explicit abstention when evidence is absent.",
     "material": "curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md",
     "notebook": "curriculum/beginner/01-llm-behavior-and-prompt-anatomy/01_llm_behavior_and_prompt_anatomy.ipynb",
+    "lab": "curriculum/beginner/01-llm-behavior-and-prompt-anatomy/lab01.py",
     "checkpoint": "curriculum/beginner/01-llm-behavior-and-prompt-anatomy/README.md#checkpoint",
     "refs": [
       {
@@ -23,10 +24,11 @@ export const lessons = [
     "step": 2,
     "slug": "instruction-contracts",
     "title": "Instruction Contracts",
-    "summary": "Move from polite requests to rigid engineering contracts.",
-    "outcome": "Define exact inputs, constraints, and fallback paths to eliminate ambiguity.",
+    "summary": "Turn an ambiguous request into a testable behavior contract.",
+    "outcome": "Specify inputs, authority, constraints, output, and failure states, then validate them in code.",
     "material": "curriculum/beginner/02-instruction-contracts/README.md",
     "notebook": "curriculum/beginner/02-instruction-contracts/02_instruction_contracts.ipynb",
+    "lab": "curriculum/beginner/02-instruction-contracts/lab02.py",
     "checkpoint": "curriculum/beginner/02-instruction-contracts/README.md#checkpoint",
     "refs": [
       {
@@ -41,10 +43,11 @@ export const lessons = [
     "step": 3,
     "slug": "constraints-examples-and-few-shot-learning",
     "title": "Constraints, Examples, and Few-Shot Learning",
-    "summary": "Guide models using demonstration rather than just description.",
-    "outcome": "Implement strict Few-Shot examples to anchor tone, schema, and boundary behavior.",
+    "summary": "Select examples that clarify real decision boundaries.",
+    "outcome": "Compare zero-shot, static, random, and similarity-based examples without hiding context cost.",
     "material": "curriculum/beginner/03-constraints-examples-and-few-shot-learning/README.md",
     "notebook": "curriculum/beginner/03-constraints-examples-and-few-shot-learning/03_constraints_examples_few_shot.ipynb",
+    "lab": "curriculum/beginner/03-constraints-examples-and-few-shot-learning/lab03.py",
     "checkpoint": "curriculum/beginner/03-constraints-examples-and-few-shot-learning/README.md#checkpoint",
     "refs": []
   },
@@ -54,10 +57,11 @@ export const lessons = [
     "step": 4,
     "slug": "structured-outputs-and-typed-interfaces",
     "title": "Structured Outputs and Typed Interfaces",
-    "summary": "Force LLMs to return parseable data structures.",
-    "outcome": "Use native JSON mode and strict schemas to guarantee application-readable output.",
+    "summary": "Treat model output as an untrusted proposal for a typed interface.",
+    "outcome": "Separate syntax constraints from semantic and business validation, including bounded repair.",
     "material": "curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md",
     "notebook": "curriculum/beginner/04-structured-outputs-and-typed-interfaces/04_structured_outputs_and_typed_interfaces.ipynb",
+    "lab": "curriculum/beginner/04-structured-outputs-and-typed-interfaces/lab04.py",
     "checkpoint": "curriculum/beginner/04-structured-outputs-and-typed-interfaces/README.md#checkpoint",
     "refs": []
   },
@@ -67,10 +71,11 @@ export const lessons = [
     "step": 5,
     "slug": "prompt-patterns-and-technique-selection",
     "title": "Prompt Patterns and Technique Selection",
-    "summary": "Map specific failures to specific prompt techniques.",
-    "outcome": "Avoid pattern bloat by selecting only the techniques required to fix a measured failure.",
+    "summary": "Choose a technique from an observed failure rather than a trend.",
+    "outcome": "Compare techniques on quality and context cost, then keep the smallest useful intervention.",
     "material": "curriculum/beginner/05-prompt-patterns-and-technique-selection/README.md",
     "notebook": "curriculum/beginner/05-prompt-patterns-and-technique-selection/05_prompt_patterns_and_technique_selection.ipynb",
+    "lab": "curriculum/beginner/05-prompt-patterns-and-technique-selection/lab05.py",
     "checkpoint": "curriculum/beginner/05-prompt-patterns-and-technique-selection/README.md#checkpoint",
     "refs": []
   },
@@ -80,14 +85,16 @@ export const lessons = [
     "step": 6,
     "slug": "reasoning-oriented-prompting",
     "title": "Reasoning-Oriented Prompting",
-    "summary": "Trade latency for accuracy using Chain-of-Thought.",
-    "outcome": "Force the model to emit intermediate reasoning tokens before generating a final answer.",
+    "summary": "Choose the smallest reasoning architecture that improves a verified decision.",
+    "outcome": "Compare direct, sampled, and verifier-assisted approaches without exposing private chain-of-thought.",
     "material": "curriculum/intermediate/06-reasoning-oriented-prompting/README.md",
     "notebook": "curriculum/intermediate/06-reasoning-oriented-prompting/06_reasoning_oriented_prompting.ipynb",
+    "lab": "curriculum/intermediate/06-reasoning-oriented-prompting/lab06.py",
+    "checkpoint": "curriculum/intermediate/06-reasoning-oriented-prompting/README.md#checkpoint",
     "refs": [
       {
-        "title": "O1 Native Reasoning",
-        "path": "https://openai.com/index/learning-to-reason-with-llms/"
+        "title": "OpenAI reasoning best practices",
+        "path": "https://developers.openai.com/api/docs/guides/reasoning-best-practices"
       }
     ]
   },
@@ -97,10 +104,12 @@ export const lessons = [
     "step": 7,
     "slug": "task-decomposition-and-workflow-prompting",
     "title": "Task Decomposition and Workflow Prompting",
-    "summary": "Break massive prompts into narrow, specialized pipelines.",
-    "outcome": "Orchestrate state machines to prevent compounding errors in complex tasks.",
+    "summary": "Decompose complex work into observable, recoverable stages.",
+    "outcome": "Use typed handoffs, stop conditions, and failure-aware workflow state.",
     "material": "curriculum/intermediate/07-task-decomposition-and-workflow-prompting/README.md",
     "notebook": "curriculum/intermediate/07-task-decomposition-and-workflow-prompting/07_task_decomposition_and_workflow_prompting.ipynb",
+    "lab": "curriculum/intermediate/07-task-decomposition-and-workflow-prompting/lab07.py",
+    "checkpoint": "curriculum/intermediate/07-task-decomposition-and-workflow-prompting/README.md#checkpoint",
     "refs": [
       {
         "title": "LangGraph",
@@ -114,10 +123,12 @@ export const lessons = [
     "step": 8,
     "slug": "context-engineering",
     "title": "Context Engineering",
-    "summary": "Safely inject background data into the prompt context.",
-    "outcome": "Use XML delimiters and pruning strategies to manage massive context windows.",
+    "summary": "Build a context contract with authority, scope, provenance, and budget.",
+    "outcome": "Select, order, and validate context while treating retrieved content as untrusted data.",
     "material": "curriculum/intermediate/08-context-engineering/README.md",
     "notebook": "curriculum/intermediate/08-context-engineering/08_context_engineering.ipynb",
+    "lab": "curriculum/intermediate/08-context-engineering/lab08.py",
+    "checkpoint": "curriculum/intermediate/08-context-engineering/README.md#checkpoint",
     "refs": [
       {
         "title": "Anthropic Context Engineering",
@@ -131,10 +142,12 @@ export const lessons = [
     "step": 9,
     "slug": "conversation-and-long-context-engineering",
     "title": "Conversation and Long-Context Engineering",
-    "summary": "Manage state across multi-turn chat sessions.",
-    "outcome": "Implement sliding windows and background summarization to prevent context collapse.",
+    "summary": "Separate message history, application state, and durable memory.",
+    "outcome": "Compare window, summary, and structured-state strategies with retention and tenant boundaries.",
     "material": "curriculum/intermediate/09-conversation-and-long-context-engineering/README.md",
     "notebook": "curriculum/intermediate/09-conversation-and-long-context-engineering/09_conversation_and_long_context_engineering.ipynb",
+    "lab": "curriculum/intermediate/09-conversation-and-long-context-engineering/lab09.py",
+    "checkpoint": "curriculum/intermediate/09-conversation-and-long-context-engineering/README.md#checkpoint",
     "refs": []
   },
   {
@@ -143,10 +156,12 @@ export const lessons = [
     "step": 10,
     "slug": "evidence-grounded-prompting-and-rag-interfaces",
     "title": "Evidence-Grounded Prompting and RAG Interfaces",
-    "summary": "Ground answers in private database retrieval.",
-    "outcome": "Design strict citation contracts that force the model to hallucinate less and say 'I don't know' more.",
+    "summary": "Design an evidence interface that can cite, abstain, and surface conflicts.",
+    "outcome": "Evaluate retrieval and answer support separately while authorizing before retrieval.",
     "material": "curriculum/intermediate/10-evidence-grounded-prompting-and-rag-interfaces/README.md",
     "notebook": "curriculum/intermediate/10-evidence-grounded-prompting-and-rag-interfaces/10_evidence_grounded_prompting_and_rag_interfaces.ipynb",
+    "lab": "curriculum/intermediate/10-evidence-grounded-prompting-and-rag-interfaces/lab10.py",
+    "checkpoint": "curriculum/intermediate/10-evidence-grounded-prompting-and-rag-interfaces/README.md#checkpoint",
     "refs": [
       {
         "title": "LlamaIndex",
@@ -160,10 +175,12 @@ export const lessons = [
     "step": 11,
     "slug": "tool-calling-and-tool-interface-design",
     "title": "Tool Calling and Tool Interface Design",
-    "summary": "Give models the ability to execute external code.",
-    "outcome": "Design clear function schemas and secure application-side execution loops.",
+    "summary": "Give models narrow typed capabilities while the application owns execution.",
+    "outcome": "Validate arguments, authorize before exposure, and distinguish proposed calls from completed actions.",
     "material": "curriculum/intermediate/11-tool-calling-and-tool-interface-design/README.md",
     "notebook": "curriculum/intermediate/11-tool-calling-and-tool-interface-design/11_tool_calling_and_tool_interface_design.ipynb",
+    "lab": "curriculum/intermediate/11-tool-calling-and-tool-interface-design/lab11.py",
+    "checkpoint": "curriculum/intermediate/11-tool-calling-and-tool-interface-design/README.md#checkpoint",
     "refs": []
   },
   {
@@ -172,10 +189,12 @@ export const lessons = [
     "step": 12,
     "slug": "multimodal-prompt-engineering",
     "title": "Multimodal Prompt Engineering",
-    "summary": "Interleave images, video, and audio directly into the prompt.",
-    "outcome": "Use text anchors to ground the model's spatial and temporal reasoning over media.",
+    "summary": "Ground document and image claims in explicit regions and evidence IDs.",
+    "outcome": "Evaluate extraction, contradiction, and missing-evidence cases with a reproducible synthetic asset.",
     "material": "curriculum/intermediate/12-multimodal-prompt-engineering/README.md",
     "notebook": "curriculum/intermediate/12-multimodal-prompt-engineering/12_multimodal_prompt_engineering.ipynb",
+    "lab": "curriculum/intermediate/12-multimodal-prompt-engineering/lab12.py",
+    "checkpoint": "curriculum/intermediate/12-multimodal-prompt-engineering/README.md#checkpoint",
     "refs": []
   },
   {
@@ -184,10 +203,12 @@ export const lessons = [
     "step": 13,
     "slug": "prompt-security-and-untrusted-content",
     "title": "Prompt Security and Untrusted Content",
-    "summary": "Defend against prompt injection and context poisoning.",
-    "outcome": "Isolate untrusted data using strict delimiters and outbound schema enforcement.",
+    "summary": "Model prompt injection as a trust-boundary failure, not a wording puzzle.",
+    "outcome": "Combine untrusted-data separation with least privilege, authorization, validation, and adversarial tests.",
     "material": "curriculum/intermediate/13-prompt-security-and-untrusted-content/README.md",
     "notebook": "curriculum/intermediate/13-prompt-security-and-untrusted-content/13_prompt_security_and_untrusted_content.ipynb",
+    "lab": "curriculum/intermediate/13-prompt-security-and-untrusted-content/lab13.py",
+    "checkpoint": "curriculum/intermediate/13-prompt-security-and-untrusted-content/README.md#checkpoint",
     "refs": [
       {
         "title": "OWASP Injection Cheat Sheet",
@@ -201,10 +222,12 @@ export const lessons = [
     "step": 14,
     "slug": "prompt-evaluation",
     "title": "Prompt Evaluation",
-    "summary": "Replace vibe checks with automated, deterministic regression testing.",
-    "outcome": "Build massive Golden Datasets to mathematically prove prompt efficacy.",
+    "summary": "Replace anecdotal checks with versioned cases, slices, and hard gates.",
+    "outcome": "Compare baseline and candidate metrics while retaining denominators and critical failures.",
     "material": "curriculum/advanced/14-prompt-evaluation/README.md",
     "notebook": "curriculum/advanced/14-prompt-evaluation/14_prompt_evaluation.ipynb",
+    "lab": "curriculum/advanced/14-prompt-evaluation/lab14.py",
+    "checkpoint": "curriculum/advanced/14-prompt-evaluation/README.md#checkpoint",
     "refs": [
       {
         "title": "DeepEval",
@@ -218,10 +241,12 @@ export const lessons = [
     "step": 15,
     "slug": "llm-as-a-judge-and-human-evaluation",
     "title": "LLM-as-a-Judge and Human Evaluation",
-    "summary": "Use models to grade other models.",
-    "outcome": "Design strict rubrics and calibrate LLM judges against human-expert baselines.",
+    "summary": "Calibrate rubric judges against human labels and known bias tests.",
+    "outcome": "Measure agreement, handle ties and order effects, and route ambiguous or high-impact cases to people.",
     "material": "curriculum/advanced/15-llm-as-a-judge-and-human-evaluation/README.md",
     "notebook": "curriculum/advanced/15-llm-as-a-judge-and-human-evaluation/15_llm_as_a_judge_and_human_evaluation.ipynb",
+    "lab": "curriculum/advanced/15-llm-as-a-judge-and-human-evaluation/lab15.py",
+    "checkpoint": "curriculum/advanced/15-llm-as-a-judge-and-human-evaluation/README.md#checkpoint",
     "refs": []
   },
   {
@@ -230,10 +255,12 @@ export const lessons = [
     "step": 16,
     "slug": "evaluation-driven-prompt-optimization",
     "title": "Evaluation-Driven Prompt Optimization",
-    "summary": "Treat prompt engineering as a gradient descent problem.",
-    "outcome": "Iteratively tune prompts based solely on automated evaluation metrics.",
+    "summary": "Improve measured behavior without leaking the final test set.",
+    "outcome": "Separate development and holdout data and reject local fixes that cause global regressions.",
     "material": "curriculum/advanced/16-evaluation-driven-prompt-optimization/README.md",
     "notebook": "curriculum/advanced/16-evaluation-driven-prompt-optimization/16_evaluation_driven_prompt_optimization.ipynb",
+    "lab": "curriculum/advanced/16-evaluation-driven-prompt-optimization/lab16.py",
+    "checkpoint": "curriculum/advanced/16-evaluation-driven-prompt-optimization/README.md#checkpoint",
     "refs": []
   },
   {
@@ -242,10 +269,12 @@ export const lessons = [
     "step": 17,
     "slug": "automatic-prompt-optimization-and-dspy",
     "title": "Automatic Prompt Optimization and DSPy",
-    "summary": "Automate prompt generation entirely.",
-    "outcome": "Use frameworks like DSPy to compile and optimize prompt strings algorithmically.",
+    "summary": "Search a bounded prompt-program space against an explicit metric.",
+    "outcome": "Select on development data, test once on holdout, and inspect leakage and metric gaming.",
     "material": "curriculum/advanced/17-automatic-prompt-optimization-and-dspy/README.md",
     "notebook": "curriculum/advanced/17-automatic-prompt-optimization-and-dspy/17_automatic_prompt_optimization_and_dspy.ipynb",
+    "lab": "curriculum/advanced/17-automatic-prompt-optimization-and-dspy/lab17.py",
+    "checkpoint": "curriculum/advanced/17-automatic-prompt-optimization-and-dspy/README.md#checkpoint",
     "refs": [
       {
         "title": "DSPy Documentation",
@@ -259,10 +288,12 @@ export const lessons = [
     "step": 18,
     "slug": "agent-and-multi-agent-prompt-contracts",
     "title": "Agent and Multi-Agent Prompt Contracts",
-    "summary": "Design autonomous loops that plan, reflect, and act.",
-    "outcome": "Define explicit personas and constraints to govern multi-agent collaboration.",
+    "summary": "Design bounded agent tasks with typed contracts, budgets, and terminal states.",
+    "outcome": "Authorize from trusted identity before capability exposure and justify multi-agent complexity against a baseline.",
     "material": "curriculum/advanced/18-agent-and-multi-agent-prompt-contracts/README.md",
     "notebook": "curriculum/advanced/18-agent-and-multi-agent-prompt-contracts/18_agent_and_multi_agent_prompt_contracts.ipynb",
+    "lab": "curriculum/advanced/18-agent-and-multi-agent-prompt-contracts/lab18.py",
+    "checkpoint": "curriculum/advanced/18-agent-and-multi-agent-prompt-contracts/README.md#checkpoint",
     "refs": [
       {
         "title": "CrewAI",
@@ -276,10 +307,12 @@ export const lessons = [
     "step": 19,
     "slug": "prompting-for-coding-agents",
     "title": "Prompting for Coding Agents",
-    "summary": "Optimize prompts for code generation and software architecture.",
-    "outcome": "Use strict test-driven development constraints to prevent syntactic hallucinations.",
+    "summary": "Turn a software request into an enforceable change contract.",
+    "outcome": "Constrain file and command scope, then require tests and diff evidence before completion.",
     "material": "curriculum/advanced/19-prompting-for-coding-agents/README.md",
     "notebook": "curriculum/advanced/19-prompting-for-coding-agents/19_prompting_for_coding_agents.ipynb",
+    "lab": "curriculum/advanced/19-prompting-for-coding-agents/lab19.py",
+    "checkpoint": "curriculum/advanced/19-prompting-for-coding-agents/README.md#checkpoint",
     "refs": []
   },
   {
@@ -288,10 +321,12 @@ export const lessons = [
     "step": 20,
     "slug": "model-aware-prompt-engineering",
     "title": "Model-Aware Prompt Engineering",
-    "summary": "Understand the differing inductive biases of foundational models.",
-    "outcome": "Tailor prompts specifically for the quirks of Claude, GPT, or Gemini.",
+    "summary": "Keep durable behavior contracts separate from provider adapters.",
+    "outcome": "Compare conformance, quality, latency, and cost before selecting or migrating a model.",
     "material": "curriculum/advanced/20-model-aware-prompt-engineering/README.md",
     "notebook": "curriculum/advanced/20-model-aware-prompt-engineering/20_model_aware_prompt_engineering.ipynb",
+    "lab": "curriculum/advanced/20-model-aware-prompt-engineering/lab20.py",
+    "checkpoint": "curriculum/advanced/20-model-aware-prompt-engineering/README.md#checkpoint",
     "refs": []
   },
   {
@@ -300,10 +335,12 @@ export const lessons = [
     "step": 21,
     "slug": "cost-latency-and-token-engineering",
     "title": "Cost, Latency, and Token Engineering",
-    "summary": "Optimize the financial and temporal costs of prompts.",
-    "outcome": "Implement Context Caching and token pruning strategies at scale.",
+    "summary": "Optimize cost and latency without dropping required evidence.",
+    "outcome": "Trace quality and resource use together and reject configurations that are merely cheaper failures.",
     "material": "curriculum/advanced/21-cost-latency-and-token-engineering/README.md",
     "notebook": "curriculum/advanced/21-cost-latency-and-token-engineering/21_cost_latency_and_token_engineering.ipynb",
+    "lab": "curriculum/advanced/21-cost-latency-and-token-engineering/lab21.py",
+    "checkpoint": "curriculum/advanced/21-cost-latency-and-token-engineering/README.md#checkpoint",
     "refs": []
   },
   {
@@ -312,10 +349,12 @@ export const lessons = [
     "step": 22,
     "slug": "promptops",
     "title": "PromptOps",
-    "summary": "Integrate prompt engineering into traditional CI/CD pipelines.",
-    "outcome": "Block prompt deployments automatically if regression tests fail.",
+    "summary": "Version and release the complete AI behavior artifact.",
+    "outcome": "Gate prompt, schema, model configuration, dataset, and ownership changes with reproducible evidence.",
     "material": "curriculum/enterprise/22-promptops/README.md",
     "notebook": "curriculum/enterprise/22-promptops/22_promptops.ipynb",
+    "lab": "curriculum/enterprise/22-promptops/lab22.py",
+    "checkpoint": "curriculum/enterprise/22-promptops/README.md#checkpoint",
     "refs": [
       {
         "title": "PromptLayer",
@@ -329,10 +368,12 @@ export const lessons = [
     "step": 23,
     "slug": "prompt-observability-and-failure-diagnosis",
     "title": "Prompt Observability and Failure Diagnosis",
-    "summary": "Implement distributed tracing for multi-step LLM workflows.",
-    "outcome": "Capture inputs, outputs, and token costs at every node to diagnose silent failures.",
+    "summary": "Capture privacy-aware traces that identify the first failing layer.",
+    "outcome": "Record correlation, versions, evidence, policy, usage, errors, and terminal state without hidden reasoning.",
     "material": "curriculum/enterprise/23-prompt-observability-and-failure-diagnosis/README.md",
     "notebook": "curriculum/enterprise/23-prompt-observability-and-failure-diagnosis/23_prompt_observability_and_failure_diagnosis.ipynb",
+    "lab": "curriculum/enterprise/23-prompt-observability-and-failure-diagnosis/lab23.py",
+    "checkpoint": "curriculum/enterprise/23-prompt-observability-and-failure-diagnosis/README.md#checkpoint",
     "refs": [
       {
         "title": "LangSmith",
@@ -346,10 +387,12 @@ export const lessons = [
     "step": 24,
     "slug": "prompt-versioning-experimentation-and-release-engineering",
     "title": "Prompt Versioning, Experimentation, and Release Engineering",
-    "summary": "Execute shadow deployments and A/B tests in production.",
-    "outcome": "Gradually shift traffic to new prompt versions without risking catastrophic failure.",
+    "summary": "Run sticky canaries with declared metrics and rollback rules.",
+    "outcome": "Distinguish insufficient samples from success and roll back immediately on critical failures.",
     "material": "curriculum/enterprise/24-prompt-versioning-experimentation-and-release-engineering/README.md",
     "notebook": "curriculum/enterprise/24-prompt-versioning-experimentation-and-release-engineering/24_prompt_versioning_experimentation_and_release_engineering.ipynb",
+    "lab": "curriculum/enterprise/24-prompt-versioning-experimentation-and-release-engineering/lab24.py",
+    "checkpoint": "curriculum/enterprise/24-prompt-versioning-experimentation-and-release-engineering/README.md#checkpoint",
     "refs": []
   },
   {
@@ -358,10 +401,12 @@ export const lessons = [
     "step": 25,
     "slug": "prompt-governance-and-responsible-ai",
     "title": "Prompt Governance and Responsible AI",
-    "summary": "Automatically redact PII and enforce toxic content guardrails.",
-    "outcome": "Align prompt engineering with strict corporate and legal compliance policies.",
+    "summary": "Connect AI policy to executable controls, evidence, ownership, and approval.",
+    "outcome": "Use trusted, versioned approval records and fail closed when required evidence is missing.",
     "material": "curriculum/enterprise/25-prompt-governance-and-responsible-ai/README.md",
     "notebook": "curriculum/enterprise/25-prompt-governance-and-responsible-ai/25_prompt_governance_and_responsible_ai.ipynb",
+    "lab": "curriculum/enterprise/25-prompt-governance-and-responsible-ai/lab25.py",
+    "checkpoint": "curriculum/enterprise/25-prompt-governance-and-responsible-ai/README.md#checkpoint",
     "refs": [
       {
         "title": "Microsoft Presidio",
@@ -375,10 +420,12 @@ export const lessons = [
     "step": 26,
     "slug": "human-centred-ai-and-trust-calibration",
     "title": "Human-Centred AI and Trust Calibration",
-    "summary": "Design UI friction for high-stakes AI decisions.",
-    "outcome": "Counteract automation bias by explicitly signaling model uncertainty to the user.",
+    "summary": "Calibrate user trust with evidence, impact-aware review, and honest uncertainty.",
+    "outcome": "Route by risk and support rather than treating model confidence as permission.",
     "material": "curriculum/enterprise/26-human-centred-ai-and-trust-calibration/README.md",
     "notebook": "curriculum/enterprise/26-human-centred-ai-and-trust-calibration/26_human_centred_ai_and_trust_calibration.ipynb",
+    "lab": "curriculum/enterprise/26-human-centred-ai-and-trust-calibration/lab26.py",
+    "checkpoint": "curriculum/enterprise/26-human-centred-ai-and-trust-calibration/README.md#checkpoint",
     "refs": []
   },
   {
@@ -387,10 +434,12 @@ export const lessons = [
     "step": 27,
     "slug": "prompt-portability-and-multi-model-systems",
     "title": "Prompt Portability and Multi-Model Systems",
-    "summary": "Abstract model-specific APIs behind unified contract layers.",
-    "outcome": "Build resilient systems that automatically failover to backup providers.",
+    "summary": "Test provider adapters against one contract and shared cases.",
+    "outcome": "Normalize results and allow fallback only when operation semantics make retry safe.",
     "material": "curriculum/enterprise/27-prompt-portability-and-multi-model-systems/README.md",
     "notebook": "curriculum/enterprise/27-prompt-portability-and-multi-model-systems/27_prompt_portability_and_multi_model_systems.ipynb",
+    "lab": "curriculum/enterprise/27-prompt-portability-and-multi-model-systems/lab27.py",
+    "checkpoint": "curriculum/enterprise/27-prompt-portability-and-multi-model-systems/README.md#checkpoint",
     "refs": [
       {
         "title": "LiteLLM",
@@ -404,10 +453,12 @@ export const lessons = [
     "step": 28,
     "slug": "prompt-architecture-patterns-and-system-selection",
     "title": "Prompt Architecture Patterns and System Selection",
-    "summary": "Map strict business constraints to the appropriate AI architecture.",
-    "outcome": "Minimize complexity: choose simple prompts over sprawling agents whenever possible.",
+    "summary": "Select the least complex architecture that meets explicit constraints.",
+    "outcome": "Expose weighted criteria, compare alternatives, and test recommendation sensitivity.",
     "material": "curriculum/enterprise/28-prompt-architecture-patterns-and-system-selection/README.md",
     "notebook": "curriculum/enterprise/28-prompt-architecture-patterns-and-system-selection/28_prompt_architecture_patterns_and_system_selection.ipynb",
+    "lab": "curriculum/enterprise/28-prompt-architecture-patterns-and-system-selection/lab28.py",
+    "checkpoint": "curriculum/enterprise/28-prompt-architecture-patterns-and-system-selection/README.md#checkpoint",
     "refs": []
   },
   {
@@ -416,8 +467,8 @@ export const lessons = [
     "step": 29,
     "slug": "ai-system-engineering-capstone",
     "title": "AI System Engineering Capstone",
-    "summary": "Build Project Northstar, an end-to-end Enterprise AI system.",
-    "outcome": "Synthesize routing, RAG, tools, evaluations, and governance into a single pipeline.",
+    "summary": "Assemble a release portfolio for the complete Northstar system.",
+    "outcome": "Pass a fail-closed gate covering contract, evaluation, threat, trace, ownership, tests, and rollback.",
     "material": "curriculum/enterprise/29-ai-system-engineering-capstone/README.md",
     "notebook": [
       {
@@ -441,6 +492,8 @@ export const lessons = [
         "path": "curriculum/enterprise/29-ai-system-engineering-capstone/milestones/05_milestone_production_release.ipynb"
       }
     ],
+    "lab": "curriculum/enterprise/29-ai-system-engineering-capstone/lab29.py",
+    "checkpoint": "curriculum/enterprise/29-ai-system-engineering-capstone/README.md#checkpoint",
     "refs": []
   }
 ];
@@ -458,14 +511,14 @@ export const checks = {
       "explanation": "A production response is conditional generation inside a whole request packet. You must isolate what changed."
     },
     {
-      "question": "Why do LLMs require the entire conversation history injected into every request?",
+      "question": "How does a generation request obtain conversation state?",
       "choices": [
-        "To save tokens",
-        "Because they are stateless text prediction engines",
-        "To train the model on your data"
+        "The model permanently learns every prior turn",
+        "The application or provider supplies the selected prior state with the request",
+        "Conversation state is unnecessary"
       ],
       "answer": 1,
-      "explanation": "LLMs do not 'remember' you between requests. Every API call must contain the entire state of the world."
+      "explanation": "The request receives selected state through messages, summaries, retrieval, or a provider-managed conversation abstraction; it need not replay every prior token."
     }
   ],
   "contracts": [
@@ -492,14 +545,14 @@ export const checks = {
   ],
   "examples": [
     {
-      "question": "Why are Few-Shot examples superior to lengthy Zero-Shot instructions?",
+      "question": "When should few-shot examples be added to an instruction contract?",
       "choices": [
-        "They consume fewer tokens",
-        "They ground the model's output schema and tone far more effectively than abstract rules",
-        "They require less engineering effort"
+        "Whenever examples are available",
+        "When a controlled evaluation shows representative boundary examples improve the target behavior enough to justify their cost",
+        "Only for tone imitation"
       ],
       "answer": 1,
-      "explanation": "Models are pattern-matchers. Demonstrating the pattern is mathematically more effective than describing it."
+      "explanation": "Examples can clarify boundaries and formats, but they consume context and can bias behavior. Compare them with a zero-shot baseline."
     },
     {
       "question": "What happens if all your Few-Shot examples demonstrate 'success' paths and none demonstrate 'failure' paths?",
@@ -509,19 +562,19 @@ export const checks = {
         "The model will hallucinate success when faced with a failing input"
       ],
       "answer": 2,
-      "explanation": "The model learns the distribution of the examples. If it only sees positive responses, it becomes biased toward returning positive responses even for negative inputs."
+      "explanation": "Success-only examples leave the failure contract under-specified and may bias outputs toward success. Include representative negative and abstention cases, then test them."
     }
   ],
   "structured": [
     {
-      "question": "Why is 'Return JSON' inside the prompt text considered an anti-pattern?",
+      "question": "Why prefer a provider-native schema when the selected provider and schema subset support it?",
       "choices": [
         "It relies on the model's language skills rather than native decoding enforcement",
         "It uses more tokens",
         "JSON is deprecated"
       ],
       "answer": 0,
-      "explanation": "Modern APIs natively enforce JSON schemas directly in the decoding phase, which is vastly more reliable than asking politely in text."
+      "explanation": "Schema-constrained generation is generally more reliable than prompt-only formatting, but the application must still handle refusals, truncation, unsupported features, and semantic errors."
     },
     {
       "question": "If a model outputs perfectly formatted JSON, does that mean the data is correct?",
@@ -557,24 +610,24 @@ export const checks = {
   ],
   "reasoning": [
     {
-      "question": "What is the primary trade-off of using Chain-of-Thought reasoning?",
+      "question": "What should an evaluation compare before adopting a more verbose reasoning prompt?",
       "choices": [
-        "It lowers accuracy",
-        "It significantly increases latency and cost",
-        "It requires complex coding"
+        "Only whether the rationale sounds convincing",
+        "Task quality, evidence support, output tokens, latency, and cost against a direct baseline",
+        "Only the number of reasoning steps"
       ],
       "answer": 1,
-      "explanation": "Every reasoning token generated is 'compute time' spent, which costs money and forces the user to wait longer."
+      "explanation": "More output may help some tasks and hurt others. Measure the actual outcome and operating trade-offs on the target model."
     },
     {
-      "question": "In a JSON schema enforcing reasoning, why must the 'reasoning' field come BEFORE the 'answer' field?",
+      "question": "Why should an operational reasoning schema request concise evidence checks instead of private chain-of-thought?",
       "choices": [
-        "It saves tokens",
-        "JSON formatting rules",
-        "Because LLMs generate sequentially; if the answer comes first, the reasoning is just post-hoc justification"
+        "Evidence checks can be compared with logs or policy while field order is not proof of correctness",
+        "JSON requires evidence fields",
+        "It makes application validation unnecessary"
       ],
-      "answer": 2,
-      "explanation": "The model must generate the intermediate logic tokens *before* it predicts the final answer token to benefit from CoT."
+      "answer": 0,
+      "explanation": "Observable claims, reason codes, and evidence can be verified. A generated rationale or its position in a schema cannot authorize an action."
     }
   ],
   "workflow": [
@@ -586,17 +639,17 @@ export const checks = {
         "It executes it perfectly"
       ],
       "answer": 0,
-      "explanation": "Models struggle to adhere to long, complex instruction sets. Decomposition is required for reliability."
+      "explanation": "Long instructions can increase omission risk. Measure the failure first, then use the smallest useful decomposition with explicit state and terminal conditions."
     },
     {
       "question": "In a multi-stage workflow, why use programmatic 'if/else' routing between models instead of an LLM router?",
       "choices": [
         "To increase complexity",
-        "Because deterministic code is faster, cheaper, and 100% reliable",
+        "Because explicit code is usually easier to test and audit for rules that are already deterministic",
         "LLMs can't route data"
       ],
       "answer": 1,
-      "explanation": "Never use a probabilistic LLM to route data if a simple Python script can reliably evaluate the state."
+      "explanation": "Use explicit code for rules that can be expressed deterministically, while still testing implementation errors and malformed inputs."
     }
   ],
   "context": [
@@ -611,14 +664,14 @@ export const checks = {
       "explanation": "Long-context models struggle to retrieve facts buried deep in the middle of massive context blocks."
     },
     {
-      "question": "Where should the final instructions be placed relative to a massive injected document?",
+      "question": "How should instruction placement be chosen for a long-context task?",
       "choices": [
-        "At the very end, closest to generation",
-        "At the very beginning",
-        "In the middle"
+        "Always at the end",
+        "Always at the beginning",
+        "With a controlled evaluation on the target model while keeping trusted instructions explicit and stable"
       ],
-      "answer": 0,
-      "explanation": "Placing instructions immediately before the model's generation turn maximizes adherence."
+      "answer": 2,
+      "explanation": "Position effects vary by task and model. Treat placement as an evaluated design choice, not a universal rule."
     }
   ],
   "conversation": [
@@ -626,21 +679,21 @@ export const checks = {
       "question": "How do LLMs actually 'remember' a conversation?",
       "choices": [
         "They learn from each turn",
-        "The application developer appends the new message to a massive array and resends the entire history",
+        "The application or provider supplies selected prior state with each otherwise stateless generation request",
         "They use a hidden SQL database"
       ],
       "answer": 1,
-      "explanation": "Memory is an illusion created by injecting the entire growing transcript back into the stateless model on every turn."
+      "explanation": "Conversation state is supplied by an application or provider. Production systems often select, summarize, or retrieve bounded state instead of replaying every turn."
     },
     {
-      "question": "As a conversation history grows extremely long, what often happens to the System Instructions?",
+      "question": "What is the safe response when a conversation exceeds its context budget?",
       "choices": [
-        "They become cheaper to run",
-        "They are prioritized",
-        "The model 'forgets' them because they are pushed too far back in the context window"
+        "Append duplicate system instructions after every user turn",
+        "Apply a tested retention policy that preserves trusted instructions and required evidence while summarizing or evicting lower-priority state",
+        "Silently remove the oldest messages"
       ],
-      "answer": 2,
-      "explanation": "System prompt reinforcement (reminding the model of its rules at the end of the transcript) is required for long chats."
+      "answer": 1,
+      "explanation": "Context management is an application policy. Retention must preserve authority, provenance, and task-critical state and must be regression-tested."
     }
   ],
   "rag": [
@@ -652,17 +705,17 @@ export const checks = {
         "To train a model on your data"
       ],
       "answer": 0,
-      "explanation": "RAG turns the LLM from a hallucinating encyclopedia into a strict reading comprehension engine."
+      "explanation": "RAG supplies selected evidence at request time. Retrieval, authorization, citation, claim support, and abstention still need separate evaluation."
     },
     {
-      "question": "If a RAG system outputs garbage, where is the failure usually located?",
+      "question": "If a RAG answer is wrong, what should be evaluated?",
       "choices": [
-        "The LLM generation step",
-        "The Retrieval step returning irrelevant documents",
-        "The system prompt"
+        "Only the generation model",
+        "Only vector search",
+        "Authorization, retrieval, ranking, prompt construction, citation validity, claim support, and generation"
       ],
-      "answer": 1,
-      "explanation": "Garbage In, Garbage Out. If the vector search fails to retrieve relevant data, the LLM cannot answer correctly."
+      "answer": 2,
+      "explanation": "RAG is an end-to-end system. A correct document can be filtered out, ranked poorly, omitted from the prompt, misquoted, or ignored."
     }
   ],
   "tools": [
@@ -684,19 +737,19 @@ export const checks = {
         "It will delete everything"
       ],
       "answer": 0,
-      "explanation": "You must never let a probabilistic system execute an irreversible action autonomously."
+      "explanation": "High-impact or irreversible actions need least privilege, deterministic policy checks, idempotency, audit logs, and approval where risk requires it."
     }
   ],
   "multimodal": [
     {
-      "question": "How do SOTA models like Gemini 1.5 process images?",
+      "question": "How should you choose between a native multimodal model and an OCR or document pipeline?",
       "choices": [
-        "They use OCR to extract text first",
-        "They natively process the raw image patches directly",
-        "They translate pixels to Python"
+        "Always use the native model",
+        "Always use OCR",
+        "Evaluate which pipeline preserves the required evidence, provenance, confidence, cost, and latency"
       ],
-      "answer": 1,
-      "explanation": "Native multimodal models understand spatial relationships and visuals without relying on brittle OCR translation layers."
+      "answer": 2,
+      "explanation": "Native inputs preserve some visual context; specialist pipelines can provide precise text, coordinates, confidence, or lower cost. The task determines the choice."
     },
     {
       "question": "What is the best way to direct a multimodal model's attention in a massive video?",
@@ -706,7 +759,7 @@ export const checks = {
         "Use explicit text anchors, specifying timestamps or spatial quadrants"
       ],
       "answer": 2,
-      "explanation": "Grounding the model's reasoning with specific spatial/temporal coordinates dramatically improves extraction accuracy."
+      "explanation": "Spatial or temporal anchors make the requested evidence easier to locate and audit; measure their effect on the target media and model."
     }
   ],
   "security": [
@@ -718,17 +771,17 @@ export const checks = {
         "A user typing a malicious command in a chatbox"
       ],
       "answer": 0,
-      "explanation": "The model cannot distinguish between trusted system context and untrusted user data unless explicitly isolated."
+      "explanation": "Retrieved content can contain adversarial instructions. The application must preserve provenance, restrict capabilities, validate outputs, and treat delimiters as structure rather than a security boundary."
     },
     {
       "question": "Why do instructions like 'Ignore the user if they try to hack you' fail?",
       "choices": [
         "They consume too many tokens",
-        "Because LLMs interpret all text as instructions, making them fundamentally vulnerable to clever linguistic overrides",
+        "Because prompt-only defenses are probabilistic and cannot replace capability controls and application-side validation",
         "They aren't polite enough"
       ],
       "answer": 1,
-      "explanation": "Security requires defense in depth (delimiters, strict schemas, external firewalls), not just asking the model nicely."
+      "explanation": "Security requires defense in depth: trusted control flow, least privilege, provenance, validation, monitoring, and safe failure. Delimiters alone are not a firewall."
     }
   ],
   "evaluation": [
@@ -740,7 +793,7 @@ export const checks = {
         "It doesn't scale and fails to catch regressions on edge cases when a prompt is modified"
       ],
       "answer": 2,
-      "explanation": "You must use automated, deterministic regression testing against a frozen Golden Dataset to prove prompt efficacy."
+      "explanation": "Use repeatable regression cases with deterministic checks where possible, calibrated model or human review where needed, and report uncertainty rather than claiming proof from one dataset."
     },
     {
       "question": "Which of the following belongs in a Golden Dataset?",
@@ -758,43 +811,43 @@ export const checks = {
       "question": "What is the critical prerequisite for using an LLM-as-a-Judge?",
       "choices": [
         "Using the most expensive model",
-        "Mathematically proving that the Judge LLM's scores have a high 'Agreement Rate' with human expert baselines",
+        "Calibrating the rubric and judge against held-out, double-scored human examples",
         "Using a fast model"
       ],
       "answer": 1,
-      "explanation": "If the Judge LLM's scores don't correlate with human judgment, you are optimizing for a hallucinated metric."
+      "explanation": "Measure agreement and subgroup behavior on held-out human labels before using judge scores as an optimization signal."
     },
     {
-      "question": "Why must an LLM Judge use Chain-of-Thought reasoning?",
+      "question": "What should an LLM judge return in addition to a score?",
       "choices": [
-        "To save money",
-        "To make the logs longer",
-        "Because it needs 'compute time' to justify its score before outputting the final integer, dramatically increasing reliability"
+        "Private chain-of-thought",
+        "A concise reason code or rubric-grounded critique that can be audited",
+        "Nothing; a score is self-validating"
       ],
-      "answer": 2,
-      "explanation": "Forcing a judge to output its rubric-based critique before outputting the score prevents random guessing."
+      "answer": 1,
+      "explanation": "A concise, rubric-grounded artifact helps diagnose disagreement. It still must be calibrated and is not proof that the score is correct."
     }
   ],
   "optimization": [
     {
-      "question": "What does treating prompt engineering as a 'gradient descent problem' mean?",
+      "question": "What is evaluation-driven prompt optimization?",
       "choices": [
-        "Iteratively tuning prompts based solely on automated evaluation metrics rather than manual guessing",
+        "Iteratively proposing bounded changes, measuring development results, and accepting only changes that also satisfy holdout and safety gates",
         "Optimizing the server architecture",
         "Using complex math"
       ],
       "answer": 0,
-      "explanation": "You measure the baseline, change the prompt, run the eval, and keep the prompt only if the metric goes up."
+      "explanation": "A development metric guides search; protected holdout cases, critical slices, and release gates reduce overfitting and metric gaming."
     },
     {
-      "question": "Why should you never optimize a prompt to fix a single reported bug without running a full regression suite?",
+      "question": "Why run the regression suite after optimizing for one reported failure?",
       "choices": [
         "It takes too long",
-        "Fixing the prompt for one edge case will often silently break 100 other cases in production",
+        "A local fix can change behavior on unrelated cases or critical slices",
         "It wastes tokens"
       ],
       "answer": 1,
-      "explanation": "Prompt changes have cascading semantic effects. You must prove the change didn't cause a regression."
+      "explanation": "Prompt changes can have broad semantic effects. Compare the candidate with the baseline on development, holdout, and critical cases."
     }
   ],
   "dspy": [
@@ -806,51 +859,51 @@ export const checks = {
         "It automates prompt generation by compiling declarative signatures into optimized prompt strings algorithmically"
       ],
       "answer": 2,
-      "explanation": "DSPy abstracts away manual prompt tweaking, letting an optimizer search for the best prompt based on your metrics."
+      "explanation": "DSPy represents LM programs with typed signatures and modules, then uses an optimizer and metric to search over instructions or demonstrations."
     },
     {
       "question": "In DSPy, what replaces the manual 'Prompt String'?",
       "choices": [
-        "A Signature (defining inputs/outputs) and a Teleprompter (optimizer)",
+        "A Signature and module, optionally compiled with an optimizer",
         "A JSON file",
         "A larger LLM"
       ],
       "answer": 0,
-      "explanation": "You define the *contract* (signature), and DSPy figures out the best English words to make the model fulfill that contract."
+      "explanation": "A signature describes input/output behavior; modules and optimizers can construct or tune prompts and demonstrations against a metric."
     }
   ],
   "agents": [
     {
-      "question": "What defines an 'Agentic' workflow compared to a standard workflow?",
+      "question": "What distinguishes an agent loop from a fixed workflow?",
       "choices": [
         "It uses OpenAI",
-        "It features autonomous loops where the model can plan, use tools, reflect, and act without hardcoded transitions",
+        "The model selects among bounded next actions from observed state instead of following only predetermined transitions",
         "It has a chat UI"
       ],
       "answer": 1,
-      "explanation": "Agents possess agency. They decide the control flow dynamically based on the tool results they observe."
+      "explanation": "An agent chooses some control flow dynamically, but the application still defines tools, permissions, budgets, stop conditions, and terminal states."
     },
     {
-      "question": "Why do multi-agent systems often fail in production?",
+      "question": "What additional failure surface does a multi-agent system introduce?",
       "choices": [
         "They are too fast",
         "They are too deterministic",
-        "They get stuck in infinite reflection loops or veer completely off task due to compounding hallucinations"
+        "Handoff errors, duplicated work, compounding unsupported claims, and unbounded loops"
       ],
       "answer": 2,
-      "explanation": "Autonomous loops are highly unstable. Strict state-machine guardrails (like LangGraph) are required to keep them on track."
+      "explanation": "Typed handoffs, explicit ownership, bounded loops, shared evidence, and terminal-state tests are needed; the framework choice alone does not provide them."
     }
   ],
   "coding": [
     {
-      "question": "Why is Test-Driven Development (TDD) critical for Coding Agents?",
+      "question": "Why should a coding agent run targeted tests after making a change?",
       "choices": [
-        "Because syntactic hallucinations will crash code. The agent must compile/test its code in a sandbox and reflect on the errors to fix them",
+        "Execution checks whether the change satisfies behavior and catches syntax or integration failures that prose review can miss",
         "To save tokens",
         "To write documentation"
       ],
       "answer": 0,
-      "explanation": "LLMs cannot write flawless code zero-shot. They need an execution loop to verify syntax and logic."
+      "explanation": "Tests provide executable evidence. They should cover the changed behavior and negative cases without weakening existing assertions."
     },
     {
       "question": "What is the danger of letting an LLM write code directly to production?",
@@ -860,41 +913,41 @@ export const checks = {
         "It makes the codebase too large"
       ],
       "answer": 1,
-      "explanation": "Code generation must be heavily sandboxed and subjected to traditional human code review."
+      "explanation": "Use scoped permissions, isolated execution where appropriate, tests, review, and a separate release authority proportional to the risk."
     }
   ],
   "models": [
     {
-      "question": "What does it mean that models have differing 'inductive biases'?",
+      "question": "Why must a prompt contract be re-evaluated when the model or provider changes?",
       "choices": [
-        "They use different programming languages",
-        "They cost different amounts",
-        "They respond differently to the same prompt formatting (e.g., Claude prefers XML, GPT prefers Markdown)"
+        "Only API keys differ",
+        "Model behavior, supported schemas, context limits, tools, latency, and pricing can differ",
+        "Prompt behavior is identical across models"
       ],
-      "answer": 2,
-      "explanation": "A highly optimized prompt for one model family will often perform poorly on a competitor's model without refactoring."
+      "answer": 1,
+      "explanation": "Portability is an empirical property of the whole contract and adapter. Re-run conformance and quality evaluations for each profile."
     },
     {
-      "question": "Why is portability a challenge in prompt engineering?",
+      "question": "How should a smaller or cheaper candidate model be assessed?",
       "choices": [
-        "Because moving from a 70B model to an 8B model requires fundamentally simpler prompts and tighter schemas to succeed",
-        "API keys change",
-        "You can't copy text"
+        "Assume it needs a simpler prompt",
+        "Run the same contract, capability, quality, cost, and latency checks before deciding whether adaptation is needed",
+        "Reject it based on parameter count alone"
       ],
-      "answer": 0,
-      "explanation": "Smaller models have less reasoning capacity and require much more rigid instruction contracts."
+      "answer": 1,
+      "explanation": "Model size alone does not predict task fitness. Use measured conformance and outcome evidence."
     }
   ],
   "efficiency": [
     {
-      "question": "What is Context Caching?",
+      "question": "What should be verified before relying on provider prompt or context caching?",
       "choices": [
-        "Saving the prompt in a local database",
-        "Uploading massive context to the provider once, and executing subsequent queries against that frozen memory to slash cost and latency",
-        "Deleting old messages"
+        "Only whether the prompt is long",
+        "Eligibility, cache-key behavior, privacy, retention, pricing, latency, and invalidation on the exact provider",
+        "Nothing; caching is portable"
       ],
       "answer": 1,
-      "explanation": "Context Caching allows for near-instant responses on massive documents (like codebases or books)."
+      "explanation": "Caching behavior is provider-specific and may reduce some repeated-input cost or latency; it does not make context free or universally instant."
     },
     {
       "question": "How do you minimize token costs in a RAG pipeline?",
@@ -919,14 +972,14 @@ export const checks = {
       "explanation": "Treating prompts as versioned, tested artifacts prevents catastrophic regressions."
     },
     {
-      "question": "Why should you never hardcode a prompt string deep in a Python business logic file?",
+      "question": "Why separate a prompt artifact from unrelated business logic?",
       "choices": [
         "It's too hard to read",
-        "It couples the deployment of the application to the tweaking of the prompt, preventing non-engineers from iterating safely",
+        "It makes versioning, review, evaluation linkage, ownership, and rollback harder",
         "Python doesn't support long strings"
       ],
       "answer": 1,
-      "explanation": "Prompts should be extracted to configuration files or external registries for safe, decoupled versioning."
+      "explanation": "Keep the prompt, schema, model profile, and evaluation manifest identifiable as one release artifact; storage and deployment can still follow the application's risk controls."
     }
   ],
   "observability": [
@@ -943,12 +996,12 @@ export const checks = {
     {
       "question": "What does Distributed Tracing for LLMs accomplish?",
       "choices": [
-        "It captures the exact inputs, outputs, and token costs of every individual node in a complex multi-stage workflow",
+        "It correlates sanitized inputs, outputs, decisions, timings, token use, and errors across workflow stages",
         "It speeds up the model",
         "It tracks network packets"
       ],
       "answer": 0,
-      "explanation": "When an agent fails, tracing allows you to pinpoint exactly which intermediate reasoning step derailed the process."
+      "explanation": "Correlated spans help localize retrieval, routing, validation, tool, or generation failures without requiring private reasoning or raw sensitive payloads."
     }
   ],
   "release": [
@@ -960,29 +1013,29 @@ export const checks = {
         "Hiding the prompt text"
       ],
       "answer": 1,
-      "explanation": "Shadow deployments allow you to test new prompts against real-world edge cases with zero risk to the end user."
+      "explanation": "Shadow traffic reduces direct user-output risk, but copied production data still requires privacy, cost, access, retention, and side-effect controls."
     },
     {
-      "question": "Why decouple prompt deployment from code deployment using feature flags?",
+      "question": "What can a feature flag add to a prompt release?",
       "choices": [
         "It uses fewer tokens",
         "To make the code larger",
-        "It enables instant hot-swapping and automated rollbacks of a bad prompt without requiring a full Kubernetes microservice restart"
+        "Controlled exposure and a defined rollback path without requiring the prompt artifact to be hard-coded"
       ],
       "answer": 2,
-      "explanation": "Feature flags allow immediate, zero-downtime remediation of prompt failures."
+      "explanation": "A flag can support staged exposure and rollback, but the release path, cache behavior, and rollback procedure must be tested."
     }
   ],
   "governance": [
     {
-      "question": "Why must PII redaction occur BEFORE the API call?",
+      "question": "What should determine whether personal data may be sent to a model provider?",
       "choices": [
-        "Because sending raw PII/PHI to a third-party LLM is a massive compliance violation (HIPAA/GDPR)",
-        "The LLM will delete the data",
-        "To save tokens"
+        "The model's promise to keep it secret",
+        "Purpose, necessity, consent or other lawful basis, provider terms, region, retention, access controls, and organizational policy",
+        "Whether redaction is inconvenient"
       ],
-      "answer": 0,
-      "explanation": "You cannot rely on the LLM to 'keep a secret'. The data must be scrubbed by deterministic code before it leaves your network."
+      "answer": 1,
+      "explanation": "Minimize or redact data before egress when it is not required or authorized. Compliance depends on the use and controls, not a blanket rule that every identifier is forbidden."
     },
     {
       "question": "What is an Outbound Guardrail?",
@@ -992,7 +1045,7 @@ export const checks = {
         "A prompt instruction"
       ],
       "answer": 1,
-      "explanation": "Outbound guardrails act as the final defense layer to catch hallucinations or policy violations that slipped past the primary model."
+      "explanation": "An output check is one defense layer. It should enforce specific, tested policies and route uncertain results safely; it cannot reliably detect every hallucination."
     }
   ],
   "trust": [
@@ -1004,29 +1057,29 @@ export const checks = {
         "The psychological tendency for humans to blindly trust highly confident automated systems, even when they hallucinate"
       ],
       "answer": 2,
-      "explanation": "If you present a hallucination in a slick, authoritative UI, users will believe it. You must design to counteract this."
+      "explanation": "Authoritative presentation can increase over-reliance. Show evidence, uncertainty, limitations, and review paths, then measure user decisions."
     },
     {
       "question": "What is 'Trust Calibration'?",
       "choices": [
-        "Designing the UI so the user's trust exactly matches the AI's actual reliability on that specific task (e.g., highlighting uncertainty)",
+        "Designing information and controls so user reliance better reflects measured task reliability and consequence",
         "A mathematical formula",
         "Making the user trust the AI 100%"
       ],
       "answer": 0,
-      "explanation": "High-stakes tasks with low confidence should intentionally introduce UX friction (Human-in-the-Loop)."
+      "explanation": "Use evidence, calibrated uncertainty, consequence-aware review, and outcome research to reduce both over-reliance and under-use."
     }
   ],
   "portability": [
     {
-      "question": "How do you avoid Vendor Lock-In when building LLM apps?",
+      "question": "What reduces—but does not eliminate—provider lock-in?",
       "choices": [
         "By signing a long contract",
         "By abstracting provider-specific APIs behind unified contract layers (like LiteLLM) and standardizing on JSON schemas",
         "By using only one model"
       ],
       "answer": 1,
-      "explanation": "Portability allows you to hot-swap models to leverage cost reductions or failover during outages."
+      "explanation": "A common contract and adapter isolate API differences, but each provider still needs capability, quality, policy, and operational conformance tests."
     },
     {
       "question": "What must you do to ensure an automated fallback model is actually useful?",
@@ -1036,19 +1089,19 @@ export const checks = {
         "Run your automated evaluation suite against the fallback model continuously to ensure it meets quality thresholds"
       ],
       "answer": 2,
-      "explanation": "Portability of code doesn't guarantee portability of capability. The backup model must still pass the math."
+      "explanation": "Portability of code does not guarantee equivalent capability. Re-run the required contract, quality, safety, latency, and cost gates."
     }
   ],
   "architecture": [
     {
       "question": "What is the core principle of System Selection?",
       "choices": [
-        "Complexity is a liability; always select the simplest, most deterministic architecture that solves the business constraint",
+        "Prefer the lowest-complexity architecture that satisfies measured quality, safety, latency, cost, and operational requirements",
         "Never use code",
         "Always use the largest model"
       ],
       "answer": 0,
-      "explanation": "Moving from Prompt -> RAG -> Agents incurs massive latency and cost taxes. Default to simplicity."
+      "explanation": "Additional retrieval, routing, tools, or agents add failure surfaces and operating cost. Adopt them only when evidence shows they meet an unmet requirement."
     },
     {
       "question": "What is a 'Compound AI System'?",
@@ -1058,7 +1111,7 @@ export const checks = {
         "A chemical reaction"
       ],
       "answer": 1,
-      "explanation": "SOTA engineering relies on compound systems to route queries efficiently rather than forcing one massive model to do everything."
+      "explanation": "A compound system combines components with explicit contracts. Its value must be demonstrated against a simpler baseline."
     }
   ],
   "capstone": [
@@ -1067,20 +1120,20 @@ export const checks = {
       "choices": [
         "To test API keys",
         "To build a chat bot",
-        "To synthesize routing, RAG, tool calling, and governance into a production-grade, observable Compound AI System"
+        "To integrate routing, retrieval, tool requests, evaluation, observability, and governance into a reviewable release candidate"
       ],
       "answer": 2,
-      "explanation": "The capstone proves you can integrate all the discrete layers of AI engineering into a single resilient architecture."
+      "explanation": "The capstone assembles a portfolio of executable evidence and verified artifacts; it does not grant production authority by itself."
     },
     {
       "question": "Why is 'Prompt Engineering is Software Engineering' the central thesis?",
       "choices": [
-        "Because treating prompts as versioned, evaluated, and governed code is the only way to deploy AI safely at enterprise scale",
+        "Because prompts and their schemas, model settings, evidence policy, and evaluations form versioned release artifacts",
         "Because prompts require compilation",
         "Because it sounds good"
       ],
       "answer": 0,
-      "explanation": "Without the rigor of traditional software engineering (CI/CD, evals, observability), prompt engineering is just a hobby."
+      "explanation": "Software practices make changes attributable, testable, reviewable, observable, and reversible while governance supplies the required authority."
     }
   ]
 };

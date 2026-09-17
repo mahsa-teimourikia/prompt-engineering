@@ -26,8 +26,8 @@ def test_quiz_and_hub_keep_their_deployed_relative_paths():
     assert "Fifty-eight selectable questions" in quiz_page
     assert 'href="../"' in quiz_page
     assert 'href="quiz/"' in hub_script
-    assert "Open reusable lab" not in hub_script
-    assert "selected.lab" not in hub_script
+    assert "Open reusable lab" in hub_script
+    assert "selected.lab" in hub_script
 
 
 def test_lesson_registry_is_valid_browser_module_syntax():
@@ -57,3 +57,28 @@ console.log(JSON.stringify(answers));
     counts = {index: answers.count(index) for index in set(answers)}
     assert len(answers) == 58
     assert max(counts.values()) <= len(answers) / 2
+
+
+def test_every_lesson_has_two_well_formed_quiz_questions():
+    source = (ROOT / "hub" / "lessons.js").read_text()
+    script = source + """
+console.log(JSON.stringify({
+  lessonIds: lessons.map((lesson) => lesson.id),
+  checks,
+}));
+"""
+    result = subprocess.run(
+        ["node", "--input-type=module", "--eval", script],
+        capture_output=True,
+        text=True,
+        check=True,
+    )
+    payload = json.loads(result.stdout.splitlines()[-1])
+    assert set(payload["lessonIds"]) == set(payload["checks"])
+    for lesson_id, questions in payload["checks"].items():
+        assert len(questions) == 2, lesson_id
+        for question in questions:
+            assert question["question"].strip(), lesson_id
+            assert len(question["choices"]) >= 2, lesson_id
+            assert 0 <= question["answer"] < len(question["choices"]), lesson_id
+            assert question["explanation"].strip(), lesson_id

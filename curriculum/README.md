@@ -16,5 +16,6 @@ levels.
 Start with [Beginner](beginner/README.md), continue through
 [Intermediate](intermediate/README.md), then complete
 [Advanced](advanced/README.md) and [Enterprise](enterprise/README.md).
-Every numbered course contains a README, one course notebook, and a diagram.
+Every numbered course contains a README, one credential-free course notebook,
+a reusable numbered lab, and a diagram.
 The course 29 README also links its five milestone notebooks.

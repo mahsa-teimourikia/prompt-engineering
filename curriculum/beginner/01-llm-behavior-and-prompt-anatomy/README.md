@@ -5,7 +5,7 @@
 ## Learning Objectives
 
 - **Deconstruct Prompt Anatomy:** Identify and separate the distinct components of a prompt: System Instructions, Context, and User Input.
-- **Understand Model Statelesness:** Grasp why LLMs require the entire conversation history injected into every request.
+- **Understand Request State:** Explain how applications or provider-managed conversations supply selected history, summaries, evidence, and tool results to a generation request.
 - **Isolate Failure Modes:** Diagnose whether an unexpected output was caused by a flawed instruction or by contaminated context.
 - **Construct Basic API Calls:** Use modern SDKs to programmatically send prompts and receive responses.
 
@@ -38,7 +38,7 @@ flowchart LR
 
 ## Core Concepts & Workflow
 
-At its core, a Large Language Model is a stateless text prediction engine. It does not "remember" you between requests. Every single API call must contain the entire state of the world required to complete the task.
+Generation is conditioned on the state supplied with a request. An application may send messages directly, retrieve selected memory, pass a summary, or use a provider-managed conversation abstraction. The request needs the state required for the task, not necessarily the entire transcript or “entire state of the world.” State selection is therefore an application policy that should be bounded, observable, and tested.
 
 In modern AI engineering, a prompt is not a single string of text. It is a highly structured payload consisting of distinct components:
 1. **System Instructions:** The foundational rules, persona, and constraints (e.g., "You are a database router. Only output valid JSON.").
@@ -213,15 +213,17 @@ Continue with [Context Engineering](../../intermediate/08-context-engineering/RE
 
 **Current State of the Art:**
 1. **Role-Based API Schemas:** Modern APIs (like the **[Google GenAI SDK](https://github.com/googleapis/python-genai)** or OpenAI API) enforce strict separation of roles (`system`, `user`, `model`). You do not concatenate text; you pass structured arrays of messages.
-2. **System Instructions as Guardrails:** The industry relies on the `system` role to establish unbreakable boundaries. Models are heavily fine-tuned to obey the system instruction above all other inputs.
+2. **System Instructions as Higher-Priority Context:** Provider message schemas give system instructions higher priority than ordinary user messages, but they are not an authorization or security boundary. Trusted application code must still validate evidence, permissions, and consequential actions.
 3. **Multi-modal Prompts:** "Anatomy" now extends beyond text. State-of-the-art prompts interleave text, images, video, and audio directly into the user/context roles.
 
 ## Lab walkthrough
 
 - Baseline: four labelled cases are classified with evidence first; the
   notebook asserts a deterministic 4/4 result.
-- Position: synthetic padding moves evidence into the middle; the recorded
-  run asserts one wrong case and measures the estimated padding cost.
+- Position: with the system message held constant, both variants contain the
+  same words and estimated context size; only the task block moves from the
+  beginning to the middle. The hand-authored replay asserts one wrong
+  middle-position case without presenting it as a universal model benchmark.
 - Sampling: temperature 0 and 0.9 use separate replay case IDs; the notebook
   asserts that the ambiguous output differs in the recorded run.
 - Missing evidence: weak instructions produce recorded `refund`, while an
@@ -231,14 +233,15 @@ Continue with [Context Engineering](../../intermediate/08-context-engineering/RE
 
 ### Implementation detail
 
-The [notebook](01_llm_behavior_and_prompt_anatomy.ipynb) demonstrates the programmatic construction of a prompt using the Google GenAI SDK. It highlights the critical difference between passing instructions as a raw user string versus utilizing the dedicated `system_instruction` parameter to enforce persistent rules across a conversation.
+The [notebook](01_llm_behavior_and_prompt_anatomy.ipynb) uses the provider-neutral Northstar replay client so it runs without credentials. The separate message-structure probe compares a dedicated system field with concatenated text; it demonstrates a contract difference, not an unbreakable security guarantee. The optional live adapter maps that field to the Google GenAI SDK's `system_instruction` setting.
 
 ## Exercises
 
 1. In `fixtures/cases.json`, add a spelling-variation message to the
    `ambiguous` slice. Watch the `baseline_accuracy` numerator and denominator.
-2. In `lab01.py`, double the middle-position padding. Watch the
-   `padding_tokens` metric, which is explicitly an estimate.
+2. In `lab01.py`, double the shared padding in both position variants. Watch
+   `position_context_tokens`, which is explicitly an estimate, and keep the
+   token multisets equal so position remains the controlled variable.
 3. Add a second high-temperature replay for a clear case. Watch whether the
    `temperature_comparison` changes while the baseline remains 4/4.
 
@@ -285,7 +288,7 @@ longer.
 
 References: [prompting strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies),
 [long-context guidance](https://ai.google.dev/gemini-api/docs/long-context),
-[OpenAI prompting guide](https://platform.openai.com/docs/guides/prompting),
+[OpenAI prompt engineering guide](https://developers.openai.com/api/docs/guides/prompt-engineering),
 [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165), and
 [Lost in the Middle](https://arxiv.org/abs/2307.03172).
 
@@ -293,7 +296,7 @@ References: [prompting strategies](https://ai.google.dev/gemini-api/docs/prompti
 
 - [Google prompt design strategies](https://ai.google.dev/gemini-api/docs/prompting-strategies)
 - [Google long-context guidance](https://ai.google.dev/gemini-api/docs/long-context)
-- [OpenAI prompting guide](https://platform.openai.com/docs/guides/prompting)
+- [OpenAI prompt engineering guide](https://developers.openai.com/api/docs/guides/prompt-engineering)
 - [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)
 - [Lost in the Middle: How Language Models Use Long Contexts](https://arxiv.org/abs/2307.03172)
 - [The Prompt Report](https://arxiv.org/abs/2406.06608)
@@ -304,5 +307,5 @@ References: [prompting strategies](https://ai.google.dev/gemini-api/docs/prompti
 - <https://arxiv.org/abs/2005.14165>
 - <https://ai.google.dev/gemini-api/docs/prompting-strategies>
 - <https://ai.google.dev/gemini-api/docs/long-context>
-- <https://platform.openai.com/docs/guides/prompting>
+- <https://developers.openai.com/api/docs/guides/prompt-engineering>
 - <https://arxiv.org/abs/2406.06608>

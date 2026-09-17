@@ -1,0 +1,44 @@
+[
+  {
+    "id": "custom-mug",
+    "question": "What is the return policy for a custom-engraved Northstar mug?",
+    "tenant": "tenant-synthetic-a",
+    "expected_evidence_id": "POL-992",
+    "expected_fact": "final sale",
+    "expected_abstention": false,
+    "original_user_question": "What is the return policy for a custom-engraved Northstar mug?",
+    "original_source_notes": [
+      "Content: All custom-engraved Northstar items are final sale.",
+      "Notice: The model successfully restricts its answer to the provided text."
+    ],
+    "original_reference_document": "[Document ID: POL-992]\nTitle: Return Policy for Custom Items\nContent: All custom-engraved Northstar items are final sale. We do not accept returns or exchanges on these items under any circumstances, even if defective, due to the bespoke nature of the engraving process."
+  },
+  {
+    "id": "no-support",
+    "question": "Do you price-match competitors?",
+    "tenant": "tenant-synthetic-a",
+    "expected_evidence_id": null,
+    "expected_fact": null,
+    "expected_abstention": true,
+    "original_user_question": "What is the return policy for a custom-engraved Northstar mug?",
+    "original_source_notes": [
+      "Content: All custom-engraved Northstar items are final sale.",
+      "Notice: The model successfully restricts its answer to the provided text."
+    ],
+    "original_reference_document": "[Document ID: POL-992]\nTitle: Return Policy for Custom Items\nContent: All custom-engraved Northstar items are final sale. We do not accept returns or exchanges on these items under any circumstances, even if defective, due to the bespoke nature of the engraving process."
+  },
+  {
+    "id": "unknown-citation",
+    "question": "What is the return policy for a custom-engraved Northstar mug?",
+    "tenant": "tenant-synthetic-a",
+    "expected_evidence_id": "POL-992",
+    "expected_fact": "final sale",
+    "expected_abstention": false,
+    "original_user_question": "What is the return policy for a custom-engraved Northstar mug?",
+    "original_source_notes": [
+      "Content: All custom-engraved Northstar items are final sale.",
+      "Notice: The model successfully restricts its answer to the provided text."
+    ],
+    "original_reference_document": "[Document ID: POL-992]\nTitle: Return Policy for Custom Items\nContent: All custom-engraved Northstar items are final sale. We do not accept returns or exchanges on these items under any circumstances, even if defective, due to the bespoke nature of the engraving process."
+  }
+]

@@ -1,45 +1,113 @@
 # 15 — LLM-as-a-Judge and Human Evaluation
 
-## Learning Objectives
-- **Understand Judging Paradigms:** Differentiate between Absolute Scoring, Pairwise Comparison, and Reference-based evaluation techniques.
-- **Implement Structured Rubrics:** Build strict grading schemas that force LLM Judges to explain their reasoning before assigning a score.
-- **Identify Judge Biases:** Recognize and mitigate systemic flaws in LLM evaluators, such as verbosity, position, and self-enhancement biases.
-- **Calibrate with Human Experts:** Establish ground-truth baselines to mathematically verify the reliability of an LLM Judge.
+## Learning outcomes
 
-## Core Concepts & Workflow
+- Write observable rubric criteria.
+- Measure judge–human agreement.
+- Route ambiguous and high-impact cases to people.
 
-When a model generates open-ended text—like drafting a customer support email or summarizing a document—you cannot evaluate it with simple equality checks (`assert actual == expected`). 
+## Why this matters
 
-To evaluate generative tasks at scale, we use a second, often more powerful LLM as a "Judge." This Judge evaluates the output of the first model against a strict qualitative rubric (e.g., tone, helpfulness, hallucination rate). However, Judges are evaluators, not ground truth. They are prone to biases and must periodically be calibrated against Human-in-the-Loop (HITL) expert reviews to ensure alignment.
+A support team calibrates a rubric judge against human labels before using it for low-risk triage. A persuasive demonstration is not sufficient evidence: the system must expose its inputs, decisions, failures, metrics, and release policy.
 
-![LLM-as-a-Judge Workflow](./diagram-1.svg)
+## Prerequisites, success criteria, and boundaries
 
-## Technology Landscape and State of the Art
+**Prerequisites:** Courses 01–13 plus the preceding lesson in this track. Learners should be comfortable with Python, typed data, fixtures, exact assertions, and basic evaluation terminology.
 
-**Foundational:** When a model generates open-ended text (like drafting an email), you cannot evaluate it with simple equality checks (`assert actual == expected`).
+**Success criteria:** the [notebook](15_llm_as_a_judge_and_human_evaluation.ipynb) runs without credentials, its positive and failure assertions pass, and the learner can explain which controls are deterministic and which production behaviors would remain probabilistic.
 
-**Current State of the Art:** 
-1. **LLM-as-a-Judge:** The industry standard for evaluating generative tasks at scale is to use a second, often more powerful LLM (the "Judge") to evaluate the output of the first model against a strict rubric.
-2. **Common Judging Paradigms:**
-   - **Absolute Scoring:** Grading a single response against a rubric (e.g., 1 to 5).
-   - **Pairwise Comparison (A/B Testing):** Showing the Judge two outputs (Baseline vs. Candidate) and asking it to pick the winner. This often produces more reliable signals than absolute scoring.
-   - **Reference-based:** Asking the Judge to compare the generated output against a "gold standard" human answer.
-3. **Structured Scoring & Reasoning:** Modern evaluation pipelines use Pydantic to force the Judge to output a structured `{ reasoning: str, score: int }` payload. *Reasoning must always precede the score* (Chain-of-Thought) to improve the judge's accuracy.
-4. **Known Biases & Mitigations:** The SOTA actively accounts for **Position Bias** (preferring the first option in pairwise), **Verbosity Bias** (preferring longer answers), and **Self-Enhancement Bias** (models preferring their own generated text). Robust pipelines run permutations (swapping A and B) to mitigate these.
-5. **State-of-the-Art Tooling:**
-   - **Evaluation Models:** Researchers are creating purpose-built models fine-tuned specifically to act as judges, such as **Prometheus** and **JudgeLM**.
-   - **Frameworks:** Tools like **Ragas** (for RAG-specific judging), **Promptfoo**, and **DeepEval** provide out-of-the-box LLM judging metrics.
-   - **Human-in-the-Loop (HITL):** LLM Judges are not ground truth. Platforms like **Scale AI**, **Labelbox**, and **Argilla** are used to establish human-labeled baselines. A judge is only considered reliable if its agreement rate with human experts is mathematically verified.
+**Non-goals:** this course does not claim that a small deterministic fixture predicts live-model quality, and it does not grant production access or make provider benchmarks.
 
-## Lab and Production
+**Risk boundary:** identity, authorization, schemas, arithmetic, release gates, and consequential state changes belong to trusted application code. Model output may propose or interpret; it may not authorize itself.
 
-### The Lab
-The [notebook](15_llm_as_a_judge_and_human_evaluation.ipynb) demonstrates a Rubric-Based absolute scoring workflow. It highlights the critical importance of using Pydantic to force the Judge to output a `reasoning` string *before* an integer `score`, invoking Chain-of-Thought reasoning to improve grading accuracy.
+## Mental model
 
-### Production Best Practices
-- **Define Overrides:** Clearly define scenarios where deterministic checks (like regex filtering) or human experts immediately override an LLM Judge's decision.
-- **Run Permutations:** When doing pairwise judging, always run the evaluation twice, swapping the order of Candidate A and Candidate B to neutralize position bias.
-- **Continuous Calibration:** Do not blindly trust the Judge. Sample a small percentage of Judge outputs and route them to human domain experts to calculate an "Agreement Rate" metric over time.
+![LLM-as-a-Judge and Human Evaluation architecture](diagram-1.svg)
+
+Treat the AI feature as a versioned behavior system:
+
+```text
+contract + context + model/adapter + deterministic controls
+    -> observable result + evidence + metrics + terminal state
+    -> release, abstain, review, block, or rollback
+```
+
+This split matters because a schema or prompt can constrain a proposal, while the application still owns validation and policy enforcement.
+
+## Foundations and internal mechanics
+
+1. **Define the decision.** State the input, expected outcome, risk, and terminal states before choosing a model or framework.
+2. **Make evidence executable.** Use labelled fixtures, exact invariants, and named failure cases. Printed expected values and comments are not tests.
+3. **Retain measurement semantics.** Record numerator, denominator, slice, unit, and direction. Separate blocked attempts from completed violations and estimates from provider-reported usage.
+4. **Keep a reproducible path.** The default lab is synthetic and credential-free. A live provider is an optional experiment that needs its own versioned results.
+
+## Architecture and technology choices
+
+Absolute scoring supports rubric dimensions; pairwise comparison needs order swaps and ties; human review establishes labels and adjudicates ambiguity. Judges remain probabilistic components.
+
+Choose the smallest architecture that can satisfy the behavior contract. Framework adoption is a downstream decision; it does not replace the contract, fixtures, controls, or release evidence.
+
+## Worked Northstar scenario
+
+The [reusable lab](lab15.py) implements the deterministic primitive. The notebook introduces the scenario, runs the baseline and candidate on the same fixture, injects this failure—**A plausible judge score is not ground truth and may contain position, style, or self-preference bias.**—and finishes with assertions plus a production-upgrade exercise.
+
+Run it from the repository root:
+
+```bash
+PYTHONPATH=. .venv/bin/python scripts/run_notebooks.py curriculum/advanced/15-llm-as-a-judge-and-human-evaluation/15_llm_as_a_judge_and_human_evaluation.ipynb
+.venv/bin/python -m pytest -q tests/test_advanced_enterprise_labs.py
+```
+
+## Evaluation design
+
+| Case family | What it proves | Release treatment |
+| --- | --- | --- |
+| Normal | Main behavior works on representative input | Count in the named quality metric |
+| Boundary | Ambiguity and limits are explicit | Review by slice; do not average away |
+| Failure | Recovery or terminal state is correct | Must produce the expected reason code |
+| Critical/adversarial | Forbidden disclosure or action is prevented | Hard blocker, independent of mean score |
+
+Evaluation should compare a baseline and candidate on identical cases. Development data may guide changes; a protected holdout supports the final claim. Re-run evaluation when the prompt, context policy, schema, tools, model, adapter, or metric implementation changes.
+
+## Failure modes and mitigations
+
+- **Metric gaming:** test whether a candidate exploits formatting or label leakage; use review samples and protected data.
+- **False authority:** derive identity, tenant, roles, and approval from trusted state before retrieval or tool exposure.
+- **Silent degradation:** make abstention, blocked, retryable, approval-required, and rollback states explicit.
+- **Misleading observability:** log versions, reason codes, evidence IDs, and terminal state without secrets or hidden reasoning.
+- **Framework overreach:** retain a deterministic baseline and add orchestration only when measured value justifies complexity.
+
+## Production upgrade
+
+Calibrate on held-out, double-scored examples; log rubric version and reason codes; periodically re-check disagreement and subgroup slices. Never request or store hidden chain-of-thought.
+
+Production systems additionally need concurrency handling, bounded retries, idempotency for side effects, tenant-scoped caches and memory, secret management, data-retention policy, service objectives, incident ownership, staged rollout, and a rehearsed rollback path. The exact set depends on risk; it should be recorded in an architecture decision rather than hidden in prompt text.
+
+## State of the art
+
+- **Established:** typed contracts, representative evaluation sets, deterministic validation, least privilege, versioned artifacts, and observable release gates.
+- **Emerging:** standardized generative-AI telemetry, automated evaluation pipelines, learned routing, and optimization frameworks tied to explicit metrics.
+- **Research frontier:** robust semantic judging, prompt-injection resistance, cross-model behavioral equivalence, calibrated uncertainty, and evaluation under distribution shift.
+
+The frontier is not a default architecture. Adopt an emerging technique only after it beats the simpler baseline on the course's stated quality, safety, latency, and cost criteria.
+
+## Checkpoint
+
+1. Which part of this course's decision must remain in deterministic application code, and why?
+2. Why does the failure case—A plausible judge score is not ground truth and may contain position, style, or self-preference bias.—invalidate a happy-path-only evaluation?
+3. What evidence would you require before replacing the lab's simulation with a live provider result?
+
+## Exercises and review questions
+
+1. Add one normal, one boundary, and one adversarial fixture. Which metric or hard gate changes?
+2. Replace one deterministic simulation with a recorded provider response and label the provenance. What new variance appears?
+3. Identify one prompt instruction that currently sounds like policy. Move enforcement into code and add a negative test.
+4. Write a short architecture decision covering owner, alternatives, failure policy, monitoring, and rollback.
+
+
 
 ## References
-- [G-Eval](https://arxiv.org/abs/2303.16634)
+
+- [Deep course guide](../../../docs/07-evaluation.md)
+- [G-Eval paper](https://arxiv.org/abs/2303.16634)
+- [Judging LLM-as-a-Judge](https://arxiv.org/abs/2306.05685)

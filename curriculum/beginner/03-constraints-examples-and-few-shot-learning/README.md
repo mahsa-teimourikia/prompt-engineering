@@ -23,7 +23,7 @@ not semantic embedding behavior.
 
 Even the most perfectly written Instruction Contract will sometimes fail on complex edge cases. When a direct instruction fails, the solution is not to write a longer, more complicated instruction. The solution is to *show*, not just tell.
 
-This is "Few-Shot Learning." By providing a few examples of the exact Input and the desired Output within the prompt, you anchor the model's behavior. The goal is not volume; it is variance. You should select examples that define the *boundaries* of your logic—for instance, an example that barely qualifies for Category A, and an example that barely falls into Category B. 
+This is "Few-Shot Learning." By providing a few examples of the exact Input and the desired Output within the prompt, you anchor the model's behavior. The goal is not volume; it is variance. You should select examples that define the *boundaries* of your logic—for instance, an example that barely qualifies for Category A, and an example that barely falls into Category B.
 
 ![Mental Model Diagram](./diagram-1.svg)
 
@@ -136,15 +136,16 @@ Continue with [Context Engineering](../../intermediate/08-context-engineering/RE
 2. **Automated Example Selection:** Frameworks like **[DSPy](https://github.com/stanfordnlp/dspy)** (specifically its BootstrapFewShot optimizers) automate the process of finding the best possible combination of examples from a training set to maximize evaluation scores.
 3. **Agentic Workflows:** Multi-stage reasoning flows often use different few-shot examples for different stages (e.g., planning examples vs. execution examples).
 
-*Note: While massive context windows (like Gemini 1.5 Pro) make blanket large few-shot blocks less strictly necessary, targeted negative and boundary examples remain critical for shaping specific behavioral nuances.*
+*Note: Larger context windows do not remove the need to select examples carefully. Targeted negative and boundary examples still consume budget, can introduce conflicts, and must be evaluated on the intended decision boundary.*
 
 ## Lab walkthrough
 
 - Zero-shot renders no examples and asserts a recorded accuracy of 3/5.
 - Static selection uses two fixed examples and asserts 4/5.
 - Random selection uses `random.Random(case_id)` and asserts reproducible 3/5.
-- Similarity selection calls `client.embed()`, prints `HASH_EMBEDDING_NOTICE`,
-  and asserts 5/5 while labelling token counts as estimated.
+- Similarity selection calls `client.embed()`, renders those exact selected
+  examples into the request, prints `HASH_EMBEDDING_NOTICE`, and asserts the
+  hand-authored replay result of 5/5 while labelling token counts as estimated.
 - The leakage guard ensures `select_examples(k=2)` never returns the query
   itself when it is present in the bank.
 

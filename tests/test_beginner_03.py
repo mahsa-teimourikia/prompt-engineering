@@ -22,10 +22,25 @@ def test_course_03_recorded_strategy_ordering():
     assert metrics["zero_accuracy"].numerator == 3
     assert metrics["static_accuracy"].numerator == 4
     assert metrics["similarity_accuracy"].numerator == 5
-    assert all(not client.generate(request).stale for request in lab03.build_requests())
+    assert metrics["similarity_estimated_tokens"].unit == "estimated_tokens_per_case"
+    assert all(not client.generate(request).stale for request in lab03.build_requests(client))
 
 
 def test_course_03_selection_prevents_query_leakage():
     query = lab03.EXAMPLE_BANK[0]["message"]
     selected = lab03.select_examples(2, query, lab03.EXAMPLE_BANK, "b03/test/leakage")
     assert query not in {example["message"] for example in selected}
+
+
+def test_course_03_similarity_examples_are_rendered_in_the_prompt():
+    client = ReplayClient(ROOT / "curriculum/beginner/03-constraints-examples-and-few-shot-learning/fixtures/replays.json")
+    case = lab03.EVALUATION_SUITE[0]
+    selected = lab03.similarity_examples(client, case["message"], f"b03/similarity/{case['id']}")
+    request = next(
+        request
+        for request in lab03.build_requests(client)
+        if request.case_id == f"b03/similarity/{case['id']}"
+    )
+    rendered = request.messages[0].text
+    assert all(example["message"] in rendered for example in selected)
+    assert all(example["message"] != case["message"] for example in selected)

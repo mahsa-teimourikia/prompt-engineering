@@ -1,40 +1,113 @@
 # 14 — Prompt Evaluation
 
-## Learning Objectives
-- **Define Golden Datasets:** Curate frozen, representative datasets that capture production variance and critical edge cases.
-- **Establish Baselines:** Calculate deterministic metrics to prove current performance before making changes.
-- **Measure Regressions:** Confidently test candidate prompts against baselines using programmatic grading loops rather than anecdotal "vibe checks."
-- **Enforce Safety Gates:** Identify failures that represent strict release blockers versus acceptable statistical variance.
+## Learning outcomes
 
-## Core Concepts & Workflow
+- Retain metric numerators and denominators.
+- Compare a baseline and candidate on identical cases.
+- Fail a release on any critical regression.
 
-Before changing a prompt, you must know how to measure the impact of that change. Anecdotal testing on a few manual examples is dangerous because fixing one edge case often breaks another (regression). 
+## Why this matters
 
-The Evaluation Loop solves this by running every candidate prompt against a "Golden Dataset" of frozen test cases. Northstar’s router must accurately classify clear, ambiguous, and missing-evidence cases. A single successful demo cannot prove a prompt is an improvement; ambiguous cases must not be averaged away by a high volume of easy requests.
+Northstar must decide whether a new support router is safe to release, including a critical boundary case. A persuasive demonstration is not sufficient evidence: the system must expose its inputs, decisions, failures, metrics, and release policy.
 
-![Evaluation Loop Workflow](./diagram-1.svg)
+## Prerequisites, success criteria, and boundaries
 
-## Technology Landscape and State of the Art
+**Prerequisites:** Courses 01–13 plus the preceding lesson in this track. Learners should be comfortable with Python, typed data, fixtures, exact assertions, and basic evaluation terminology.
 
-**Foundational:** Moving from anecdotal testing ("vibe checks") to rigorous, automated regression testing over frozen datasets.
+**Success criteria:** the [notebook](14_prompt_evaluation.ipynb) runs without credentials, its positive and failure assertions pass, and the learner can explain which controls are deterministic and which production behaviors would remain probabilistic.
 
-**Current State of the Art:**
-1. **Deterministic Evaluation:** For tasks like classification or extraction, modern pipelines use Structured Outputs (Pydantic) to force LLMs to return strict schemas. This allows developers to write standard unit tests (e.g., `assert response.category == expected_category`) instead of relying on fuzzy string matching.
-2. **LLM-as-a-Judge:** For generative or open-ended tasks where deterministic checks fail, the industry uses strong LLMs (like GPT-4o or Gemini 1.5 Pro) to evaluate the outputs of smaller or faster models based on specific rubrics (e.g., tone, helpfulness, hallucination rate).
-3. **Continuous Evaluation (PromptOps):** Teams integrate prompt evaluation directly into their CI/CD pipelines. A pull request that changes a prompt must pass a suite of regression tests against a "golden dataset" before merging, preventing silent degradations.
-4. **Evaluation Frameworks & Tooling:** The industry has matured to use dedicated evaluation frameworks to automate the execution of Baseline vs. Candidate comparisons across hundreds of test cases. Popular tools include:
-   - **Open-source:** [Promptfoo](https://www.promptfoo.dev/) (fast, CLI-based regression testing), [Ragas](https://docs.ragas.io/) (specialized in RAG evaluation metrics), [DeepEval](https://docs.confident-ai.com/docs/getting-started) (Pytest integration for LLMs), and [DSPy](https://github.com/stanfordnlp/dspy) (evaluation-driven prompt compilation).
-   - **Enterprise Platforms:** Google Cloud Vertex AI GenAI Evaluation, LangSmith (tracing and evals), and Phoenix by Arize (observability and evals).
+**Non-goals:** this course does not claim that a small deterministic fixture predicts live-model quality, and it does not grant production access or make provider benchmarks.
 
-## Lab and Production
+**Risk boundary:** identity, authorization, schemas, arithmetic, release gates, and consequential state changes belong to trusted application code. Model output may propose or interpret; it may not authorize itself.
 
-### The Lab
-The [notebook](14_prompt_evaluation.ipynb) demonstrates a programmatic evaluation loop comparing a baseline with a candidate prompt on the same frozen set. It uses Pydantic schemas to enforce deterministic accuracy checks (exact match routing). It then demonstrates a generative evaluation scenario utilizing LLM-as-a-Judge with a strict Pydantic grading rubric.
+## Mental model
 
-### Production Best Practices
-- **Dataset Stratification:** Maintain distinct datasets for development, held-out validation, regression tracking, adversarial attacks, and production feedback.
-- **Track Comprehensive Metrics:** Go beyond accuracy. Track deterministic validity, support alignment, human review scores, uncertainty bounds, cost (token usage), and latency.
-- **Strict Release Gates:** A safety failure (e.g., executing a destructive command) is a hard release blocker, not merely a number to be averaged out by a high overall accuracy score.
+![Prompt Evaluation architecture](diagram-1.svg)
+
+Treat the AI feature as a versioned behavior system:
+
+```text
+contract + context + model/adapter + deterministic controls
+    -> observable result + evidence + metrics + terminal state
+    -> release, abstain, review, block, or rollback
+```
+
+This split matters because a schema or prompt can constrain a proposal, while the application still owns validation and policy enforcement.
+
+## Foundations and internal mechanics
+
+1. **Define the decision.** State the input, expected outcome, risk, and terminal states before choosing a model or framework.
+2. **Make evidence executable.** Use labelled fixtures, exact invariants, and named failure cases. Printed expected values and comments are not tests.
+3. **Retain measurement semantics.** Record numerator, denominator, slice, unit, and direction. Separate blocked attempts from completed violations and estimates from provider-reported usage.
+4. **Keep a reproducible path.** The default lab is synthetic and credential-free. A live provider is an optional experiment that needs its own versioned results.
+
+## Architecture and technology choices
+
+Use exact validators for typed outcomes, rubric review for semantic outcomes, and trajectory checks for tools. Frameworks can schedule evals; they cannot define the product's correct metric.
+
+Choose the smallest architecture that can satisfy the behavior contract. Framework adoption is a downstream decision; it does not replace the contract, fixtures, controls, or release evidence.
+
+## Worked Northstar scenario
+
+The [reusable lab](lab14.py) implements the deterministic primitive. The notebook introduces the scenario, runs the baseline and candidate on the same fixture, injects this failure—**Aggregate accuracy can hide a critical failure in a small slice.**—and finishes with assertions plus a production-upgrade exercise.
+
+Run it from the repository root:
+
+```bash
+PYTHONPATH=. .venv/bin/python scripts/run_notebooks.py curriculum/advanced/14-prompt-evaluation/14_prompt_evaluation.ipynb
+.venv/bin/python -m pytest -q tests/test_advanced_enterprise_labs.py
+```
+
+## Evaluation design
+
+| Case family | What it proves | Release treatment |
+| --- | --- | --- |
+| Normal | Main behavior works on representative input | Count in the named quality metric |
+| Boundary | Ambiguity and limits are explicit | Review by slice; do not average away |
+| Failure | Recovery or terminal state is correct | Must produce the expected reason code |
+| Critical/adversarial | Forbidden disclosure or action is prevented | Hard blocker, independent of mean score |
+
+Evaluation should compare a baseline and candidate on identical cases. Development data may guide changes; a protected holdout supports the final claim. Re-run evaluation when the prompt, context policy, schema, tools, model, adapter, or metric implementation changes.
+
+## Failure modes and mitigations
+
+- **Metric gaming:** test whether a candidate exploits formatting or label leakage; use review samples and protected data.
+- **False authority:** derive identity, tenant, roles, and approval from trusted state before retrieval or tool exposure.
+- **Silent degradation:** make abstention, blocked, retryable, approval-required, and rollback states explicit.
+- **Misleading observability:** log versions, reason codes, evidence IDs, and terminal state without secrets or hidden reasoning.
+- **Framework overreach:** retain a deterministic baseline and add orchestration only when measured value justifies complexity.
+
+## Production upgrade
+
+Keep labelled cases versioned, review slice deltas, and use deterministic checks for schemas and forbidden outcomes. Semantic judges complement—not replace—these gates.
+
+Production systems additionally need concurrency handling, bounded retries, idempotency for side effects, tenant-scoped caches and memory, secret management, data-retention policy, service objectives, incident ownership, staged rollout, and a rehearsed rollback path. The exact set depends on risk; it should be recorded in an architecture decision rather than hidden in prompt text.
+
+## State of the art
+
+- **Established:** typed contracts, representative evaluation sets, deterministic validation, least privilege, versioned artifacts, and observable release gates.
+- **Emerging:** standardized generative-AI telemetry, automated evaluation pipelines, learned routing, and optimization frameworks tied to explicit metrics.
+- **Research frontier:** robust semantic judging, prompt-injection resistance, cross-model behavioral equivalence, calibrated uncertainty, and evaluation under distribution shift.
+
+The frontier is not a default architecture. Adopt an emerging technique only after it beats the simpler baseline on the course's stated quality, safety, latency, and cost criteria.
+
+## Checkpoint
+
+1. Which part of this course's decision must remain in deterministic application code, and why?
+2. Why does the failure case—Aggregate accuracy can hide a critical failure in a small slice.—invalidate a happy-path-only evaluation?
+3. What evidence would you require before replacing the lab's simulation with a live provider result?
+
+## Exercises and review questions
+
+1. Add one normal, one boundary, and one adversarial fixture. Which metric or hard gate changes?
+2. Replace one deterministic simulation with a recorded provider response and label the provenance. What new variance appears?
+3. Identify one prompt instruction that currently sounds like policy. Move enforcement into code and add a negative test.
+4. Write a short architecture decision covering owner, alternatives, failure policy, monitoring, and rollback.
+
+
 
 ## References
-- [OpenAI evals guide](https://platform.openai.com/docs/guides/evals)
+
+- [Deep course guide](../../../docs/07-evaluation.md)
+- [OpenAI evaluation guide](https://developers.openai.com/api/docs/guides/evals)
+- [G-Eval paper](https://arxiv.org/abs/2303.16634)

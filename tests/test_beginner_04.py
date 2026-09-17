@@ -27,3 +27,20 @@ def test_course_04_schema_semantics_and_repair():
     assert results["exhausted_terminal"] == "human_review"
     assert results["malformed_error"] == "not_json"
     assert all(not client.generate(request).stale for request in lab04.build_requests())
+
+
+def test_course_04_semantic_validation_checks_intent_and_review_route():
+    wrong_known_evidence = lab04.CaseBrief(
+        intent="refund_request",
+        customer_summary="return request",
+        evidence_cited="pol_shipping_delay",
+        recommended_action="review eligibility",
+    )
+    missing_review = lab04.CaseBrief(
+        intent="unknown",
+        customer_summary="insufficient evidence",
+        evidence_cited="NONE",
+        recommended_action="send response",
+    )
+    assert lab04.validate_evidence(wrong_known_evidence) == "evidence_intent_mismatch"
+    assert lab04.validate_evidence(missing_review) == "missing_review_route"

@@ -1,31 +1,112 @@
 # 19 — Prompting for Coding Agents
 
-## Learning Objectives
-- **Understand Agent Capabilities:** Recognize the shift from simple code completion to autonomous codebase engineering.
-- **Define Engineering Contracts:** Learn how to write strict problem statements and scope restrictions for agents.
-- **Implement Test-Driven Agents:** Require agents to generate passing unit tests to verify their work before reporting success.
-- **Secure Agent Operations:** Isolate agent execution environments to prevent catastrophic system damage.
+## Learning outcomes
 
-## Core Concepts & Workflow
+- Write a software-change contract.
+- Enforce read, write, network, and command scope.
+- Require tests and diff evidence before completion.
 
-We are moving past the era of sending a single snippet of code to an LLM and asking "why is this broken?" Autonomous Coding Agents can now operate across entire repositories, read thousands of files, propose architecture changes, and execute terminal commands to run builds or tests.
+## Why this matters
 
-Because these agents are so powerful, a vague prompt like "fix authentication" is dangerous—it can lead to the agent rewriting massive, unrelated parts of the codebase. The state of the art involves defining strict "Task Contracts" that explicitly scope which files the agent is allowed to touch, what terminal commands it is authorized to run, and exactly which tests it must pass to prove the task is complete.
+A coding agent receives a one-file authentication fix with an exact verification command and no production authority. A persuasive demonstration is not sufficient evidence: the system must expose its inputs, decisions, failures, metrics, and release policy.
 
-## Technology Landscape and State of the Art
+## Prerequisites, success criteria, and boundaries
 
-**Foundational:** Sending a snippet of code to an LLM and asking "why is this broken?"
+**Prerequisites:** Courses 01–13 plus the preceding lesson in this track. Learners should be comfortable with Python, typed data, fixtures, exact assertions, and basic evaluation terminology.
 
-**Current State of the Art:** 
-1. **Autonomous Coding Agents:** Tools like **GitHub Copilot Workspace**, **Devin**, and advanced IDEs like **[Cursor](https://www.cursor.com/)** or CLI agents like **[Aider](https://aider.chat/)** can now operate across an entire codebase. They can read thousands of files, propose architecture changes, and execute terminal commands.
-2. **Engineering Contracts:** Because these agents are so powerful, a vague prompt like "fix authentication" is dangerous. It can lead to the agent rewriting massive, unrelated parts of the codebase. The state of the art involves defining strict "Task Contracts" that explicitly scope which files the agent is allowed to touch and which tests it must pass before reporting success.
+**Success criteria:** the [notebook](19_prompting_for_coding_agents.ipynb) runs without credentials, its positive and failure assertions pass, and the learner can explain which controls are deterministic and which production behaviors would remain probabilistic.
 
-## Lab and Production
+**Non-goals:** this course does not claim that a small deterministic fixture predicts live-model quality, and it does not grant production access or make provider benchmarks.
 
-### The Lab
-The [notebook](19_prompting_for_coding_agents.ipynb) demonstrates the profound difference between a vague request and a structured engineering contract. It uses Pydantic to force the *human* to define a strict problem statement, file scope, and test criteria before handing the task off to an autonomous agent.
+**Risk boundary:** identity, authorization, schemas, arithmetic, release gates, and consequential state changes belong to trusted application code. Model output may propose or interpret; it may not authorize itself.
 
-### Production Best Practices
-- **Test-Driven Operations:** A coding agent must inspect the repository, propose a plan, make minimal changes, run tests, review the diff, and report evidence. It should not be allowed to submit a PR if the test suite fails.
-- **Sandboxing:** Never give an agent unconstrained production access or unrestricted terminal access on your host machine. Always execute agent terminal commands in ephemeral Docker containers or secure sandboxes.
-- **Human Review:** Agent PRs must go through standard human code review. The generated code must adhere to organizational style guides and security standards.
+## Mental model
+
+![Prompting for Coding Agents architecture](diagram-1.svg)
+
+Treat the AI feature as a versioned behavior system:
+
+```text
+contract + context + model/adapter + deterministic controls
+    -> observable result + evidence + metrics + terminal state
+    -> release, abstain, review, block, or rollback
+```
+
+This split matters because a schema or prompt can constrain a proposal, while the application still owns validation and policy enforcement.
+
+## Foundations and internal mechanics
+
+1. **Define the decision.** State the input, expected outcome, risk, and terminal states before choosing a model or framework.
+2. **Make evidence executable.** Use labelled fixtures, exact invariants, and named failure cases. Printed expected values and comments are not tests.
+3. **Retain measurement semantics.** Record numerator, denominator, slice, unit, and direction. Separate blocked attempts from completed violations and estimates from provider-reported usage.
+4. **Keep a reproducible path.** The default lab is synthetic and credential-free. A live provider is an optional experiment that needs its own versioned results.
+
+## Architecture and technology choices
+
+Coding-agent interfaces differ, but the portable controls are scoped instructions, untrusted-input handling, least privilege, tests, diff inspection, and separate deployment authority.
+
+Choose the smallest architecture that can satisfy the behavior contract. Framework adoption is a downstream decision; it does not replace the contract, fixtures, controls, or release evidence.
+
+## Worked Northstar scenario
+
+The [reusable lab](lab19.py) implements the deterministic primitive. The notebook introduces the scenario, runs the baseline and candidate on the same fixture, injects this failure—**A prompt saying 'stay in scope' is guidance, not a sandbox or policy boundary.**—and finishes with assertions plus a production-upgrade exercise.
+
+Run it from the repository root:
+
+```bash
+PYTHONPATH=. .venv/bin/python scripts/run_notebooks.py curriculum/advanced/19-prompting-for-coding-agents/19_prompting_for_coding_agents.ipynb
+.venv/bin/python -m pytest -q tests/test_advanced_enterprise_labs.py
+```
+
+## Evaluation design
+
+| Case family | What it proves | Release treatment |
+| --- | --- | --- |
+| Normal | Main behavior works on representative input | Count in the named quality metric |
+| Boundary | Ambiguity and limits are explicit | Review by slice; do not average away |
+| Failure | Recovery or terminal state is correct | Must produce the expected reason code |
+| Critical/adversarial | Forbidden disclosure or action is prevented | Hard blocker, independent of mean score |
+
+Evaluation should compare a baseline and candidate on identical cases. Development data may guide changes; a protected holdout supports the final claim. Re-run evaluation when the prompt, context policy, schema, tools, model, adapter, or metric implementation changes.
+
+## Failure modes and mitigations
+
+- **Metric gaming:** test whether a candidate exploits formatting or label leakage; use review samples and protected data.
+- **False authority:** derive identity, tenant, roles, and approval from trusted state before retrieval or tool exposure.
+- **Silent degradation:** make abstention, blocked, retryable, approval-required, and rollback states explicit.
+- **Misleading observability:** log versions, reason codes, evidence IDs, and terminal state without secrets or hidden reasoning.
+- **Framework overreach:** retain a deterministic baseline and add orchestration only when measured value justifies complexity.
+
+## Production upgrade
+
+Run agents in isolated worktrees or sandboxes, grant least privilege, inspect untrusted issues and repository text as data, and verify the actual diff and tests. Production deployment remains a separately authorized action.
+
+Production systems additionally need concurrency handling, bounded retries, idempotency for side effects, tenant-scoped caches and memory, secret management, data-retention policy, service objectives, incident ownership, staged rollout, and a rehearsed rollback path. The exact set depends on risk; it should be recorded in an architecture decision rather than hidden in prompt text.
+
+## State of the art
+
+- **Established:** typed contracts, representative evaluation sets, deterministic validation, least privilege, versioned artifacts, and observable release gates.
+- **Emerging:** standardized generative-AI telemetry, automated evaluation pipelines, learned routing, and optimization frameworks tied to explicit metrics.
+- **Research frontier:** robust semantic judging, prompt-injection resistance, cross-model behavioral equivalence, calibrated uncertainty, and evaluation under distribution shift.
+
+The frontier is not a default architecture. Adopt an emerging technique only after it beats the simpler baseline on the course's stated quality, safety, latency, and cost criteria.
+
+## Checkpoint
+
+1. Which part of this course's decision must remain in deterministic application code, and why?
+2. Why does the failure case—A prompt saying 'stay in scope' is guidance, not a sandbox or policy boundary.—invalidate a happy-path-only evaluation?
+3. What evidence would you require before replacing the lab's simulation with a live provider result?
+
+## Exercises and review questions
+
+1. Add one normal, one boundary, and one adversarial fixture. Which metric or hard gate changes?
+2. Replace one deterministic simulation with a recorded provider response and label the provenance. What new variance appears?
+3. Identify one prompt instruction that currently sounds like policy. Move enforcement into code and add a negative test.
+4. Write a short architecture decision covering owner, alternatives, failure policy, monitoring, and rollback.
+
+
+
+## References
+
+- [Deep course guide](../../../docs/12-coding-agent-prompting.md)
+- [OWASP secure coding with AI](https://cheatsheetseries.owasp.org/cheatsheets/Secure_Coding_with_AI_Cheat_Sheet.html)

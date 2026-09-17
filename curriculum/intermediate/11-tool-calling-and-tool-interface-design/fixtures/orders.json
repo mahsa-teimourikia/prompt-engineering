@@ -1,0 +1,4 @@
+[
+  {"order_id": "ORD-999", "tenant": "tenant-synthetic-a", "status": "Processing — synthetic status"},
+  {"order_id": "ORD-777", "tenant": "tenant-synthetic-b", "status": "Shipped — synthetic status"}
+]

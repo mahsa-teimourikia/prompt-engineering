@@ -27,22 +27,28 @@ def select_examples(k: int, query: str, bank: list[dict[str, str]], case_id: str
     return random.Random(case_id).sample(candidates, min(k, len(candidates)))
 
 
-def _strategy_examples(strategy: str, case: dict[str, str]) -> list[dict[str, str]]:
+def _strategy_examples(
+    strategy: str,
+    case: dict[str, str],
+    client: ModelClient,
+) -> list[dict[str, str]]:
     if strategy == "zero":
         return []
     if strategy == "static":
         return [EXAMPLE_BANK[0], EXAMPLE_BANK[4]]
     if strategy == "random":
         return select_examples(2, case["message"], EXAMPLE_BANK, f"b03/random/{case['id']}")
-    candidates = select_examples(2, case["message"], EXAMPLE_BANK, f"b03/similarity/{case['id']}")
-    return sorted(
-        candidates,
-        key=lambda example: abs(len(example["message"]) - len(case["message"])),
+    if strategy != "similarity":
+        raise ValueError(f"unsupported strategy: {strategy}")
+    return similarity_examples(
+        client,
+        case["message"],
+        f"b03/similarity/{case['id']}",
     )
 
 
-def _prompt(strategy: str, case: dict[str, str]) -> str:
-    examples = _strategy_examples(strategy, case)
+def _prompt(strategy: str, case: dict[str, str], client: ModelClient) -> str:
+    examples = _strategy_examples(strategy, case, client)
     rendered = "\n".join(f"Example: {item['message']} -> {item['category']}" for item in examples)
     return f"Route the support request. Return one category.\n{rendered}\nMessage: {case['message']}"
 
@@ -66,7 +72,7 @@ def similarity_examples(
     return [example for _, example in scored[:2]]
 
 
-def build_requests() -> list[PromptRequest]:
+def build_requests(client: ModelClient) -> list[PromptRequest]:
     requests = []
     for strategy in ("zero", "static", "random", "similarity"):
         for case in EVALUATION_SUITE:
@@ -74,7 +80,7 @@ def build_requests() -> list[PromptRequest]:
                 PromptRequest(
                     case_id=f"b03/{strategy}/{case['id']}",
                     system="Use the examples as demonstrations, but never copy a query into its own examples.",
-                    messages=[Message(role="user", text=_prompt(strategy, case))],
+                    messages=[Message(role="user", text=_prompt(strategy, case, client))],
                     response_schema=RoutingDecision,
                 )
             )
@@ -84,15 +90,13 @@ def build_requests() -> list[PromptRequest]:
 def run_lab(client: ModelClient) -> dict[str, object]:
     metrics: dict[str, Metric] = {}
     expected = [case["expected"] for case in EVALUATION_SUITE]
+    requests = build_requests(client)
     for strategy in ("zero", "static", "random", "similarity"):
-        if strategy == "similarity":
-            for case in EVALUATION_SUITE:
-                similarity_examples(client, case["message"], f"b03/similarity/{case['id']}")
         observed = []
         for case in EVALUATION_SUITE:
             request = next(
                 item
-                for item in build_requests()
+                for item in requests
                 if item.case_id == f"b03/{strategy}/{case['id']}"
             )
             response = client.generate(request)
@@ -107,10 +111,10 @@ def run_lab(client: ModelClient) -> dict[str, object]:
         )
         metrics[f"{strategy}_estimated_tokens"] = rate(
             f"{strategy}_estimated_tokens",
-            sum(estimate_tokens(_prompt(strategy, case)) for case in EVALUATION_SUITE),
+            sum(estimate_tokens(_prompt(strategy, case, client)) for case in EVALUATION_SUITE),
             len(expected),
             "lower_is_better",
-            unit="estimated_tokens_per_suite",
+            unit="estimated_tokens_per_case",
         )
     print(HASH_EMBEDDING_NOTICE)
     return metrics

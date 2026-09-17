@@ -1,31 +1,113 @@
 # 18 — Agent and Multi-Agent Prompt Contracts
 
-## Learning Objectives
-- **Deconstruct God Prompts:** Break down monolithic, unreliable prompts into narrowly scoped specialist agents.
-- **Enforce Contracts:** Use Pydantic schemas to strictly enforce the inputs and outputs between agents.
-- **Build Supervisor Architectures:** Design state-machine-driven orchestrators that route tasks to specialists.
-- **Maintain Tenant Boundaries:** Ensure that multi-agent systems respect authorization, idempotency, and security constraints at runtime.
+## Learning outcomes
 
-## Core Concepts & Workflow
+- Validate typed tasks at the boundary.
+- Authorize before capability exposure.
+- Compare a single workflow with a multi-agent design.
 
-Early prompt engineering relied on "God Prompts"—massive walls of text commanding a single LLM to handle everything from database queries to customer chatting. These are brittle, impossible to test, and highly susceptible to prompt injection.
+## Why this matters
 
-The modern approach is Multi-Agent Systems. Complex tasks are broken down into narrowly constrained "Specialist Agents," overseen by a central "Supervisor Agent." Crucially, these agents do not communicate via fuzzy English chat. They communicate via strict programmatic contracts (usually JSON constrained by Pydantic schemas). The Supervisor isn't told to "talk to the Database Agent"; it is given a tool that explicitly requires it to generate a valid `DatabaseQuerySchema` before the handoff occurs.
+A support router may look up an order or summarize evidence, but only inside the authenticated tenant and a bounded step budget. A persuasive demonstration is not sufficient evidence: the system must expose its inputs, decisions, failures, metrics, and release policy.
 
-## Technology Landscape and State of the Art
+## Prerequisites, success criteria, and boundaries
 
-**Foundational:** Trying to write one massive "God Prompt" that instructs a single LLM to handle everything from database queries to customer chat.
+**Prerequisites:** Courses 01–13 plus the preceding lesson in this track. Learners should be comfortable with Python, typed data, fixtures, exact assertions, and basic evaluation terminology.
 
-**Current State of the Art:** 
-1. **Multi-Agent Systems:** Complex tasks are broken down into narrow, highly constrained "Specialist Agents" orchestrated by a central "Supervisor Agent". Frameworks like **[LangGraph](https://langchain-ai.github.io/langgraph/)**, **[Microsoft AutoGen](https://microsoft.github.io/autogen/)**, and **[CrewAI](https://www.crewai.com/)** are leading the industry in state-machine-driven agent orchestration.
-2. **Contracts over Prompts:** The boundaries between these agents are not defined by fuzzy English instructions, but by strict programmatic contracts, usually enforced via **[Pydantic](https://docs.pydantic.dev/)**. The Supervisor isn't told "talk to the Database Agent," it is given a tool that *requires* it to generate a valid `DatabaseQuerySchema` JSON payload before the handoff can occur.
+**Success criteria:** the [notebook](18_agent_and_multi_agent_prompt_contracts.ipynb) runs without credentials, its positive and failure assertions pass, and the learner can explain which controls are deterministic and which production behaviors would remain probabilistic.
 
-## Lab and Production
+**Non-goals:** this course does not claim that a small deterministic fixture predicts live-model quality, and it does not grant production access or make provider benchmarks.
 
-### The Lab
-The [notebook](18_agent_and_multi_agent_prompt_contracts.ipynb) demonstrates a multi-agent Supervisor/Specialist pattern using the Google GenAI SDK. It highlights how to enforce rigid handoffs using Pydantic contracts rather than relying on unstructured LLM chat to coordinate complex logic.
+**Risk boundary:** identity, authorization, schemas, arithmetic, release gates, and consequential state changes belong to trusted application code. Model output may propose or interpret; it may not authorize itself.
 
-### Production Best Practices
-- **Minimize Autonomy:** Extra autonomy must demonstrate measured benefit. Do not use an agent if a simple `if/else` deterministic router will suffice.
-- **Runtime Policies:** Prompts describe a role; runtime policy enforces identity. The LLM must not be responsible for enforcing tenant boundaries, authorization, or idempotency.
-- **Idempotency:** Agent actions (tool calls) must be idempotent, as LLMs will frequently retry or loop instructions.
+## Mental model
+
+![Agent and Multi-Agent Prompt Contracts architecture](diagram-1.svg)
+
+Treat the AI feature as a versioned behavior system:
+
+```text
+contract + context + model/adapter + deterministic controls
+    -> observable result + evidence + metrics + terminal state
+    -> release, abstain, review, block, or rollback
+```
+
+This split matters because a schema or prompt can constrain a proposal, while the application still owns validation and policy enforcement.
+
+## Foundations and internal mechanics
+
+1. **Define the decision.** State the input, expected outcome, risk, and terminal states before choosing a model or framework.
+2. **Make evidence executable.** Use labelled fixtures, exact invariants, and named failure cases. Printed expected values and comments are not tests.
+3. **Retain measurement semantics.** Record numerator, denominator, slice, unit, and direction. Separate blocked attempts from completed violations and estimates from provider-reported usage.
+4. **Keep a reproducible path.** The default lab is synthetic and credential-free. A live provider is an optional experiment that needs its own versioned results.
+
+## Architecture and technology choices
+
+Prefer deterministic code, then a single call, then a fixed workflow. Use agents only when measured dynamic-work benefits exceed coordination cost.
+
+Choose the smallest architecture that can satisfy the behavior contract. Framework adoption is a downstream decision; it does not replace the contract, fixtures, controls, or release evidence.
+
+## Worked Northstar scenario
+
+The [reusable lab](lab18.py) implements the deterministic primitive. The notebook introduces the scenario, runs the baseline and candidate on the same fixture, injects this failure—**A model-generated tenant, approval, or role is untrusted and cannot authorize work.**—and finishes with assertions plus a production-upgrade exercise.
+
+Run it from the repository root:
+
+```bash
+PYTHONPATH=. .venv/bin/python scripts/run_notebooks.py curriculum/advanced/18-agent-and-multi-agent-prompt-contracts/18_agent_and_multi_agent_prompt_contracts.ipynb
+.venv/bin/python -m pytest -q tests/test_advanced_enterprise_labs.py
+```
+
+## Evaluation design
+
+| Case family | What it proves | Release treatment |
+| --- | --- | --- |
+| Normal | Main behavior works on representative input | Count in the named quality metric |
+| Boundary | Ambiguity and limits are explicit | Review by slice; do not average away |
+| Failure | Recovery or terminal state is correct | Must produce the expected reason code |
+| Critical/adversarial | Forbidden disclosure or action is prevented | Hard blocker, independent of mean score |
+
+Evaluation should compare a baseline and candidate on identical cases. Development data may guide changes; a protected holdout supports the final claim. Re-run evaluation when the prompt, context policy, schema, tools, model, adapter, or metric implementation changes.
+
+## Failure modes and mitigations
+
+- **Metric gaming:** test whether a candidate exploits formatting or label leakage; use review samples and protected data.
+- **False authority:** derive identity, tenant, roles, and approval from trusted state before retrieval or tool exposure.
+- **Silent degradation:** make abstention, blocked, retryable, approval-required, and rollback states explicit.
+- **Misleading observability:** log versions, reason codes, evidence IDs, and terminal state without secrets or hidden reasoning.
+- **Framework overreach:** retain a deterministic baseline and add orchestration only when measured value justifies complexity.
+
+## Production upgrade
+
+Use narrow tools, explicit terminal states, idempotency keys, bounded retries, durable state only where needed, and approval before consequential side effects. Add agents only when measured decomposition benefits exceed coordination cost.
+
+Production systems additionally need concurrency handling, bounded retries, idempotency for side effects, tenant-scoped caches and memory, secret management, data-retention policy, service objectives, incident ownership, staged rollout, and a rehearsed rollback path. The exact set depends on risk; it should be recorded in an architecture decision rather than hidden in prompt text.
+
+## State of the art
+
+- **Established:** typed contracts, representative evaluation sets, deterministic validation, least privilege, versioned artifacts, and observable release gates.
+- **Emerging:** standardized generative-AI telemetry, automated evaluation pipelines, learned routing, and optimization frameworks tied to explicit metrics.
+- **Research frontier:** robust semantic judging, prompt-injection resistance, cross-model behavioral equivalence, calibrated uncertainty, and evaluation under distribution shift.
+
+The frontier is not a default architecture. Adopt an emerging technique only after it beats the simpler baseline on the course's stated quality, safety, latency, and cost criteria.
+
+## Checkpoint
+
+1. Which part of this course's decision must remain in deterministic application code, and why?
+2. Why does the failure case—A model-generated tenant, approval, or role is untrusted and cannot authorize work.—invalidate a happy-path-only evaluation?
+3. What evidence would you require before replacing the lab's simulation with a live provider result?
+
+## Exercises and review questions
+
+1. Add one normal, one boundary, and one adversarial fixture. Which metric or hard gate changes?
+2. Replace one deterministic simulation with a recorded provider response and label the provenance. What new variance appears?
+3. Identify one prompt instruction that currently sounds like policy. Move enforcement into code and add a negative test.
+4. Write a short architecture decision covering owner, alternatives, failure policy, monitoring, and rollback.
+
+
+
+## References
+
+- [Deep course guide](../../../docs/08-agentic-prompts.md)
+- [Google function calling](https://ai.google.dev/gemini-api/docs/function-calling)
+- [Anthropic: building effective agents](https://www.anthropic.com/engineering/building-effective-agents)

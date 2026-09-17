@@ -1,0 +1,46 @@
+{
+  "i12/claim-500": {
+    "fingerprint": "6022ad938ced9e39231d14c3f6adea02e71a8705540a7547ffba1d22164a11f7",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"is_contradictory\":false,\"extracted_amount\":500.0,\"reasoning\":\"The claimed amount matches the invoice image.\",\"source_page\":1,\"source_region\":\"total_due\",\"amount_confidence\":0.98}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 43,
+      "output_tokens": 45
+    }
+  },
+  "i12/claim-800": {
+    "fingerprint": "dc2fba8ab46d28db2f803a15d9174e299a1cf542cec76cc09cda9a0ad4082a1a",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"is_contradictory\":false,\"extracted_amount\":500.0,\"reasoning\":\"The recorded model marked the image extraction as consistent, but the user claim differs.\",\"source_page\":1,\"source_region\":\"total_due\",\"amount_confidence\":0.98}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 47,
+      "output_tokens": 56
+    }
+  },
+  "i12/low-confidence": {
+    "fingerprint": "b63de9627eb79b63ddf27cb9f8d86d4cf1bd5378cfc95ca899fb82bb01051729",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"is_contradictory\":false,\"extracted_amount\":500.0,\"reasoning\":\"The amount is visible but the extraction signal is weak.\",\"source_page\":1,\"source_region\":\"total_due\",\"amount_confidence\":0.55}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 43,
+      "output_tokens": 48
+    }
+  },
+  "i12/no-claim": {
+    "fingerprint": "51a4df5d518a9fb765e011c69d112d49cf5efab8e1f3007941e3d284a0f18b53",
+    "recorded_model": "hand-authored (not a live recording)",
+    "text": "{\"is_contradictory\":false,\"extracted_amount\":500.0,\"reasoning\":\"The invoice image shows $500.00 and no contradictory amount was claimed.\",\"source_page\":1,\"source_region\":\"total_due\",\"amount_confidence\":0.98}",
+    "tool_calls": [],
+    "usage": {
+      "estimated": true,
+      "input_tokens": 40,
+      "output_tokens": 52
+    }
+  }
+}

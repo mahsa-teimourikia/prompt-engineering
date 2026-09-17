@@ -1,34 +1,112 @@
 # 24 — Prompt Versioning, Experimentation, and Release Engineering
 
-## Learning Objectives
-- **Execute Shadow Deployments:** Test new prompts against live production traffic without showing the results to the user.
-- **Run A/B Tests:** Statistically compare two prompt versions in production to measure actual business impact.
-- **Manage Phased Rollouts:** Gradually shift traffic to a new prompt version to monitor for edge-case regressions.
-- **Implement Hot-Swapping:** Change the active prompt version in production with zero downtime or code redeploys.
+## Learning outcomes
 
-## Core Concepts & Workflow
+- Use deterministic, sticky assignment.
+- Separate insufficient samples from success.
+- Make critical rollback conditions explicit.
 
-Passing an offline regression suite is a requirement for deployment, but it is not a guarantee of production success. Users will interact with your system in ways your Golden Dataset never anticipated. 
+## Why this matters
 
-Enterprise release engineering minimizes this risk through phased deployments. Before a major prompt change goes live to 100% of users, it should be **Shadow Deployed** (the application executes both the old and new prompt, returns the old result to the user, but logs both for comparison) or **A/B Tested** (routing 10% of users to the new prompt and comparing business metrics like task completion rate). 
+A candidate is routed by a stable request key and rolled back only with enough evidence—or immediately after a critical failure. A persuasive demonstration is not sufficient evidence: the system must expose its inputs, decisions, failures, metrics, and release policy.
 
-![Release Engineering Workflow](./diagram-1.svg)
+## Prerequisites, success criteria, and boundaries
 
-## Technology Landscape and State of the Art
+**Prerequisites:** Courses 01–13 plus the preceding lesson in this track. Learners should be comfortable with Python, typed data, fixtures, exact assertions, and basic evaluation terminology.
 
-**Foundational:** Merging a PR and immediately pushing the new prompt to 100% of production traffic, hoping nothing breaks.
+**Success criteria:** the [notebook](24_prompt_versioning_experimentation_and_release_engineering.ipynb) runs without credentials, its positive and failure assertions pass, and the learner can explain which controls are deterministic and which production behaviors would remain probabilistic.
 
-**Current State of the Art:**
-1. **Feature Flagging for Prompts:** Enterprises use tools like **[LaunchDarkly](https://launchdarkly.com/)**, **Statsig**, or native features in LLM gateways (like **Braintrust** or **PromptLayer**) to decouple prompt deployment from code deployment. A new prompt can be turned on for 5% of users via a toggle.
-2. **Shadow Traffic Routing:** SOTA API gateways (e.g., **Cloudflare AI Gateway** or Envoy proxies) can duplicate inbound requests at the network layer, sending the copy to a new model or prompt version asynchronously to test scale and accuracy under real-world load.
-3. **Automated Canary Analysis:** Systems automatically monitor the error rates and token costs of the new prompt during a phased rollout. If anomalies are detected, the system automatically triggers a rollback to the stable version.
+**Non-goals:** this course does not claim that a small deterministic fixture predicts live-model quality, and it does not grant production access or make provider benchmarks.
 
-## Lab and Production
+**Risk boundary:** identity, authorization, schemas, arithmetic, release gates, and consequential state changes belong to trusted application code. Model output may propose or interpret; it may not authorize itself.
 
-### The Lab
-The [notebook](24_prompt_versioning_experimentation_and_release_engineering.ipynb) simulates a shadow deployment pipeline. It takes a stream of live requests, routes them to both a stable `v1` prompt and an experimental `v2` prompt, and logs the variance in outputs and token costs without exposing the `v2` results to the end-user.
+## Mental model
 
-### Production Best Practices
-- **Decouple Deployments:** Never require a full Kubernetes or microservice restart just to change a prompt string or tweak a temperature setting. Fetch these configurations dynamically.
-- **Measure Business Metrics, Not Just LLM Metrics:** An A/B test shouldn't just measure if the LLM output was "better written." It must measure if the new prompt increased the actual business KPI (e.g., did more users successfully complete their purchase?).
-- **Beware State Conflicts:** If your new prompt outputs a completely different JSON schema than the old prompt, your downstream application code must be version-aware to handle both formats during an A/B test.
+![Prompt Versioning, Experimentation, and Release Engineering architecture](diagram-1.svg)
+
+Treat the AI feature as a versioned behavior system:
+
+```text
+contract + context + model/adapter + deterministic controls
+    -> observable result + evidence + metrics + terminal state
+    -> release, abstain, review, block, or rollback
+```
+
+This split matters because a schema or prompt can constrain a proposal, while the application still owns validation and policy enforcement.
+
+## Foundations and internal mechanics
+
+1. **Define the decision.** State the input, expected outcome, risk, and terminal states before choosing a model or framework.
+2. **Make evidence executable.** Use labelled fixtures, exact invariants, and named failure cases. Printed expected values and comments are not tests.
+3. **Retain measurement semantics.** Record numerator, denominator, slice, unit, and direction. Separate blocked attempts from completed violations and estimates from provider-reported usage.
+4. **Keep a reproducible path.** The default lab is synthetic and credential-free. A live provider is an optional experiment that needs its own versioned results.
+
+## Architecture and technology choices
+
+Shadow evaluation, canaries, and A/B tests answer different questions. All need stable assignment, declared metrics, guardrails, enough samples, and rollback policy.
+
+Choose the smallest architecture that can satisfy the behavior contract. Framework adoption is a downstream decision; it does not replace the contract, fixtures, controls, or release evidence.
+
+## Worked Northstar scenario
+
+The [reusable lab](lab24.py) implements the deterministic primitive. The notebook introduces the scenario, runs the baseline and candidate on the same fixture, injects this failure—**Random per-request assignment breaks user consistency and makes incident reconstruction difficult.**—and finishes with assertions plus a production-upgrade exercise.
+
+Run it from the repository root:
+
+```bash
+PYTHONPATH=. .venv/bin/python scripts/run_notebooks.py curriculum/enterprise/24-prompt-versioning-experimentation-and-release-engineering/24_prompt_versioning_experimentation_and_release_engineering.ipynb
+.venv/bin/python -m pytest -q tests/test_advanced_enterprise_labs.py
+```
+
+## Evaluation design
+
+| Case family | What it proves | Release treatment |
+| --- | --- | --- |
+| Normal | Main behavior works on representative input | Count in the named quality metric |
+| Boundary | Ambiguity and limits are explicit | Review by slice; do not average away |
+| Failure | Recovery or terminal state is correct | Must produce the expected reason code |
+| Critical/adversarial | Forbidden disclosure or action is prevented | Hard blocker, independent of mean score |
+
+Evaluation should compare a baseline and candidate on identical cases. Development data may guide changes; a protected holdout supports the final claim. Re-run evaluation when the prompt, context policy, schema, tools, model, adapter, or metric implementation changes.
+
+## Failure modes and mitigations
+
+- **Metric gaming:** test whether a candidate exploits formatting or label leakage; use review samples and protected data.
+- **False authority:** derive identity, tenant, roles, and approval from trusted state before retrieval or tool exposure.
+- **Silent degradation:** make abstention, blocked, retryable, approval-required, and rollback states explicit.
+- **Misleading observability:** log versions, reason codes, evidence IDs, and terminal state without secrets or hidden reasoning.
+- **Framework overreach:** retain a deterministic baseline and add orchestration only when measured value justifies complexity.
+
+## Production upgrade
+
+Pre-register metrics and guardrails, preserve cohort assignment, compare the same slices, define minimum samples and stop rules, and keep a tested stable artifact ready for rollback.
+
+Production systems additionally need concurrency handling, bounded retries, idempotency for side effects, tenant-scoped caches and memory, secret management, data-retention policy, service objectives, incident ownership, staged rollout, and a rehearsed rollback path. The exact set depends on risk; it should be recorded in an architecture decision rather than hidden in prompt text.
+
+## State of the art
+
+- **Established:** typed contracts, representative evaluation sets, deterministic validation, least privilege, versioned artifacts, and observable release gates.
+- **Emerging:** standardized generative-AI telemetry, automated evaluation pipelines, learned routing, and optimization frameworks tied to explicit metrics.
+- **Research frontier:** robust semantic judging, prompt-injection resistance, cross-model behavioral equivalence, calibrated uncertainty, and evaluation under distribution shift.
+
+The frontier is not a default architecture. Adopt an emerging technique only after it beats the simpler baseline on the course's stated quality, safety, latency, and cost criteria.
+
+## Checkpoint
+
+1. Which part of this course's decision must remain in deterministic application code, and why?
+2. Why does the failure case—Random per-request assignment breaks user consistency and makes incident reconstruction difficult.—invalidate a happy-path-only evaluation?
+3. What evidence would you require before replacing the lab's simulation with a live provider result?
+
+## Exercises and review questions
+
+1. Add one normal, one boundary, and one adversarial fixture. Which metric or hard gate changes?
+2. Replace one deterministic simulation with a recorded provider response and label the provenance. What new variance appears?
+3. Identify one prompt instruction that currently sounds like policy. Move enforcement into code and add a negative test.
+4. Write a short architecture decision covering owner, alternatives, failure policy, monitoring, and rollback.
+
+
+
+## References
+
+- [Deep course guide](../../../docs/09-promptops.md)
+- [OpenFeature specification](https://openfeature.dev/specification/)

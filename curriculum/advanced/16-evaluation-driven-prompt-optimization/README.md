@@ -1,33 +1,112 @@
 # 16 — Evaluation-Driven Prompt Optimization
 
-## Learning Objectives
-- **Treat Prompts as Code:** Move away from trial-and-error tweaking and adopt systematic, version-controlled prompt changes.
-- **Hypothesis-Driven Changes:** Isolate variables by changing only one aspect of a prompt (or system) at a time to determine causality.
-- **Diagnose Failures Accurately:** Learn to classify whether a failure is caused by the prompt instructions, missing context, flawed schemas, or model limitations.
-- **Prevent Global Regressions:** Use automated test suites to ensure that fixing a localized edge case does not break broader system functionality.
+## Learning outcomes
 
-## Core Concepts & Workflow
+- Separate development and holdout data.
+- Score component and joint outcomes.
+- Reject a local fix that causes a global regression.
 
-Optimization without a trustworthy evaluation system is meaningless. Before modifying a prompt, you must have a baseline evaluation score. 
+## Why this matters
 
-When a failure occurs, it is tempting to immediately rewrite the prompt. However, not every failure is an instruction failure: it may be a failure of context retrieval (RAG), a broken tool, a restrictive schema, or a hard model limitation. Optimization requires a scientific approach: classify the failure, form a hypothesis, change *exactly one* variable, and run an automated evaluation suite to check for global regressions across a held-out dataset.
+Northstar fixes ticker normalization without tuning on the final test set. A persuasive demonstration is not sufficient evidence: the system must expose its inputs, decisions, failures, metrics, and release policy.
 
-![Optimization loop](./diagram-1.svg)
+## Prerequisites, success criteria, and boundaries
 
-## Technology Landscape and State of the Art
+**Prerequisites:** Courses 01–13 plus the preceding lesson in this track. Learners should be comfortable with Python, typed data, fixtures, exact assertions, and basic evaluation terminology.
 
-**Foundational:** Manual prompt engineering by tweaking words and testing on a few examples.
+**Success criteria:** the [notebook](16_evaluation_driven_prompt_optimization.ipynb) runs without credentials, its positive and failure assertions pass, and the learner can explain which controls are deterministic and which production behaviors would remain probabilistic.
 
-**Current State of the Art:** 
-1. **Evaluation-Driven Optimization:** Changing prompts is treated like changing code. You make a hypothesis, change one variable, and run an automated evaluation suite to check for global regressions. Tools like **[PromptLayer](https://promptlayer.com/)** and **[Langfuse](https://langfuse.com/)** are used to track these iterations and trace evaluation scores back to specific prompt versions.
-2. **Automatic Prompt Optimization (APO):** Frameworks like **[DSPy](https://github.com/stanfordnlp/dspy)** are taking this a step further. Instead of humans tweaking the prompt, you define the evaluation metric and provide a dataset, and the framework uses an LLM to automatically generate, test, and optimize the prompt instructions until the metric is maximized.
+**Non-goals:** this course does not claim that a small deterministic fixture predicts live-model quality, and it does not grant production access or make provider benchmarks.
 
-## Lab and Production
+**Risk boundary:** identity, authorization, schemas, arithmetic, release gates, and consequential state changes belong to trusted application code. Model output may propose or interpret; it may not authorize itself.
 
-### The Lab
-The [notebook](16_evaluation_driven_prompt_optimization.ipynb) guides you through an optimization loop. It explicitly demonstrates the danger of localized improvements—showing how modifying a prompt to fix one specific failing test case can inadvertently lower the overall accuracy of the entire golden dataset.
+## Mental model
 
-### Production Best Practices
-- **Isolate Variables:** Never rewrite the entire prompt at once. Change one instruction, add one example, or modify one schema field, then evaluate.
-- **Held-Out Data:** Do not optimize against your final evaluation dataset, or you will overfit. Use a dedicated development dataset for tweaking, and reserve a held-out test set for final release decisions.
-- **Change Management:** Maintain rigorous change records, utilize version control for prompts (PromptOps), and ensure rapid rollback mechanisms are in place if a prompt causes production regressions.
+![Evaluation-Driven Prompt Optimization architecture](diagram-1.svg)
+
+Treat the AI feature as a versioned behavior system:
+
+```text
+contract + context + model/adapter + deterministic controls
+    -> observable result + evidence + metrics + terminal state
+    -> release, abstain, review, block, or rollback
+```
+
+This split matters because a schema or prompt can constrain a proposal, while the application still owns validation and policy enforcement.
+
+## Foundations and internal mechanics
+
+1. **Define the decision.** State the input, expected outcome, risk, and terminal states before choosing a model or framework.
+2. **Make evidence executable.** Use labelled fixtures, exact invariants, and named failure cases. Printed expected values and comments are not tests.
+3. **Retain measurement semantics.** Record numerator, denominator, slice, unit, and direction. Separate blocked attempts from completed violations and estimates from provider-reported usage.
+4. **Keep a reproducible path.** The default lab is synthetic and credential-free. A live provider is an optional experiment that needs its own versioned results.
+
+## Architecture and technology choices
+
+Manual hypothesis testing is easiest to audit. Search tools become valuable only after the contract, development split, protected holdout, safety constraints, and budget are explicit.
+
+Choose the smallest architecture that can satisfy the behavior contract. Framework adoption is a downstream decision; it does not replace the contract, fixtures, controls, or release evidence.
+
+## Worked Northstar scenario
+
+The [reusable lab](lab16.py) implements the deterministic primitive. The notebook introduces the scenario, runs the baseline and candidate on the same fixture, injects this failure—**Optimizing on one visible failure leaks evaluation data and can overfit the prompt.**—and finishes with assertions plus a production-upgrade exercise.
+
+Run it from the repository root:
+
+```bash
+PYTHONPATH=. .venv/bin/python scripts/run_notebooks.py curriculum/advanced/16-evaluation-driven-prompt-optimization/16_evaluation_driven_prompt_optimization.ipynb
+.venv/bin/python -m pytest -q tests/test_advanced_enterprise_labs.py
+```
+
+## Evaluation design
+
+| Case family | What it proves | Release treatment |
+| --- | --- | --- |
+| Normal | Main behavior works on representative input | Count in the named quality metric |
+| Boundary | Ambiguity and limits are explicit | Review by slice; do not average away |
+| Failure | Recovery or terminal state is correct | Must produce the expected reason code |
+| Critical/adversarial | Forbidden disclosure or action is prevented | Hard blocker, independent of mean score |
+
+Evaluation should compare a baseline and candidate on identical cases. Development data may guide changes; a protected holdout supports the final claim. Re-run evaluation when the prompt, context policy, schema, tools, model, adapter, or metric implementation changes.
+
+## Failure modes and mitigations
+
+- **Metric gaming:** test whether a candidate exploits formatting or label leakage; use review samples and protected data.
+- **False authority:** derive identity, tenant, roles, and approval from trusted state before retrieval or tool exposure.
+- **Silent degradation:** make abstention, blocked, retryable, approval-required, and rollback states explicit.
+- **Misleading observability:** log versions, reason codes, evidence IDs, and terminal state without secrets or hidden reasoning.
+- **Framework overreach:** retain a deterministic baseline and add orchestration only when measured value justifies complexity.
+
+## Production upgrade
+
+Freeze the contract and holdout before searching. Version the prompt, dataset, model settings, and metric code together; release only after slice and safety gates pass.
+
+Production systems additionally need concurrency handling, bounded retries, idempotency for side effects, tenant-scoped caches and memory, secret management, data-retention policy, service objectives, incident ownership, staged rollout, and a rehearsed rollback path. The exact set depends on risk; it should be recorded in an architecture decision rather than hidden in prompt text.
+
+## State of the art
+
+- **Established:** typed contracts, representative evaluation sets, deterministic validation, least privilege, versioned artifacts, and observable release gates.
+- **Emerging:** standardized generative-AI telemetry, automated evaluation pipelines, learned routing, and optimization frameworks tied to explicit metrics.
+- **Research frontier:** robust semantic judging, prompt-injection resistance, cross-model behavioral equivalence, calibrated uncertainty, and evaluation under distribution shift.
+
+The frontier is not a default architecture. Adopt an emerging technique only after it beats the simpler baseline on the course's stated quality, safety, latency, and cost criteria.
+
+## Checkpoint
+
+1. Which part of this course's decision must remain in deterministic application code, and why?
+2. Why does the failure case—Optimizing on one visible failure leaks evaluation data and can overfit the prompt.—invalidate a happy-path-only evaluation?
+3. What evidence would you require before replacing the lab's simulation with a live provider result?
+
+## Exercises and review questions
+
+1. Add one normal, one boundary, and one adversarial fixture. Which metric or hard gate changes?
+2. Replace one deterministic simulation with a recorded provider response and label the provenance. What new variance appears?
+3. Identify one prompt instruction that currently sounds like policy. Move enforcement into code and add a negative test.
+4. Write a short architecture decision covering owner, alternatives, failure policy, monitoring, and rollback.
+
+
+
+## References
+
+- [Deep course guide](../../../docs/21-evaluation-driven-prompt-optimization.md)
+- [OpenAI evaluation guide](https://developers.openai.com/api/docs/guides/evals)
